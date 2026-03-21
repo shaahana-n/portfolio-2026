@@ -1,0 +1,2 @@
+import{a as t}from"./5bd161_chunk-7VWJMTGS.mjs";function r(e,a){return{bodyClassName:"framer-body-cpnbQxhzi",breakpoints:[{hash:"gv8p65"}],description:t(e,a).description,elements:{},robots:"max-image-preview:large",serializationId:"framer-GSRGR",title:t(e,a).title||"Bubble Case Study",viewport:"width=1200"}}var d=1,m={exports:{default:{type:"function",annotations:{framerContractVersion:"1"}},metadataVersion:{type:"variable",annotations:{framerContractVersion:"1"}},__FramerMetadata__:{type:"variable"}}};export{r as a,d as b,m as c};
+//# sourceMappingURL=chunk-KLDAO4H4.mjs.map

@@ -1,0 +1,2 @@
+import{a as t}from"./5bd161_chunk-7VWJMTGS.mjs";function r(e,a){return{bodyClassName:"framer-body-DvxpZ6DBP",breakpoints:[{hash:"q1wjr1"}],description:t(e,a).description,elements:{},robots:"max-image-preview:large",serializationId:"framer-l5XoY",title:t(e,a).title||"Coinbase Notdone",viewport:"width=1200"}}var d=1,m={exports:{metadataVersion:{type:"variable",annotations:{framerContractVersion:"1"}},default:{type:"function",annotations:{framerContractVersion:"1"}},__FramerMetadata__:{type:"variable"}}};export{r as a,d as b,m as c};
+//# sourceMappingURL=chunk-FXXMSFZS.mjs.map

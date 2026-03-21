@@ -1,0 +1,2 @@
+function a(e,t){return{description:"Shaahana is a designer focused on understanding the intersection of society and technology. Previously designed at Coinbase, Meta, Intuit, Bubble, & Ceridian.",favicon:"/assets/ONScYpClVhR3ETklyY93YbgdGpM.jpg",robots:"max-image-preview:large",socialImage:"/assets/Hge79AkQI8IwsBdcC4J38f5MSQ.svg",title:"Shaahana's Portfolio"}}export{a};
+//# sourceMappingURL=chunk-7VWJMTGS.mjs.map

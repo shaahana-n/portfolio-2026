@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shaahana Naufal — Technical Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <!-- Add your Pangram Pangram Writer .woff2 to /fonts/ and uncomment the @font-face below -->
+  <style>
+    /* Pangram Pangram Writer – add font file to project and set path */
+    @font-face {
+      font-family: 'Pangram Writer';
+      src: local('Pangram Pangram Writer'), local('PangramWriter'),
+           url('fonts/PangramWriter-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #faf9f7;
+      --text: #1a1a1a;
+      --text-muted: #5c5c5c;
+      --accent: #2d2d2d;
+      --header-blue: #2563eb;
+      --frame-border: #cbd5e1;
+      --frame-border-hover: #2563eb;
+      --border: #e5e3e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+    }
+
+    .hero-label {
+      font-family: 'Pangram Writer', 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--header-blue);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-frame {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--frame-border);
+      border-radius: 4px;
+      padding: 2rem 2.25rem;
+      cursor: default;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hero-frame:hover {
+      border-color: var(--frame-border-hover);
+      box-shadow: 0 0 0 1px var(--frame-border-hover);
+    }
+
+    .hero-frame::before,
+    .hero-frame::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--frame-border);
+      transition: background 0.2s ease;
+    }
+
+    .hero-frame:hover::before,
+    .hero-frame:hover::after {
+      background: var(--frame-border-hover);
+    }
+
+    .hero-frame::before {
+      top: -4px;
+      left: -4px;
+    }
+
+    .hero-frame::after {
+      top: -4px;
+      right: -4px;
+    }
+
+    .hero-frame .corner-br,
+    .hero-frame .corner-bl {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--frame-border);
+      bottom: -4px;
+      transition: background 0.2s ease;
+    }
+
+    .hero-frame:hover .corner-br,
+    .hero-frame:hover .corner-bl {
+      background: var(--frame-border-hover);
+    }
+
+    .hero-frame .corner-br {
+      right: -4px;
+    }
+
+    .hero-frame .corner-bl {
+      left: -4px;
+    }
+
+    .hero-frame h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.3;
+      max-width: 720px;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .hero-frame .subtitle {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 560px;
+    }
+
+    /* Featured Projects */
+    .projects {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .projects-intro {
+      margin-bottom: 2.5rem;
+    }
+
+    .projects-intro h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .projects-intro p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 4rem 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .project-number {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem;
+      color: var(--text-muted);
+    }
+
+    .project-card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin-bottom: 0.35rem;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .project-card a {
+      color: var(--text);
+    }
+
+    .project-card a:hover {
+      color: var(--text-muted);
+    }
+
+    .coming-soon {
+      font-style: italic;
+    }
+
+    /* Footer */
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 1rem 1.25rem;
+      }
+
+      nav {
+        gap: 1.25rem;
+      }
+
+      .hero {
+        padding: 3rem 1.25rem 4rem;
+      }
+
+      .projects {
+        padding: 0 1.25rem 4rem;
+      }
+
+      .project-card {
+        grid-template-columns: 2.5rem 1fr;
+        gap: 1.25rem;
+        padding: 1.5rem 0;
+      }
+
+      .project-number {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">SN</a>
+    <nav>
+      <a href="/">Work</a>
+      <a href="/about">About</a>
+      <a href="https://drive.google.com/file/d/1lCQPlGMYDW-ViyVlOVYGQm3b6kduuIeE/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="hero-label">Shaahana Naufal's Portfolio</p>
+      <div class="hero-frame">
+        <span class="corner-bl" aria-hidden="true"></span>
+        <span class="corner-br" aria-hidden="true"></span>
+        <h1>Shaahana is a designer, currently on the ads recommendations team at Instagram. She enjoys solving highly ambiguous problems and has a background in Systems Design Engineering from Waterloo.</h1>
+        <p class="subtitle">She's previously designed at Coinbase, Meta, Intuit and Bubble.</p>
+      </div>
+    </section>
+
+    <section class="projects">
+      <div class="projects-intro">
+        <h2>Featured Projects</h2>
+        <p>Here's some recent design work within mobile and web design.</p>
+      </div>
+
+      <div class="project-list">
+        <article class="project-card">
+          <span class="project-number">01</span>
+          <div>
+            <h3>Onboarding for a no-code editor</h3>
+            <p>Enabling creation from Day 0 through designing Bubble's first ever in-editor tutorial.</p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-number">02</span>
+          <div>
+            <h3>Mitigating the peak tax experience</h3>
+            <p>Shifting the valleys of demand and supply during peak tax season on Turbotax.</p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-number">03</span>
+          <div>
+            <h3>Designing a global search</h3>
+            <p class="coming-soon">Designing various growth incentives for Coinbase — Case study coming soon!</p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-number">04</span>
+          <div>
+            <h3>Bringing users into the Metaverse</h3>
+            <p>Pulling users into VR through designing ML-based world recommendation notifications at Meta Reality Labs.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Thanks for coming by!</p>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:shaahananaufal@gmail.com">Email</a>
+      <a href="https://read.cv/shaahana" target="_blank" rel="noopener">Read.cv</a>
+      <a href="https://shaahana.substack.com/" target="_blank" rel="noopener">Substack</a>
+    </div>
+  </footer>
+</body>
+</html>
