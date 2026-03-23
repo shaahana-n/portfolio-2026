@@ -34,6 +34,14 @@
       --accent: #3f89fe;
     }
     * { box-sizing: border-box; }
+    @keyframes grid-shimmer {
+      from, to { opacity: 0; }
+      50% { opacity: 1; }
+    }
+    @keyframes load-shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
     body {
       margin: 0;
       font-family: 'Inter', -apple-system, sans-serif;
@@ -42,6 +50,49 @@
       background: var(--bg);
       -webkit-font-smoothing: antialiased;
       line-height: 1.5;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: grid-shimmer 6s ease-in-out infinite;
+    }
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      overflow: hidden;
+      transition: opacity 0.5s ease-out;
+      pointer-events: none;
+    }
+    .page-loader::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.02) 45%,
+        rgba(0, 0, 0, 0.06) 50%,
+        rgba(0, 0, 0, 0.02) 55%,
+        transparent 100%
+      );
+      animation: load-shimmer 2s ease-in-out infinite;
+    }
+    body.loaded .page-loader {
+      opacity: 0;
+      visibility: hidden;
     }
     a { color: inherit; text-decoration: none; }
     a:hover { color: var(--accent); }
@@ -54,11 +105,6 @@
     }
 
     /* Hero */
-    .hero {
-      margin-bottom: 64px;
-      width: 65%;
-      max-width: 65%;
-    }
     .section-divider {
       height: 0;
       border: none;
@@ -67,6 +113,11 @@
       width: 100vw;
       margin-left: calc(50% - 50vw);
     }
+    .hero {
+      margin-bottom: 88px;
+      width: 80%;
+      max-width: 80%;
+    }
     .hero h1 {
       font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
       font-weight: 300;
@@ -74,46 +125,113 @@
       color: var(--text);
       margin: 0 0 12px 0;
       line-height: 1.4;
+      text-wrap: balance;
+      text-wrap: pretty;
     }
     .hero h1 .highlight {
       font-family: 'PP Editorial Old Ultralight Italic', 'PP Editorial Old Ultralight Italic Placeholder', serif;
       font-style: italic;
-      display: inline-block; /* ensures ::before covers whole span when text wraps */
-      position: relative;
-      cursor: default;
-      padding: 2px 6px;
-      margin: 0 -6px;
-      isolation: isolate; /* stacking context so highlight stays behind text */
-    }
-    .hero h1 .highlight::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: #fbcfe8; /* lighter pastel pink */
-      border-radius: 3px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .hero h1 .highlight:hover::before,
-    .hero h1 .highlight.is-highlighted::before {
-      transform: scaleX(1);
     }
     .hero .subhead {
       font-family: 'Manrope', sans-serif;
       font-size: 20px;
       color: rgba(0, 0, 0, 0.6);
+      margin-bottom: 24px;
+    }
+    .hero-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .hero-link {
+      position: relative;
+      display: inline-flex;
+      transition: transform 0.2s ease;
+      overflow: visible;
+    }
+    .hero-link--rotate-right:hover {
+      transform: rotate(8deg);
+    }
+    .hero-link--rotate-left:hover {
+      transform: rotate(-8deg);
+    }
+    .hero-link img {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+    .hero-link-tooltip {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      color: var(--text);
+      background: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+    .hero-link-tooltip::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 8px solid rgba(0, 0, 0, 0.15);
+    }
+    .hero-link-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(1px);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 7px solid #fff;
+    }
+    .hero-link:hover .hero-link-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(12px);
     }
 
-    /* Featured Projects */
-    .section-title {
+    /* Work / Play Toggle */
+    .work-play-toggle {
+      display: flex;
+      gap: 24px;
+      margin: 0 0 44px 0;
+    }
+    .toggle-label {
       font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
       font-weight: 300;
       font-size: 36px;
-      color: var(--text);
       line-height: 1.4;
-      margin: 0 0 12px 0;
+      color: var(--text);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.2s ease;
+    }
+    .toggle-label:hover {
+      transform: translateY(-2px);
+    }
+    .toggle-label.active {
+      font-family: 'PP Editorial Old Ultralight Italic', 'PP Editorial Old Ultralight Italic Placeholder', serif;
+      font-style: italic;
     }
     .section-subhead {
       font-family: 'Manrope', sans-serif;
@@ -121,156 +239,222 @@
       color: rgba(0, 0, 0, 0.6);
       margin-bottom: 48px;
     }
-
-    .projects-scroll {
-      display: flex;
-      gap: 24px;
-      overflow-x: auto;
-      padding-bottom: 16px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      width: calc(100% + 10vw);
-      margin-right: -10vw;
-    }
-    @media (min-width: 1400px) {
-      .projects-scroll {
-        width: calc(100% + (100vw - 1400px) / 2 + 10vw);
-        margin-right: calc(-((100vw - 1400px) / 2 + 10vw));
-      }
-    }
-    .projects-scroll::-webkit-scrollbar {
+    .mode-content {
       display: none;
+    }
+    .mode-content.is-visible {
+      display: block;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 24px;
+      row-gap: 40px;
+    }
+    @media (max-width: 600px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .project-card {
-      flex: 0 0 500px;
-      scroll-snap-align: start;
+      display: block;
       border-radius: 8px;
       overflow: hidden;
-      display: block;
-      transition: transform .2s;
-    }
-    .project-card:hover {
-      transform: translateY(-2px);
     }
     .card-image {
-      position: relative;
       aspect-ratio: 1.62 / 1;
       overflow: hidden;
       border-radius: 8px;
       background: #f5f5f5;
+      margin-bottom: 24px;
+    }
+    .project-card:hover .card-image img {
+      transform: scale(1.05);
+    }
+    .project-card--bubble .card-image img {
+      transform: scale(1.10);
+    }
+    .project-card--bubble:hover .card-image img {
+      transform: scale(1.15);
     }
     .project-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      transform: scale(1);
+      transition: transform 0.4s ease;
     }
-    .card-tag {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      padding: 6px 12px;
-      font-family: 'Manrope', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 6px;
-      opacity: 0;
-      transform: translateY(4px);
-      transition: opacity .25s, transform .25s;
+    .project-card--gif .card-image,
+    .project-card--large-cover .card-image {
+      aspect-ratio: 1430 / 1080;
     }
-    .project-card:hover .card-tag {
-      opacity: 1;
-      transform: translateY(0);
+    .project-card--gif img {
+      object-fit: contain;
+      transform: none;
+    }
+    .card-header {
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--text);
+      line-height: 1.3;
+      margin: 0;
     }
     .card-desc {
-      margin: 12px 0 0 0;
       font-family: 'Manrope', sans-serif;
-      font-size: 14px;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
       color: rgba(0, 0, 0, 0.6);
-      line-height: 1.4;
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height .3s, opacity .25s, margin .25s;
+      margin: 0 0 12px 0;
     }
-    .project-card:hover .card-desc {
-      max-height: 80px;
-      opacity: 1;
-      margin-top: 12px;
+    .card-meta {
+      font-family: 'Manrope', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text);
+      margin: 0 0 12px 0;
     }
 
     /* Footer */
     .footer {
       margin-top: 0;
-      padding-top: 32px;
+      padding-top: 56px;
     }
     .footer h2 {
       font-family: 'PP Writer Thin', sans-serif;
       font-size: 2rem;
       font-weight: 400;
-      margin: 0 0 16px 0;
+      margin: 0 0 12px 0;
     }
     .footer-links {
       display: flex;
-      gap: 24px;
-      font-size: 14px;
+      align-items: center;
+      gap: 20px;
+      margin-top: 12px;
     }
-    .footer-links a {
-      color: var(--text-muted);
-}
 </style>
 </head>
 <body>
+  <div class="page-loader" aria-hidden="true"></div>
   <div class="page">
     <main>
       <section class="hero">
         <h1>Shaahana is a <span class="highlight" data-highlight-id="1">designer at Instagram</span> in San Francisco. She enjoys solving highly ambiguous problems and has a background in <span class="highlight" data-highlight-id="2">Systems Design Engineering from Waterloo</span>.</h1>
         <p class="subhead">She's previously designed at Coinbase, Meta, Intuit and Bubble.</p>
+        <div class="hero-links">
+          <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="hero-link hero-link--rotate-right" aria-label="LinkedIn">
+            <img src="assets/images/linkedin-mar22.svg" alt="">
+            <span class="hero-link-tooltip">LinkedIn</span>
+          </a>
+          <a href="#" class="hero-link hero-link--rotate-left" aria-label="Twitter">
+            <img src="assets/images/twitter-mar22.svg" alt="">
+            <span class="hero-link-tooltip">Twitter</span>
+          </a>
+          <a href="#" class="hero-link hero-link--rotate-right" aria-label="Resume">
+            <img src="assets/images/resume-mar22.svg" alt="">
+            <span class="hero-link-tooltip">Resume</span>
+          </a>
+          <a href="mailto:shaahananaufal@gmail.com" class="hero-link hero-link--rotate-left" aria-label="Email">
+            <img src="assets/images/email-mar22.svg" alt="">
+            <span class="hero-link-tooltip">Email</span>
+          </a>
+        </div>
       </section>
 
       <hr class="section-divider">
 
       <section class="featured">
-        <h2 class="section-title">Featured Projects</h2>
-        <p class="section-subhead">Here's some recent design work within mobile and web design.</p>
+        <div class="work-play-toggle">
+          <button type="button" class="toggle-label active" data-mode="work" aria-pressed="true">Work</button>
+          <button type="button" class="toggle-label" data-mode="play" aria-pressed="false">Play</button>
+        </div>
 
-        <div class="projects-scroll">
-          <a href="bubble-case-study-2024/index.html" class="project-card">
+        <div class="mode-content is-visible" id="work-content">
+        <div class="projects-grid">
+          <a href="#!" class="project-card project-card--large-cover">
             <div class="card-image">
-              <img src="assets/images/41fa18_UeKhNtR3QuED8jlircOO3SBvjRY.svg" alt="Bubble case study" loading="lazy">
-              <span class="card-tag">Bubble</span>
+              <img src="assets/images/ig.svg" alt="Instagram ads recommendations" loading="lazy">
             </div>
-            <p class="card-desc">Product design at a leading no-code platform.</p>
+            <div class="card-content">
+              <p class="card-meta">Instagram · 2025</p>
+              <div class="card-header">
+                <h3 class="card-title">Improving ads recommendations on Instagram</h3>
+              </div>
+              <p class="card-desc">Working on various ads curation controls, allowing for transparency and improved recommendations</p>
+            </div>
           </a>
-          <a href="intuit-case-study-2024/index.html" class="project-card">
+          <a href="#!" class="project-card project-card--gif">
             <div class="card-image">
-              <img src="assets/images/21a945_pQUOkpRuzHqLo1aqgm7BqQd0QyA.svg" alt="Intuit case study" loading="lazy">
-              <span class="card-tag">Intuit</span>
+              <img src="assets/images/coinbase-discoverability.gif" alt="Coinbase case study - global search" loading="lazy">
             </div>
-            <p class="card-desc">Designing experiences that help users manage finances with confidence.</p>
+            <div class="card-content">
+              <p class="card-meta">Coinbase · 2024</p>
+              <div class="card-header">
+                <h3 class="card-title">Crafting a bridge between Coinbase's trading modes</h3>
+              </div>
+              <p class="card-desc">Designed global search to improve discoverability of the Advanced trading surface</p>
+            </div>
           </a>
-          <a href="#!" class="project-card">
+          <a href="#!" class="project-card project-card--large-cover">
             <div class="card-image">
-              <img src="assets/images/45acdb_5f3cXVl5jQvdaVKSWEHNeKVvfqg.svg" alt="Coinbase case study" loading="lazy">
-              <span class="card-tag">Coinbase</span>
+              <img src="assets/images/cb-2.svg" alt="Coinbase design" loading="lazy">
             </div>
-            <p class="card-desc">Case study coming soon.</p>
+            <div class="card-content">
+              <p class="card-meta">Coinbase · 2024</p>
+              <div class="card-header">
+                <h3 class="card-title">Drive user growth to perpetuals trading</h3>
+              </div>
+              <p class="card-desc">Worked on various mobile initiatives to drive user growth and improve discoverability of perpetuals trading</p>
+            </div>
           </a>
-          <a href="meta-case-study-2024/index.html" class="project-card">
+          <a href="meta-case-study-2024/index.html" class="project-card project-card--large-cover">
             <div class="card-image">
-              <img src="assets/images/3c61f3_kzvXd0MNVGDfBWMiM6l7y9vMt4.svg" alt="Meta case study" loading="lazy">
-              <span class="card-tag">Meta</span>
+              <img src="assets/images/realitylabs.svg" alt="Meta Reality Labs case study" loading="lazy">
             </div>
-            <p class="card-desc">Design work across Meta's product ecosystem and ads recommendations.</p>
+            <div class="card-content">
+              <p class="card-meta">Meta Reality Labs · 2023</p>
+              <div class="card-header">
+                <h3 class="card-title">Keeping users connected in VR</h3>
+              </div>
+              <p class="card-desc">Worked on the Horizon Worlds social connections team to create a framework for world recommendation notifications</p>
+            </div>
           </a>
+          <a href="bubble-case-study-2024/index.html" class="project-card project-card--large-cover project-card--bubble">
+            <div class="card-image">
+              <img src="assets/images/bubble-4%25.svg" alt="Bubble case study" loading="lazy">
+            </div>
+            <div class="card-content">
+              <p class="card-meta">Bubble · 2022</p>
+              <div class="card-header">
+                <h3 class="card-title">Onboarding for a no-code editor</h3>
+              </div>
+              <p class="card-desc">Enabling creation from Day 0 through designing Bubble's first ever in-editor tutorial</p>
+            </div>
+          </a>
+          <a href="intuit-case-study-2024/index.html" class="project-card project-card--large-cover">
+            <div class="card-image">
+              <img src="assets/images/intuit-0.9.svg" alt="Intuit case study" loading="lazy">
+            </div>
+            <div class="card-content">
+              <p class="card-meta">Intuit · 2022</p>
+              <div class="card-header">
+                <h3 class="card-title">Mitigating the peak tax experience</h3>
+              </div>
+              <p class="card-desc">Shifting the valleys of demand and supply during peak tax season on Turbotax</p>
+            </div>
+          </a>
+        </div>
+        </div>
+
+        <div class="mode-content" id="play-content">
+          <p class="section-subhead">Personal projects and side experiments coming soon.</p>
         </div>
       </section>
 
@@ -278,20 +462,62 @@
 
       <footer class="footer">
         <h2>Thanks for coming by!</h2>
-        <div class="footer-links">
-          <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="mailto:shaahananaufal@gmail.com">Email</a>
-          <a href="https://shaahana.substack.com/" target="_blank" rel="noopener">Substack</a>
+        <div class="footer-links hero-links">
+          <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="hero-link hero-link--rotate-right" aria-label="LinkedIn">
+            <img src="assets/images/linkedin-mar22.svg" alt="">
+            <span class="hero-link-tooltip">LinkedIn</span>
+          </a>
+          <a href="#" class="hero-link hero-link--rotate-left" aria-label="Twitter">
+            <img src="assets/images/twitter-mar22.svg" alt="">
+            <span class="hero-link-tooltip">Twitter</span>
+          </a>
+          <a href="#" class="hero-link hero-link--rotate-right" aria-label="Resume">
+            <img src="assets/images/resume-mar22.svg" alt="">
+            <span class="hero-link-tooltip">Resume</span>
+          </a>
+          <a href="mailto:shaahananaufal@gmail.com" class="hero-link hero-link--rotate-left" aria-label="Email">
+            <img src="assets/images/email-mar22.svg" alt="">
+            <span class="hero-link-tooltip">Email</span>
+          </a>
         </div>
       </footer>
     </main>
 </div>
   <script>
     (function() {
-      var highlights = document.querySelectorAll('.hero h1 .highlight');
-      highlights.forEach(function(el) {
-        el.addEventListener('mouseenter', function() {
-          el.classList.add('is-highlighted');
+      var minLoadTime = 400;
+      var startTime = Date.now();
+
+      function onLoad() {
+        var elapsed = Date.now() - startTime;
+        var delay = Math.max(0, minLoadTime - elapsed);
+        setTimeout(function() {
+          document.body.classList.add('loaded');
+        }, delay);
+      }
+
+      if (document.readyState === 'complete') {
+        onLoad();
+      } else {
+        window.addEventListener('load', onLoad);
+      }
+
+      var labels = document.querySelectorAll('.toggle-label');
+      var workContent = document.getElementById('work-content');
+      var playContent = document.getElementById('play-content');
+
+      labels.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var mode = this.getAttribute('data-mode');
+          labels.forEach(function(l) {
+            l.classList.remove('active');
+            l.setAttribute('aria-pressed', 'false');
+          });
+          this.classList.add('active');
+          this.setAttribute('aria-pressed', 'true');
+
+          workContent.classList.toggle('is-visible', mode === 'work');
+          playContent.classList.toggle('is-visible', mode === 'play');
         });
       });
     })();
