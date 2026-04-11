@@ -3,14 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shaahana's Portfolio</title>
-    <meta name="description" content="Shaahana is a designer on the ads recommendations team at Instagram. Previously designed at Coinbase, Meta, Intuit and Bubble.">
+  <title>Shaahana's Portfolio — Work</title>
+  <meta name="description" content="Shaahana is a designer on the ads recommendations team at Instagram. Previously designed at Coinbase, Meta, Intuit and Bubble.">
   <link rel="icon" href="assets/images/dcfab9_Hge79AkQI8IwsBdcC4J38f5MSQ.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Pangram Pangram Writer Thin – from Framer assets */
     @font-face {
       font-family: 'PP Writer Thin';
       src: url('assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
@@ -18,7 +17,6 @@
       font-style: normal;
       font-display: swap;
     }
-    /* Pangram Pangram Editorial Old Ultralight Italic – from Framer assets */
     @font-face {
       font-family: 'PP Editorial Old Ultralight Italic';
       src: url('assets/fonts/490f0e_bc9XGXnb6GMyRa5LT5y4giQlQxQ.woff2') format('woff2');
@@ -32,12 +30,10 @@
       --text: #1a1a1a;
       --text-muted: #666;
       --accent: #3f89fe;
+      --page-max-width: 1400px;
     }
     * { box-sizing: border-box; }
-    @keyframes grid-shimmer {
-      from, to { opacity: 0; }
-      50% { opacity: 1; }
-    }
+    html { scroll-behavior: smooth; }
     @keyframes load-shimmer {
       0% { transform: translateX(-100%); }
       100% { transform: translateX(100%); }
@@ -51,18 +47,6 @@
       -webkit-font-smoothing: antialiased;
       line-height: 1.5;
       position: relative;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: grid-shimmer 6s ease-in-out infinite;
     }
     .page-loader {
       position: fixed;
@@ -97,14 +81,29 @@
     a { color: inherit; text-decoration: none; }
     a:hover { color: var(--accent); }
 
-    /* Layout */
-    .page {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 100px 10vw 48px;
+    .site-top-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px 24px;
+      width: 100%;
+      margin-bottom: 48px;
+    }
+    .site-top-links .contact-text-link {
+      color: #8a8a8a;
+      color: color-mix(in srgb, #ffffff 50%, var(--text) 50%);
+    }
+    .site-top-links .contact-text-link:hover {
+      color: var(--text);
     }
 
-    /* Hero */
+    .page {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 64px 10vw 48px;
+    }
+
     .section-divider {
       height: 0;
       border: none;
@@ -113,137 +112,142 @@
       width: 100vw;
       margin-left: calc(50% - 50vw);
     }
+    .hero-with-nav {
+      width: 75vw;
+      max-width: 100%;
+    }
     .hero {
       margin-bottom: 88px;
-      width: 80%;
-      max-width: 80%;
     }
     .hero h1 {
       font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
-      font-weight: 300;
-      font-size: 36px;
+      font-weight: 400;
+      font-size: 42px;
       color: var(--text);
       margin: 0 0 12px 0;
-      line-height: 1.4;
+      line-height: 1.25;
       text-wrap: balance;
       text-wrap: pretty;
     }
-    .hero h1 .highlight {
+    .hero .highlight {
       font-family: 'PP Editorial Old Ultralight Italic', 'PP Editorial Old Ultralight Italic Placeholder', serif;
       font-style: italic;
+      font-weight: 400;
+    }
+    .hero .highlight--pop {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    .hero .highlight--pop:focus {
+      outline: none;
+    }
+    .hero .highlight--pop:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+    .hero .highlight-pop {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%) translateY(-10px) rotate(-2deg);
+      width: min(200px, 42vw);
+      padding: 12px 12px 36px 12px;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 20;
+      border-radius: 2px;
+      box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.04),
+        0 12px 32px rgba(0, 0, 0, 0.14),
+        0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+      background: #f8f7f5;
+    }
+    .hero .highlight--pop:hover .highlight-pop,
+    .hero .highlight--pop:focus-within .highlight-pop {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-14px) rotate(-2deg);
+    }
+    .hero h1 .highlight-pop {
+      top: 100%;
+      bottom: auto;
+      transform: translateX(-50%) translateY(10px) rotate(-2deg);
+    }
+    .hero h1 .highlight--pop:hover .highlight-pop,
+    .hero h1 .highlight--pop:focus-within .highlight-pop {
+      transform: translateX(-50%) translateY(14px) rotate(-2deg);
+    }
+    .hero .highlight-pop img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: center;
+      background: #e8e8e6;
+    }
+    .hero .highlight-pop img.highlight-pop-img--pottery {
+      object-position: center 58%;
+    }
+    .hero .highlight-pop img.highlight-pop-img--waterloo {
+      aspect-ratio: 3 / 4;
+      object-position: center 48%;
+    }
+    .hero .highlight-pop img.highlight-pop-img--behind-camera {
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero .highlight-pop video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: center;
+      background: #e8e8e6;
     }
     .hero .subhead {
-      font-family: 'Manrope', sans-serif;
-      font-size: 20px;
-      color: rgba(0, 0, 0, 0.6);
+      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
+      font-weight: 400;
+      font-size: 42px;
+      line-height: 1.25;
+      color: var(--text);
       margin-bottom: 24px;
     }
-    .hero-links {
+    .hero-contact-pills {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 20px;
+      gap: 10px 20px;
     }
-    .hero-link {
-      position: relative;
-      display: inline-flex;
-      transition: transform 0.2s ease;
-      overflow: visible;
-    }
-    .hero-link--rotate-right:hover {
-      transform: rotate(8deg);
-    }
-    .hero-link--rotate-left:hover {
-      transform: rotate(-8deg);
-    }
-    .hero-link img {
-      width: 24px;
-      height: 24px;
-      display: block;
-    }
-    .hero-link-tooltip {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(8px);
+    .contact-text-link {
       font-family: 'Manrope', sans-serif;
-      font-size: 12px;
-      color: var(--text);
-      background: #fff;
-      padding: 4px 10px;
-      border-radius: 4px;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-      pointer-events: none;
-    }
-    .hero-link-tooltip::before {
-      content: '';
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 8px solid rgba(0, 0, 0, 0.15);
-    }
-    .hero-link-tooltip::after {
-      content: '';
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(1px);
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 7px solid #fff;
-    }
-    .hero-link:hover .hero-link-tooltip {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(12px);
-    }
-
-    /* Work / Play Toggle */
-    .work-play-toggle {
-      display: flex;
-      gap: 24px;
-      margin: 0 0 44px 0;
-    }
-    .toggle-label {
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
-      font-weight: 300;
-      font-size: 36px;
-      line-height: 1.4;
-      color: var(--text);
-      background: none;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.3;
+      color: var(--text-muted);
+      text-decoration: none;
       border: none;
-      cursor: pointer;
       padding: 0;
-      transition: transform 0.2s ease;
+      background: none;
+      border-radius: 0;
+      transition: color 0.2s ease;
     }
-    .toggle-label:hover {
-      transform: translateY(-2px);
+    .contact-text-link:hover {
+      color: var(--text);
     }
-    .toggle-label.active {
-      font-family: 'PP Editorial Old Ultralight Italic', 'PP Editorial Old Ultralight Italic Placeholder', serif;
-      font-style: italic;
+    .contact-text-link:focus {
+      outline: none;
     }
-    .section-subhead {
-      font-family: 'Manrope', sans-serif;
-      font-size: 20px;
-      color: rgba(0, 0, 0, 0.6);
-      margin-bottom: 48px;
-    }
-    .mode-content {
-      display: none;
-    }
-    .mode-content.is-visible {
-      display: block;
+    .contact-text-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
     }
 
     .projects-grid {
@@ -262,6 +266,7 @@
       display: block;
       border-radius: 8px;
       overflow: hidden;
+      cursor: default;
     }
     .card-image {
       aspect-ratio: 1.62 / 1;
@@ -270,7 +275,8 @@
       background: #f5f5f5;
       margin-bottom: 24px;
     }
-    .project-card:hover .card-image img {
+    .project-card:hover .card-image img,
+    .project-card:hover .card-image video {
       transform: scale(1.05);
     }
     .project-card--bubble .card-image img {
@@ -287,12 +293,23 @@
       transform: scale(1);
       transition: transform 0.4s ease;
     }
+    .project-card .card-image video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1);
+      transition: transform 0.4s ease;
+    }
     .project-card--gif .card-image,
     .project-card--large-cover .card-image {
       aspect-ratio: 1430 / 1080;
     }
     .project-card--gif img {
       object-fit: contain;
+      transform: none;
+    }
+    .project-card.project-card--no-hover-zoom:hover .card-image img {
       transform: none;
     }
     .card-header {
@@ -322,7 +339,6 @@
       margin: 0 0 12px 0;
     }
 
-    /* Footer */
     .footer {
       margin-top: 0;
       padding-top: 56px;
@@ -334,51 +350,31 @@
       margin: 0 0 12px 0;
     }
     .footer-links {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-top: 12px;
+      margin-top: 16px;
     }
-</style>
+  </style>
 </head>
 <body>
   <div class="page-loader" aria-hidden="true"></div>
   <div class="page">
     <main>
+      <div class="hero-with-nav">
+      <nav class="site-top-links" aria-label="Quick links">
+        <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="contact-text-link">LinkedIn</a>
+        <a href="#" class="contact-text-link">Twitter</a>
+      </nav>
       <section class="hero">
-        <h1>Shaahana is a <span class="highlight" data-highlight-id="1">designer at Instagram</span> in San Francisco. She enjoys solving highly ambiguous problems and has a background in <span class="highlight" data-highlight-id="2">Systems Design Engineering from Waterloo</span>.</h1>
+        <h1>Shaahana is a <span class="highlight highlight--pop" tabindex="0">designer at Instagram<span class="highlight-pop" aria-hidden="true"><img src="assets/images/instagram-polaroid.png" alt=""></span></span> in San Francisco. She enjoys solving highly ambiguous problems and has a background in <span class="highlight highlight--pop" tabindex="0">Systems Design Engineering from Waterloo<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--waterloo" src="assets/images/waterloo-polaroid.png" alt=""></span></span>.</h1>
+        <p class="subhead">Outside of work, she's always creating—<span class="highlight highlight--pop highlight-pop--cycle" tabindex="0" data-cycle-ms="500">behind the camera<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--behind-camera" src="assets/images/behind-camera-1.png" alt=""></span></span>, <span class="highlight highlight--pop" tabindex="0">in the pottery studio<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--pottery" src="assets/images/pottery-polaroid.png" alt=""></span></span>, or <span class="highlight highlight--pop" tabindex="0">deep in a craft<span class="highlight-pop" aria-hidden="true"><img src="assets/images/craft-carousel-1.png" alt=""></span></span>.</p>
         <p class="subhead">She's previously designed at Coinbase, Meta, Intuit and Bubble.</p>
-        <div class="hero-links">
-          <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="hero-link hero-link--rotate-right" aria-label="LinkedIn">
-            <img src="assets/images/linkedin-mar22.svg" alt="">
-            <span class="hero-link-tooltip">LinkedIn</span>
-          </a>
-          <a href="#" class="hero-link hero-link--rotate-left" aria-label="Twitter">
-            <img src="assets/images/twitter-mar22.svg" alt="">
-            <span class="hero-link-tooltip">Twitter</span>
-          </a>
-          <a href="#" class="hero-link hero-link--rotate-right" aria-label="Resume">
-            <img src="assets/images/resume-mar22.svg" alt="">
-            <span class="hero-link-tooltip">Resume</span>
-          </a>
-          <a href="mailto:shaahananaufal@gmail.com" class="hero-link hero-link--rotate-left" aria-label="Email">
-            <img src="assets/images/email-mar22.svg" alt="">
-            <span class="hero-link-tooltip">Email</span>
-          </a>
-        </div>
       </section>
+      </div>
 
       <hr class="section-divider">
 
-      <section class="featured">
-        <div class="work-play-toggle">
-          <button type="button" class="toggle-label active" data-mode="work" aria-pressed="true">Work</button>
-          <button type="button" class="toggle-label" data-mode="play" aria-pressed="false">Play</button>
-        </div>
-
-        <div class="mode-content is-visible" id="work-content">
+      <section class="featured" id="featured">
         <div class="projects-grid">
-          <a href="#!" class="project-card project-card--large-cover">
+          <article class="project-card project-card--large-cover">
             <div class="card-image">
               <img src="assets/images/ig.svg" alt="Instagram ads recommendations" loading="lazy">
             </div>
@@ -389,8 +385,8 @@
               </div>
               <p class="card-desc">Working on various ads curation controls, allowing for transparency and improved recommendations</p>
             </div>
-          </a>
-          <a href="#!" class="project-card project-card--gif">
+          </article>
+          <article class="project-card project-card--gif">
             <div class="card-image">
               <img src="assets/images/coinbase-discoverability.gif" alt="Coinbase case study - global search" loading="lazy">
             </div>
@@ -401,8 +397,8 @@
               </div>
               <p class="card-desc">Designed global search to improve discoverability of the Advanced trading surface</p>
             </div>
-          </a>
-          <a href="#!" class="project-card project-card--large-cover">
+          </article>
+          <article class="project-card project-card--large-cover">
             <div class="card-image">
               <img src="assets/images/cb-2.svg" alt="Coinbase design" loading="lazy">
             </div>
@@ -413,8 +409,8 @@
               </div>
               <p class="card-desc">Worked on various mobile initiatives to drive user growth and improve discoverability of perpetuals trading</p>
             </div>
-          </a>
-          <a href="meta-case-study-2024/index.html" class="project-card project-card--large-cover">
+          </article>
+          <article class="project-card project-card--large-cover">
             <div class="card-image">
               <img src="assets/images/realitylabs.svg" alt="Meta Reality Labs case study" loading="lazy">
             </div>
@@ -425,8 +421,8 @@
               </div>
               <p class="card-desc">Worked on the Horizon Worlds social connections team to create a framework for world recommendation notifications</p>
             </div>
-          </a>
-          <a href="bubble-case-study-2024/index.html" class="project-card project-card--large-cover project-card--bubble">
+          </article>
+          <article class="project-card project-card--large-cover project-card--bubble">
             <div class="card-image">
               <img src="assets/images/bubble-4%25.svg" alt="Bubble case study" loading="lazy">
             </div>
@@ -437,8 +433,8 @@
               </div>
               <p class="card-desc">Enabling creation from Day 0 through designing Bubble's first ever in-editor tutorial</p>
             </div>
-          </a>
-          <a href="intuit-case-study-2024/index.html" class="project-card project-card--large-cover">
+          </article>
+          <article class="project-card project-card--large-cover">
             <div class="card-image">
               <img src="assets/images/intuit-0.9.svg" alt="Intuit case study" loading="lazy">
             </div>
@@ -449,12 +445,7 @@
               </div>
               <p class="card-desc">Shifting the valleys of demand and supply during peak tax season on Turbotax</p>
             </div>
-          </a>
-        </div>
-        </div>
-
-        <div class="mode-content" id="play-content">
-          <p class="section-subhead">Personal projects and side experiments coming soon.</p>
+          </article>
         </div>
       </section>
 
@@ -462,27 +453,14 @@
 
       <footer class="footer">
         <h2>Thanks for coming by!</h2>
-        <div class="footer-links hero-links">
-          <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="hero-link hero-link--rotate-right" aria-label="LinkedIn">
-            <img src="assets/images/linkedin-mar22.svg" alt="">
-            <span class="hero-link-tooltip">LinkedIn</span>
-          </a>
-          <a href="#" class="hero-link hero-link--rotate-left" aria-label="Twitter">
-            <img src="assets/images/twitter-mar22.svg" alt="">
-            <span class="hero-link-tooltip">Twitter</span>
-          </a>
-          <a href="#" class="hero-link hero-link--rotate-right" aria-label="Resume">
-            <img src="assets/images/resume-mar22.svg" alt="">
-            <span class="hero-link-tooltip">Resume</span>
-          </a>
-          <a href="mailto:shaahananaufal@gmail.com" class="hero-link hero-link--rotate-left" aria-label="Email">
-            <img src="assets/images/email-mar22.svg" alt="">
-            <span class="hero-link-tooltip">Email</span>
-          </a>
-        </div>
+        <nav class="footer-links hero-contact-pills" aria-label="Contact and social links">
+          <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="contact-text-link">LinkedIn</a>
+          <a href="#" class="contact-text-link">Twitter</a>
+          <a href="#" class="contact-text-link copy-email" data-email="shaahananaufal@gmail.com">Email</a>
+        </nav>
       </footer>
     </main>
-</div>
+  </div>
   <script>
     (function() {
       var minLoadTime = 400;
@@ -502,23 +480,88 @@
         window.addEventListener('load', onLoad);
       }
 
-      var labels = document.querySelectorAll('.toggle-label');
-      var workContent = document.getElementById('work-content');
-      var playContent = document.getElementById('play-content');
-
-      labels.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var mode = this.getAttribute('data-mode');
-          labels.forEach(function(l) {
-            l.classList.remove('active');
-            l.setAttribute('aria-pressed', 'false');
+      document.querySelectorAll('.copy-email').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          var email = this.getAttribute('data-email');
+          var feedback = this.querySelector('.pill-link__label') || this.querySelector('.hero-link-tooltip') || this.querySelector('.dock-icon span') || this.querySelector('span');
+          if (!feedback) feedback = this;
+          navigator.clipboard.writeText(email).then(function() {
+            var original = feedback ? feedback.textContent : '';
+            if (feedback) feedback.textContent = 'Copied!';
+            setTimeout(function() {
+              if (feedback) feedback.textContent = original;
+            }, 1500);
           });
-          this.classList.add('active');
-          this.setAttribute('aria-pressed', 'true');
-
-          workContent.classList.toggle('is-visible', mode === 'work');
-          playContent.classList.toggle('is-visible', mode === 'play');
         });
+      });
+
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var behindCameraFrames = [
+        'assets/images/behind-camera-1.png',
+        'assets/images/behind-camera-2.png',
+        'assets/images/behind-camera-3.png',
+        'assets/images/behind-camera-4.png',
+        'assets/images/behind-camera-5.png',
+        'assets/images/behind-camera-6.png',
+        'assets/images/behind-camera-7.png'
+      ];
+      document.querySelectorAll('.highlight-pop--cycle').forEach(function(wrap) {
+        var img = wrap.querySelector('.highlight-pop img');
+        if (!img) return;
+        var intervalMs = parseInt(wrap.getAttribute('data-cycle-ms'), 10) || 500;
+        var idx = 0;
+        var timer = null;
+        function tick() {
+          idx = (idx + 1) % behindCameraFrames.length;
+          img.src = behindCameraFrames[idx];
+        }
+        function startCycle() {
+          if (prefersReducedMotion.matches) return;
+          if (timer) return;
+          idx = 0;
+          img.src = behindCameraFrames[0];
+          timer = setInterval(tick, intervalMs);
+        }
+        function stopCycle() {
+          if (timer) {
+            clearInterval(timer);
+            timer = null;
+          }
+          idx = 0;
+          img.src = behindCameraFrames[0];
+        }
+        wrap.addEventListener('mouseenter', startCycle);
+        wrap.addEventListener('mouseleave', stopCycle);
+        wrap.addEventListener('focusin', startCycle);
+        wrap.addEventListener('focusout', stopCycle);
+      });
+      document.querySelectorAll('.highlight--pop').forEach(function(wrap) {
+        if (wrap.classList.contains('highlight-pop--cycle')) return;
+        var video = wrap.querySelector('video');
+        if (!video) return;
+        function play() {
+          if (prefersReducedMotion.matches) return;
+          video.muted = true;
+          requestAnimationFrame(function() {
+            video.play().catch(function() {});
+          });
+        }
+        function pause() {
+          video.pause();
+          try { video.currentTime = 0; } catch (e) {}
+        }
+        wrap.addEventListener('mouseenter', play);
+        wrap.addEventListener('mouseleave', pause);
+        wrap.addEventListener('focusin', play);
+        wrap.addEventListener('focusout', pause);
+      });
+
+      document.querySelectorAll('.project-card .card-image video').forEach(function(v) {
+        if (prefersReducedMotion.matches) {
+          v.removeAttribute('autoplay');
+          v.pause();
+        }
       });
     })();
   </script>
