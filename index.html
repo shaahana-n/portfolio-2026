@@ -376,10 +376,12 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 32px;
       row-gap: 32px;
-      align-items: start;
+      align-items: stretch;
     }
     .project-card {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       width: 100%;
       text-decoration: none;
       color: inherit;
@@ -467,6 +469,9 @@
       animation: ig-gradient-loop 14s ease-in-out infinite;
     }
     .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       padding: 16px 0 0;
     }
     .card-header {
