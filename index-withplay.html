@@ -339,6 +339,32 @@
       column-gap: 24px;
       row-gap: 40px;
     }
+    @media (max-width: 680px) {
+      .hero h1 {
+        font-size: 28px;
+        line-height: 1.35;
+        text-wrap: wrap;
+      }
+      .hero .subhead {
+        font-size: 24px;
+        line-height: 1.35;
+        margin-bottom: 18px;
+      }
+      .hero .highlight--pop {
+        display: inline;
+        border-bottom: none;
+        text-decoration: underline;
+        text-decoration-color: rgba(0, 0, 0, 0.14);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+      }
+      .hero {
+        margin-bottom: 56px;
+      }
+      .section-divider {
+        margin: 40px 0;
+      }
+    }
     @media (max-width: 600px) {
       .projects-grid {
         grid-template-columns: 1fr;
@@ -349,6 +375,14 @@
       display: block;
       border-radius: 8px;
       overflow: hidden;
+    }
+    a.project-card--case-study {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    a.project-card--case-study:hover .card-title {
+      color: var(--accent);
     }
     .card-image {
       aspect-ratio: 1.62 / 1;
@@ -385,7 +419,7 @@
     }
     .project-card--gif .card-image,
     .project-card--large-cover .card-image {
-      aspect-ratio: 1430 / 1080;
+      aspect-ratio: 1436 / 1080;
     }
     .project-card--gif img {
       object-fit: contain;
@@ -443,7 +477,7 @@
     <main>
       <div class="hero-with-nav">
       <section class="hero">
-        <h1>Shaahana is a <span class="highlight highlight--pop" tabindex="0">designer at Instagram<span class="highlight-pop" aria-hidden="true"><img src="assets/images/instagram-polaroid.png" alt=""></span></span> in San Francisco. She enjoys solving highly ambiguous problems and has a background in <span class="highlight highlight--pop" tabindex="0">Systems Design Engineering from Waterloo<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--waterloo" src="assets/images/waterloo-polaroid.png" alt=""></span></span>.</h1>
+        <h1>Shaahana is a <span class="highlight highlight--pop" tabindex="0">designer at Instagram<span class="highlight-pop" aria-hidden="true"><img src="assets/images/instagram-polaroid.png" alt=""></span></span> in San Francisco. She enjoys solving highly ambiguous problems and has a background in <span class="highlight highlight--pop" tabindex="0">Systems Design Engineering from Waterloo<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--waterloo" src="assets/images/waterloo-polaroid.png" alt=""></span>.</span></h1>
         <p class="subhead">Outside of work, she's always creating—<span class="highlight highlight--pop" tabindex="0">behind the camera<span class="highlight-pop" aria-hidden="true"><video src="holdingcamera2.mp4" muted loop playsinline preload="metadata"></video></span></span>, <span class="highlight highlight--pop" tabindex="0">in the pottery studio<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--pottery" src="assets/images/pottery-polaroid.png" alt=""></span></span>, or <span class="highlight highlight--pop" tabindex="0">deep in a craft<span class="highlight-pop" aria-hidden="true"><img src="assets/images/craft-carousel-1.png" alt=""></span></span>.</p>
         <p class="subhead">She's previously designed at Coinbase, Meta, Intuit and Bubble.</p>
         <nav class="hero-contact-pills" aria-label="Contact and social links">
@@ -501,9 +535,9 @@
               <p class="card-desc">Worked on various mobile initiatives to drive user growth and improve discoverability of perpetuals trading</p>
             </div>
           </a>
-          <a href="meta-case-study-2024/index.html" class="project-card project-card--large-cover">
+          <a href="meta-case-study-2024/index.html" class="project-card project-card--large-cover project-card--case-study">
             <div class="card-image">
-              <img src="assets/images/realitylabs.svg" alt="Meta Reality Labs case study" loading="lazy">
+              <img src="assets/images/meta-cd.svg" alt="Meta Reality Labs case study" loading="lazy">
             </div>
             <div class="card-content">
               <p class="card-meta">Meta Reality Labs · 2023</p>
@@ -513,7 +547,7 @@
               <p class="card-desc">Worked on the Horizon Worlds social connections team to create a framework for world recommendation notifications</p>
             </div>
           </a>
-          <a href="bubble-case-study-2024/index.html" class="project-card project-card--large-cover project-card--bubble">
+          <a href="bubble-case-study-2024/index.html" class="project-card project-card--large-cover project-card--bubble project-card--case-study">
             <div class="card-image">
               <img src="assets/images/bubble-4%25.svg" alt="Bubble case study" loading="lazy">
             </div>
@@ -525,7 +559,7 @@
               <p class="card-desc">Enabling creation from Day 0 through designing Bubble's first ever in-editor tutorial</p>
             </div>
           </a>
-          <a href="intuit-case-study-2024/index.html" class="project-card project-card--large-cover">
+          <a href="intuit-case-study-2024/index.html" class="project-card project-card--large-cover project-card--case-study">
             <div class="card-image">
               <img src="assets/images/intuit-0.9.svg" alt="Intuit case study" loading="lazy">
             </div>
