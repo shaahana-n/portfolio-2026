@@ -27,26 +27,126 @@
 
     :root {
       --bg: #ffffff;
-      --text: #1a1a1a;
+      --text: #333333;
       --text-muted: #666;
+      --card-description: var(--grey-secondary);
+      --grey-secondary: #9a9a9a;
+      --border-subtle: #ececec;
+      --divider: #e4e9ee;
       --accent: #3f89fe;
       --page-max-width: 1400px;
+      --motion-duration-medium: 0.6s;
+      --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --loader-fade-duration: 0.5s;
+      --motion-handoff-delay: 480ms;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+    }
     @keyframes load-shimmer {
       0% { transform: translateX(-100%); }
       100% { transform: translateX(100%); }
+    }
+    @keyframes bg-shimmer-drift {
+      0% { transform: translateX(-18%); }
+      100% { transform: translateX(18%); }
+    }
+    @keyframes fade-up-in {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes ig-gradient-loop {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     body {
       margin: 0;
       font-family: 'Inter', -apple-system, sans-serif;
       font-size: 14px;
       color: var(--text);
-      background: var(--bg);
+      background-color: transparent;
       -webkit-font-smoothing: antialiased;
       line-height: 1.5;
       position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: -35%;
+      width: 170%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(
+        105deg,
+        transparent 38%,
+        rgba(255, 255, 255, 0.45) 46%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 255, 255, 0.45) 54%,
+        transparent 62%
+      );
+      animation: bg-shimmer-drift 16s ease-in-out infinite alternate;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.02;
+      background-image: url('assets/images/Noise.png');
+      background-repeat: repeat;
+      background-size: 200px 200px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body::before {
+        animation: none;
+        transform: none;
+      }
+      :root {
+        --motion-handoff-delay: 0ms;
+      }
+      .page,
+      .featured {
+        opacity: 1;
+        transition: none;
+      }
+      .motion-enter {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+      .project-card.motion-scroll {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .project-card img,
+      .project-card .card-image video {
+        transition: none;
+      }
+      .project-card .card-image__media {
+        transform: none;
+        transition: none;
+      }
+      .project-card:hover .card-image__media img,
+      .project-card:hover .card-image video,
+      .project-card:focus-within .card-image__media img,
+      .project-card:focus-within .card-image video {
+        transform: none;
+      }
+      .project-card--ig .card-image__gradient {
+        animation: none;
+      }
     }
     .page-loader {
       position: fixed;
@@ -77,280 +177,382 @@
     body.loaded .page-loader {
       opacity: 0;
       visibility: hidden;
+      transition: opacity var(--loader-fade-duration) ease-out, visibility 0s linear var(--loader-fade-duration);
     }
     a { color: inherit; text-decoration: none; }
     a:hover { color: var(--accent); }
 
     .site-top-links {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 8px 24px;
+      justify-content: center;
       width: 100%;
-      margin-bottom: 48px;
     }
-    .site-top-links .contact-text-link {
-      color: #8a8a8a;
-      color: color-mix(in srgb, #ffffff 50%, var(--text) 50%);
+    .site-nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 28px;
+      padding: 16px 32px;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
-    .site-top-links .contact-text-link:hover {
+    .site-top-links .site-nav-link {
+      font-family: 'Manrope', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1;
       color: var(--text);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .site-top-links .site-nav-link:hover {
+      color: var(--text);
+      opacity: 0.55;
+    }
+    .site-top-links .site-nav-link[aria-current="page"] {
+      color: var(--text);
+      opacity: 1;
+      font-weight: 500;
     }
 
     .page {
+      position: relative;
+      z-index: 1;
       max-width: var(--page-max-width);
       margin: 0 auto;
       padding: 64px 10vw 48px;
+      opacity: 0;
+    }
+    body.loaded .page {
+      opacity: 1;
+      transition: opacity 0s linear var(--loader-fade-duration);
     }
 
-    .section-divider {
-      height: 0;
-      border: none;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      margin: 64px 0;
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
+    .featured {
+      margin-top: 110px;
+      opacity: 0;
     }
+    body.loaded .featured {
+      opacity: 1;
+      transition: opacity 0.5s var(--motion-ease);
+      transition-delay: calc(var(--motion-handoff-delay) + 720ms);
+    }
+
+    .site-footer {
+      margin-top: 120px;
+      padding-top: 28px;
+      border-top: 1px solid var(--divider);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--grey-secondary);
+    }
+    .site-footer__main {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .site-footer__identity {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .site-footer__status,
+    .site-footer__listening {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+    }
+    .site-footer__icon {
+      display: inline-flex;
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      color: var(--grey-secondary);
+    }
+    .site-footer__icon svg {
+      display: block;
+      width: 14px;
+      height: 14px;
+    }
+    .site-footer__contact {
+      text-align: right;
+    }
+    .site-footer__email {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--grey-secondary);
+      transition: color 0.2s ease;
+    }
+    .site-footer__email:hover {
+      color: var(--text);
+    }
+    .site-footer__social {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+    .site-footer__social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      color: var(--grey-secondary);
+      transition: color 0.2s ease;
+    }
+    .site-footer__social a:hover {
+      color: var(--text);
+    }
+    .site-footer__social svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+      color: var(--grey-secondary);
+    }
+    .site-footer__meta {
+      margin-top: 48px;
+      text-align: center;
+    }
+    .site-footer__built {
+      margin: 0 0 6px;
+    }
+    .site-footer__changelog {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
     .hero-with-nav {
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 74px;
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin: 0;
       width: 75vw;
       max-width: 100%;
     }
-    .hero {
-      margin-bottom: 88px;
-    }
-    .hero h1 {
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
-      font-weight: 400;
-      font-size: 42px;
-      color: var(--text);
-      margin: 0 0 12px 0;
-      line-height: 1.25;
-      text-wrap: balance;
-      text-wrap: pretty;
-    }
-    .hero .highlight {
-      font-family: 'PP Editorial Old Ultralight Italic', 'PP Editorial Old Ultralight Italic Placeholder', serif;
-      font-style: italic;
-      font-weight: 400;
-    }
-    .hero .highlight--pop {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-    }
-    .hero .highlight--pop:focus {
-      outline: none;
-    }
-    .hero .highlight--pop:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-    .hero .highlight-pop {
-      position: absolute;
-      left: 50%;
-      bottom: 100%;
-      transform: translateX(-50%) translateY(-10px) rotate(-2deg);
-      width: min(200px, 42vw);
-      padding: 12px 12px 36px 12px;
-      opacity: 0;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 20;
-      border-radius: 2px;
-      box-shadow:
-        0 1px 0 rgba(0, 0, 0, 0.04),
-        0 12px 32px rgba(0, 0, 0, 0.14),
-        0 4px 12px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      pointer-events: none;
-      background: #f8f7f5;
-    }
-    .hero .highlight--pop:hover .highlight-pop,
-    .hero .highlight--pop:focus-within .highlight-pop {
-      opacity: 1;
-      transform: translateX(-50%) translateY(-14px) rotate(-2deg);
-    }
-    .hero h1 .highlight-pop {
-      top: 100%;
-      bottom: auto;
-      transform: translateX(-50%) translateY(10px) rotate(-2deg);
-    }
-    .hero h1 .highlight--pop:hover .highlight-pop,
-    .hero h1 .highlight--pop:focus-within .highlight-pop {
-      transform: translateX(-50%) translateY(14px) rotate(-2deg);
-    }
-    .hero .highlight-pop img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      object-position: center;
-      background: #e8e8e6;
-    }
-    .hero .highlight-pop img.highlight-pop-img--pottery {
-      object-position: center 58%;
-    }
-    .hero .highlight-pop img.highlight-pop-img--waterloo {
-      aspect-ratio: 3 / 4;
-      object-position: center 48%;
-    }
-    .hero .highlight-pop img.highlight-pop-img--behind-camera {
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      object-position: center;
-    }
-    .hero .highlight-pop video {
-      display: block;
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      object-position: center;
-      background: #e8e8e6;
-    }
+    .hero h1,
     .hero .subhead {
       font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
       font-weight: 400;
-      font-size: 42px;
+      font-size: 32px;
       line-height: 1.25;
       color: var(--text);
-      margin-bottom: 24px;
+      margin: 0;
+      text-wrap: pretty;
     }
-    .hero-contact-pills {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px 20px;
+    .hero h1 {
+      text-wrap: balance;
     }
-    .contact-text-link {
-      font-family: 'Manrope', sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 1.3;
-      color: var(--text-muted);
-      text-decoration: none;
-      border: none;
-      padding: 0;
-      background: none;
-      border-radius: 0;
-      transition: color 0.2s ease;
+
+    .motion-enter {
+      opacity: 0;
     }
-    .contact-text-link:hover {
-      color: var(--text);
+    body.loaded .motion-enter {
+      animation: fade-up-in var(--motion-duration-medium) var(--motion-ease) forwards;
+      animation-delay: calc(var(--motion-handoff-delay) + var(--motion-delay, 0ms));
     }
-    .contact-text-link:focus {
-      outline: none;
-    }
-    .contact-text-link:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
+    .motion-enter--0 { --motion-delay: 0ms; }
+    .motion-enter--1 { --motion-delay: 120ms; }
+    .motion-enter--2 { --motion-delay: 240ms; }
+    .motion-enter--3 { --motion-delay: 360ms; }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 24px;
-      row-gap: 40px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 32px;
+      row-gap: 32px;
+      align-items: start;
     }
-    @media (max-width: 600px) {
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
     .project-card {
       display: block;
-      border-radius: 8px;
+      width: 100%;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 20px;
       overflow: hidden;
-      cursor: default;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    a.project-card:hover,
+    a.project-card:hover .card-title,
+    a.project-card:hover .card-arrow {
+      color: var(--text);
+    }
+    .project-card.motion-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity var(--motion-duration-medium) var(--motion-ease),
+        transform var(--motion-duration-medium) var(--motion-ease);
+      transition-delay: var(--scroll-delay, 0ms);
+    }
+    .project-card.motion-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .project-card.motion-scroll:nth-child(even) {
+      --scroll-delay: 80ms;
+    }
+    a.project-card--case-study,
+    a.project-card--case-study .card-image {
+      cursor: pointer;
     }
     .card-image {
-      aspect-ratio: 1.62 / 1;
+      position: relative;
+      aspect-ratio: 1436 / 1080;
       overflow: hidden;
       border-radius: 8px;
-      background: #f5f5f5;
-      margin-bottom: 24px;
+      border: 1px solid var(--border-subtle);
+      background: #ffffff;
     }
-    .project-card:hover .card-image img,
-    .project-card:hover .card-image video {
-      transform: scale(1.05);
-    }
-    .project-card--bubble .card-image img {
-      transform: scale(1.10);
-    }
-    .project-card--bubble:hover .card-image img {
-      transform: scale(1.15);
-    }
-    .project-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .card-image__media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
       transform: scale(1);
-      transition: transform 0.4s ease;
+      transform-origin: center;
+      transition: transform var(--motion-duration-medium) var(--motion-ease);
     }
+    .project-card:hover .card-image__media,
+    .project-card:focus-within .card-image__media {
+      transform: scale(1.02);
+    }
+    .project-card--gif:hover .card-image__media,
+    .project-card--gif:focus-within .card-image__media {
+      transform: none;
+    }
+    .project-card img,
     .project-card .card-image video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
-      transform: scale(1);
-      transition: transform 0.4s ease;
     }
-    .project-card--gif .card-image,
-    .project-card--large-cover .card-image {
-      aspect-ratio: 1430 / 1080;
+    .project-card--ig .card-image__media {
+      z-index: 1;
     }
-    .project-card--gif img {
-      object-fit: contain;
-      transform: none;
+    .project-card--ig .card-image {
+      background: #d193ce;
     }
-    .project-card.project-card--no-hover-zoom:hover .card-image img {
-      transform: none;
+    .project-card--ig .card-image__gradient {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(
+        90deg,
+        #D193CE 0%,
+        #E26868 46%,
+        #DF7F3F 100%,
+        #D193CE 100%
+      );
+      background-size: 220% 100%;
+      animation: ig-gradient-loop 14s ease-in-out infinite;
+    }
+    .card-body {
+      padding: 16px 0 0;
     }
     .card-header {
-      margin-bottom: 12px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 0;
     }
     .card-title {
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
-      font-weight: 400;
-      font-size: 24px;
-      color: var(--text);
-      line-height: 1.3;
       margin: 0;
-    }
-    .card-desc {
       font-family: 'Manrope', sans-serif;
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 1.5;
-      color: rgba(0, 0, 0, 0.6);
-      margin: 0 0 12px 0;
-    }
-    .card-meta {
-      font-family: 'Manrope', sans-serif;
-      font-size: 18px;
-      font-weight: 400;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.2;
       color: var(--text);
-      margin: 0 0 12px 0;
+    }
+    .card-description {
+      margin: 8px 0 0;
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--card-description);
+    }
+    .card-arrow {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: var(--text);
+    }
+    .card-arrow svg {
+      display: block;
+      width: 13px;
+      height: 13px;
     }
 
-    .footer {
-      margin-top: 0;
-      padding-top: 56px;
-    }
-    .footer h2 {
-      font-family: 'PP Writer Thin', sans-serif;
-      font-size: 2rem;
-      font-weight: 400;
-      margin: 0 0 12px 0;
-    }
-    .footer-links {
-      margin-top: 16px;
+    @media (max-width: 680px) {
+      .site-nav-pill {
+        gap: 20px;
+        padding: 14px 22px;
+      }
+      .site-top-links .site-nav-link {
+        font-size: 14px;
+      }
+      .hero h1,
+      .hero .subhead {
+        font-size: 26px;
+        line-height: 1.35;
+      }
+      .hero h1 {
+        text-wrap: wrap;
+      }
+      .project-card {
+        width: 100%;
+      }
+      .card-body {
+        padding: 16px 0 0;
+      }
+      .card-title {
+        font-size: 16px;
+      }
+      .card-description {
+        font-size: 16px;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+        row-gap: 48px;
+      }
+      .project-card.motion-scroll:nth-child(even) {
+        --scroll-delay: 0ms;
+      }
+      .site-footer__main {
+        flex-direction: column;
+        gap: 28px;
+      }
+      .site-footer__contact {
+        text-align: left;
+      }
+      .site-footer__social {
+        justify-content: flex-start;
+      }
+      .site-footer__meta {
+        margin-top: 40px;
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -359,105 +561,113 @@
   <div class="page">
     <main>
       <div class="hero-with-nav">
-      <nav class="site-top-links" aria-label="Quick links">
-        <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="contact-text-link">LinkedIn</a>
-        <a href="#" class="contact-text-link">Twitter</a>
+      <nav class="site-top-links motion-enter motion-enter--0" aria-label="Site sections">
+        <div class="site-nav-pill">
+          <a href="index.html" class="site-nav-link" aria-current="page">Work</a>
+          <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+        </div>
       </nav>
       <section class="hero">
-        <h1>Shaahana is a <span class="highlight highlight--pop" tabindex="0">designer at Instagram<span class="highlight-pop" aria-hidden="true"><img src="assets/images/instagram-polaroid.png" alt=""></span></span> in San Francisco. She enjoys solving highly ambiguous problems and has a background in <span class="highlight highlight--pop" tabindex="0">Systems Design Engineering from Waterloo<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--waterloo" src="assets/images/waterloo-polaroid.png" alt=""></span></span>.</h1>
-        <p class="subhead">Outside of work, she's always creating—<span class="highlight highlight--pop highlight-pop--cycle" tabindex="0" data-cycle-ms="500">behind the camera<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--behind-camera" src="assets/images/behind-camera-1.png" alt=""></span></span>, <span class="highlight highlight--pop" tabindex="0">in the pottery studio<span class="highlight-pop" aria-hidden="true"><img class="highlight-pop-img--pottery" src="assets/images/pottery-polaroid.png" alt=""></span></span>, or <span class="highlight highlight--pop" tabindex="0">deep in a craft<span class="highlight-pop" aria-hidden="true"><img src="assets/images/craft-carousel-1.png" alt=""></span></span>.</p>
-        <p class="subhead">She's previously designed at Coinbase, Meta, Intuit and Bubble.</p>
+        <h1 class="motion-enter motion-enter--1">Shaahana is a designer at Instagram in San Francisco. She enjoys solving highly ambiguous problems and has a background in Systems Design Engineering from Waterloo.</h1>
+        <p class="subhead motion-enter motion-enter--2">Outside of work, she's always creating—behind the camera, in the pottery studio, or deep in a craft.</p>
+        <p class="subhead motion-enter motion-enter--3">She's previously designed at Coinbase, Meta, Intuit and Bubble.</p>
       </section>
       </div>
 
-      <hr class="section-divider">
-
       <section class="featured" id="featured">
         <div class="projects-grid">
-          <article class="project-card project-card--large-cover">
+          <article class="project-card project-card--ig project-card--large-cover motion-scroll">
             <div class="card-image">
-              <img src="assets/images/ig.svg" alt="Instagram ads recommendations" loading="lazy">
+              <div class="card-image__gradient" aria-hidden="true"></div>
+              <div class="card-image__media">
+                <img src="assets/images/ig.svg" width="1436" height="1080" alt="Instagram ads recommendations" loading="lazy" decoding="async">
+              </div>
             </div>
-            <div class="card-content">
-              <p class="card-meta">Instagram · 2025</p>
+            <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">Improving ads recommendations on Instagram</h3>
               </div>
-              <p class="card-desc">Working on various ads curation controls, allowing for transparency and improved recommendations</p>
+              <p class="card-description">Working on various ads curation controls, allowing for transparency and improved recommendations</p>
             </div>
           </article>
-          <article class="project-card project-card--gif">
+          <article class="project-card project-card--gif motion-scroll">
             <div class="card-image">
-              <img src="assets/images/coinbase-discoverability.gif" alt="Coinbase case study - global search" loading="lazy">
+              <div class="card-image__media">
+                <img src="assets/images/coinbase-discoverability.gif" width="1778" height="1340" alt="Coinbase case study - global search" loading="lazy" decoding="async">
+              </div>
             </div>
-            <div class="card-content">
-              <p class="card-meta">Coinbase · 2024</p>
+            <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">Crafting a bridge between Coinbase's trading modes</h3>
               </div>
-              <p class="card-desc">Designed global search to improve discoverability of the Advanced trading surface</p>
+              <p class="card-description">Designed global search to improve discoverability of the Advanced trading surface</p>
             </div>
           </article>
-          <article class="project-card project-card--large-cover">
+          <article class="project-card project-card--coinbase project-card--large-cover motion-scroll">
             <div class="card-image">
-              <img src="assets/images/cb-2.svg" alt="Coinbase design" loading="lazy">
+              <div class="card-image__media">
+                <img src="assets/images/coinbase/coinbase-may.svg" width="1436" height="1080" alt="Coinbase perpetuals trading case study" loading="lazy" decoding="async">
+              </div>
             </div>
-            <div class="card-content">
-              <p class="card-meta">Coinbase · 2024</p>
+            <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">Drive user growth to perpetuals trading</h3>
               </div>
-              <p class="card-desc">Worked on various mobile initiatives to drive user growth and improve discoverability of perpetuals trading</p>
+              <p class="card-description">Worked on various mobile initiatives to drive user growth and improve discoverability of perpetuals trading</p>
             </div>
           </article>
-          <article class="project-card project-card--large-cover">
+          <a href="meta-case-study-2024/index.html" class="project-card project-card--large-cover project-card--case-study motion-scroll">
             <div class="card-image">
-              <img src="assets/images/realitylabs.svg" alt="Meta Reality Labs case study" loading="lazy">
+              <div class="card-image__media">
+                <img src="assets/images/meta-cd.svg" width="1436" height="1080" alt="Meta Reality Labs case study" loading="lazy" decoding="async">
+              </div>
             </div>
-            <div class="card-content">
-              <p class="card-meta">Meta Reality Labs · 2023</p>
+            <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">Keeping users connected in VR</h3>
+                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
               </div>
-              <p class="card-desc">Worked on the Horizon Worlds social connections team to create a framework for world recommendation notifications</p>
+              <p class="card-description">Worked on the Horizon Worlds social connections team to create a framework for world recommendation notifications</p>
             </div>
-          </article>
-          <article class="project-card project-card--large-cover project-card--bubble">
-            <div class="card-image">
-              <img src="assets/images/bubble-4%25.svg" alt="Bubble case study" loading="lazy">
-            </div>
-            <div class="card-content">
-              <p class="card-meta">Bubble · 2022</p>
-              <div class="card-header">
-                <h3 class="card-title">Onboarding for a no-code editor</h3>
-              </div>
-              <p class="card-desc">Enabling creation from Day 0 through designing Bubble's first ever in-editor tutorial</p>
-            </div>
-          </article>
-          <article class="project-card project-card--large-cover">
-            <div class="card-image">
-              <img src="assets/images/intuit-0.9.svg" alt="Intuit case study" loading="lazy">
-            </div>
-            <div class="card-content">
-              <p class="card-meta">Intuit · 2022</p>
-              <div class="card-header">
-                <h3 class="card-title">Mitigating the peak tax experience</h3>
-              </div>
-              <p class="card-desc">Shifting the valleys of demand and supply during peak tax season on Turbotax</p>
-            </div>
-          </article>
+          </a>
         </div>
       </section>
 
-      <hr class="section-divider">
-
-      <footer class="footer">
-        <h2>Thanks for coming by!</h2>
-        <nav class="footer-links hero-contact-pills" aria-label="Contact and social links">
-          <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="contact-text-link">LinkedIn</a>
-          <a href="#" class="contact-text-link">Twitter</a>
-          <a href="#" class="contact-text-link copy-email" data-email="shaahananaufal@gmail.com">Email</a>
-        </nav>
+      <footer class="site-footer">
+        <div class="site-footer__main">
+          <div class="site-footer__identity">
+            <p class="site-footer__status">
+              <span class="site-footer__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              </span>
+              <span id="footer-status" aria-live="polite">—, San Francisco</span>
+            </p>
+            <p class="site-footer__listening">
+              <span class="site-footer__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              </span>
+              <span>Listening to <span id="footer-listening">Bon Iver</span></span>
+            </p>
+          </div>
+          <div class="site-footer__contact">
+            <a href="mailto:shaahananaufal@gmail.com" class="site-footer__email">shaahananaufal@gmail.com</a>
+            <div class="site-footer__social" aria-label="Social links">
+              <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a href="https://x.com/shaahananaufal" target="_blank" rel="noopener noreferrer" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="https://shaahana.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="site-footer__meta">
+          <p class="site-footer__built">Built with Cursor &amp; lattes.</p>
+          <p class="site-footer__changelog">Changelog: 05-31-26</p>
+        </div>
       </footer>
     </main>
   </div>
@@ -480,82 +690,33 @@
         window.addEventListener('load', onLoad);
       }
 
-      document.querySelectorAll('.copy-email').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          var email = this.getAttribute('data-email');
-          var feedback = this.querySelector('.pill-link__label') || this.querySelector('.hero-link-tooltip') || this.querySelector('.dock-icon span') || this.querySelector('span');
-          if (!feedback) feedback = this;
-          navigator.clipboard.writeText(email).then(function() {
-            var original = feedback ? feedback.textContent : '';
-            if (feedback) feedback.textContent = 'Copied!';
-            setTimeout(function() {
-              if (feedback) feedback.textContent = original;
-            }, 1500);
-          });
-        });
-      });
-
       var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      var behindCameraFrames = [
-        'assets/images/behind-camera-1.png',
-        'assets/images/behind-camera-2.png',
-        'assets/images/behind-camera-3.png',
-        'assets/images/behind-camera-4.png',
-        'assets/images/behind-camera-5.png',
-        'assets/images/behind-camera-6.png',
-        'assets/images/behind-camera-7.png'
-      ];
-      document.querySelectorAll('.highlight-pop--cycle').forEach(function(wrap) {
-        var img = wrap.querySelector('.highlight-pop img');
-        if (!img) return;
-        var intervalMs = parseInt(wrap.getAttribute('data-cycle-ms'), 10) || 500;
-        var idx = 0;
-        var timer = null;
-        function tick() {
-          idx = (idx + 1) % behindCameraFrames.length;
-          img.src = behindCameraFrames[idx];
-        }
-        function startCycle() {
-          if (prefersReducedMotion.matches) return;
-          if (timer) return;
-          idx = 0;
-          img.src = behindCameraFrames[0];
-          timer = setInterval(tick, intervalMs);
-        }
-        function stopCycle() {
-          if (timer) {
-            clearInterval(timer);
-            timer = null;
-          }
-          idx = 0;
-          img.src = behindCameraFrames[0];
-        }
-        wrap.addEventListener('mouseenter', startCycle);
-        wrap.addEventListener('mouseleave', stopCycle);
-        wrap.addEventListener('focusin', startCycle);
-        wrap.addEventListener('focusout', stopCycle);
-      });
-      document.querySelectorAll('.highlight--pop').forEach(function(wrap) {
-        if (wrap.classList.contains('highlight-pop--cycle')) return;
-        var video = wrap.querySelector('video');
-        if (!video) return;
-        function play() {
-          if (prefersReducedMotion.matches) return;
-          video.muted = true;
-          requestAnimationFrame(function() {
-            video.play().catch(function() {});
+      var scrollCards = document.querySelectorAll('.project-card.motion-scroll');
+
+      function revealScrollCardsImmediately() {
+        scrollCards.forEach(function(card) {
+          card.classList.add('is-visible');
+        });
+      }
+
+      if (prefersReducedMotion.matches || !('IntersectionObserver' in window)) {
+        revealScrollCardsImmediately();
+      } else {
+        var scrollObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            scrollObserver.unobserve(entry.target);
           });
-        }
-        function pause() {
-          video.pause();
-          try { video.currentTime = 0; } catch (e) {}
-        }
-        wrap.addEventListener('mouseenter', play);
-        wrap.addEventListener('mouseleave', pause);
-        wrap.addEventListener('focusin', play);
-        wrap.addEventListener('focusout', pause);
-      });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -5% 0px'
+        });
+
+        scrollCards.forEach(function(card) {
+          scrollObserver.observe(card);
+        });
+      }
 
       document.querySelectorAll('.project-card .card-image video').forEach(function(v) {
         if (prefersReducedMotion.matches) {
@@ -563,6 +724,23 @@
           v.pause();
         }
       });
+
+      var footerStatus = document.getElementById('footer-status');
+      if (footerStatus) {
+        var sfTimeFormatter = new Intl.DateTimeFormat('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+          timeZone: 'America/Los_Angeles'
+        });
+
+        function updateFooterTime() {
+          footerStatus.textContent = sfTimeFormatter.format(new Date()) + ', San Francisco';
+        }
+
+        updateFooterTime();
+        setInterval(updateFooterTime, 30000);
+      }
     })();
   </script>
 </body>
