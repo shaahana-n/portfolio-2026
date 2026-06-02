@@ -377,6 +377,154 @@
       text-align: left;
     }
   }
+  #main .framer-14h22rw:has(.meta-work-play__polaroids),
+  #main .framer-14h22rw:has(.framer-a78jhi) {
+    align-items: flex-start !important;
+    overflow: visible !important;
+  }
+  #main .framer-w93l1s:has(.meta-work-play__polaroids),
+  #main .framer-k15uhz:has(.meta-work-play__polaroids) {
+    overflow: visible !important;
+  }
+  #main .framer-14h22rw > .framer-1ekb953 {
+    flex: none !important;
+    width: 25% !important;
+    min-width: 0;
+    align-self: flex-start !important;
+  }
+  #main .framer-14h22rw > .framer-16xrc9t {
+    flex: 1 1 0% !important;
+    min-width: 0;
+    width: auto !important;
+    align-items: flex-start !important;
+    gap: 20px !important;
+  }
+  #main .framer-14h22rw > .framer-16xrc9t:has(.meta-work-play__polaroids) {
+    overflow: visible !important;
+  }
+  .meta-work-play__polaroids {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 16px;
+    width: 100%;
+    margin-top: 12px;
+    padding: 4px 8px 12px;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+  .meta-work-play__polaroid {
+    margin: 0;
+    flex: 1 1 calc((100% - 48px) / 4);
+    min-width: 0;
+    max-width: 168px;
+    width: calc((100% - 48px) / 4);
+    transform-origin: center bottom;
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .meta-work-play__frame {
+    padding: 12px 12px 40px;
+    border-radius: 2px;
+    background-color: #fefefe;
+    background-image:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 48%),
+      url('assets/images/Noise.png');
+    background-size: 100% 100%, 200px 200px;
+    border: 1px solid rgba(0, 0, 0, 0.035);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 1px 2px rgba(0, 0, 0, 0.02),
+      0 6px 18px rgba(10, 11, 13, 0.04),
+      0 2px 6px rgba(10, 11, 13, 0.025);
+  }
+  .meta-work-play__photo {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #101010;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+  .meta-work-play__photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .meta-work-play__polaroid--2 .meta-work-play__photo img,
+  .meta-work-play__polaroid--3 .meta-work-play__photo img {
+    object-position: center 18%;
+    transform: scale(1.42);
+    transform-origin: center 22%;
+  }
+  .meta-work-play__polaroid--1 {
+    transform: rotate(-2.4deg);
+  }
+  .meta-work-play__polaroid--2 {
+    transform: rotate(1.8deg);
+  }
+  .meta-work-play__polaroid--3 {
+    transform: rotate(-1.2deg);
+  }
+  .meta-work-play__polaroid--4 {
+    transform: rotate(2.6deg);
+  }
+  .meta-work-play__polaroid--1:hover,
+  .meta-work-play__polaroid--1:focus-within {
+    transform: rotate(-2.4deg) translateY(-6px) scale(1.03);
+  }
+  .meta-work-play__polaroid--2:hover,
+  .meta-work-play__polaroid--2:focus-within {
+    transform: rotate(1.8deg) translateY(-6px) scale(1.03);
+  }
+  .meta-work-play__polaroid--3:hover,
+  .meta-work-play__polaroid--3:focus-within {
+    transform: rotate(-1.2deg) translateY(-6px) scale(1.03);
+  }
+  .meta-work-play__polaroid--4:hover,
+  .meta-work-play__polaroid--4:focus-within {
+    transform: rotate(2.6deg) translateY(-6px) scale(1.03);
+  }
+  @media (max-width: 809px) {
+    #main .framer-14h22rw > .framer-1ekb953 {
+      width: 100% !important;
+    }
+    .meta-work-play__polaroids {
+      gap: 20px 16px;
+      margin-top: 8px;
+    }
+    .meta-work-play__polaroid {
+      width: calc(50% - 8px);
+      max-width: 188px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .meta-work-play__polaroid {
+      transition: none;
+    }
+    .meta-work-play__polaroid--1:hover,
+    .meta-work-play__polaroid--1:focus-within,
+    .meta-work-play__polaroid--2:hover,
+    .meta-work-play__polaroid--2:focus-within,
+    .meta-work-play__polaroid--3:hover,
+    .meta-work-play__polaroid--3:focus-within,
+    .meta-work-play__polaroid--4:hover,
+    .meta-work-play__polaroid--4:focus-within {
+      transform: none;
+    }
+    .meta-work-play__polaroid--1 {
+      transform: rotate(-2.4deg);
+    }
+    .meta-work-play__polaroid--2 {
+      transform: rotate(1.8deg);
+    }
+    .meta-work-play__polaroid--3 {
+      transform: rotate(-1.2deg);
+    }
+    .meta-work-play__polaroid--4 {
+      transform: rotate(2.6deg);
+    }
+  }
 </style></head>
 <body>
     <!-- Start of bodyStart -->
@@ -400,6 +548,39 @@
     </header>
     <div id="main" data-framer-hydrate-v2="{&quot;routeId&quot;:&quot;siyouqo5p&quot;,&quot;localeId&quot;:&quot;default&quot;,&quot;pathVariables&quot;:{},&quot;breakpoints&quot;:[{&quot;hash&quot;:&quot;c5aong&quot;,&quot;mediaQuery&quot;:&quot;(min-width: 1200px)&quot;},{&quot;hash&quot;:&quot;1l7zdme&quot;,&quot;mediaQuery&quot;:&quot;(max-width: 1199px)&quot;}]}"></div>
     <p id="site-case-loading" class="site-case-loading" aria-live="polite">Loading case study…</p>
+
+    <div id="meta-work-play-polaroids-template" hidden>
+      <div class="meta-work-play__polaroids" role="group" aria-label="Meta internship moments">
+        <figure class="meta-work-play__polaroid meta-work-play__polaroid--1">
+          <div class="meta-work-play__frame">
+            <div class="meta-work-play__photo">
+              <img src="images/headset.svg?v=20260603" width="328" height="372" alt="Meta internship moment 1" decoding="async" loading="lazy">
+            </div>
+          </div>
+        </figure>
+        <figure class="meta-work-play__polaroid meta-work-play__polaroid--2">
+          <div class="meta-work-play__frame">
+            <div class="meta-work-play__photo">
+              <img src="images/v067I27PYvIhRzZOuHIHjWc5E.svg?v=20260602" width="158" height="192" alt="Meta internship moment 2" decoding="async" loading="lazy">
+            </div>
+          </div>
+        </figure>
+        <figure class="meta-work-play__polaroid meta-work-play__polaroid--3">
+          <div class="meta-work-play__frame">
+            <div class="meta-work-play__photo">
+              <img src="images/oXffQT3zDfi9622V2uYacnv5Be4.svg?v=20260602" width="168" height="199" alt="Meta internship moment 3" decoding="async" loading="lazy">
+            </div>
+          </div>
+        </figure>
+        <figure class="meta-work-play__polaroid meta-work-play__polaroid--4">
+          <div class="meta-work-play__frame">
+            <div class="meta-work-play__photo">
+              <img src="images/config.svg?v=20260603" width="328" height="372" alt="Meta internship moment 4" decoding="async" loading="lazy">
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
 
     <div class="site-case-tail">
       <footer class="site-footer">
@@ -496,7 +677,71 @@
         ];
         var observer = null;
         var pending = false;
-        var overridesDone = false;
+        var metaPolaroidsEnhanced = false;
+        var metaEnhanceAttempts = 0;
+
+        function findMetaWorkPlaySection() {
+          var headings = document.querySelectorAll('#main h3');
+          for (var i = 0; i < headings.length; i++) {
+            if (/work\s*&\s*play/i.test((headings[i].textContent || '').trim())) {
+              return headings[i].closest('.framer-14h22rw');
+            }
+          }
+          return null;
+        }
+
+        function findMetaWorkPlayGrid() {
+          var workPlaySection = findMetaWorkPlaySection();
+          if (!workPlaySection) return null;
+          var grid = null;
+          if (
+            workPlaySection.nextElementSibling &&
+            workPlaySection.nextElementSibling.classList.contains('framer-a78jhi')
+          ) {
+            grid = workPlaySection.nextElementSibling;
+          } else if (workPlaySection.parentElement) {
+            grid = workPlaySection.parentElement.querySelector(':scope > .framer-a78jhi');
+          }
+          if (!grid) return null;
+          return {
+            section: workPlaySection,
+            grid: grid,
+            contentCol: workPlaySection.querySelector('.framer-16xrc9t')
+          };
+        }
+
+        function enhanceMetaWorkPlayPolaroids() {
+          if (metaPolaroidsEnhanced) return true;
+          if (document.querySelector('#main .meta-work-play__polaroids')) {
+            metaPolaroidsEnhanced = true;
+            return true;
+          }
+          var target = findMetaWorkPlayGrid();
+          if (!target) return false;
+
+          var template = document.getElementById('meta-work-play-polaroids-template');
+          var polaroidTemplate = template && template.querySelector('.meta-work-play__polaroids');
+          if (!polaroidTemplate) return false;
+
+          var mount = polaroidTemplate.cloneNode(true);
+          if (target.contentCol) {
+            target.contentCol.appendChild(mount);
+            target.grid.remove();
+          } else {
+            target.grid.replaceWith(mount);
+          }
+          [
+            target.section,
+            target.contentCol,
+            target.section && target.section.parentElement,
+            target.section && target.section.parentElement && target.section.parentElement.parentElement
+          ].forEach(function (node) {
+            if (!node) return;
+            node.style.setProperty('overflow', 'visible', 'important');
+          });
+          metaPolaroidsEnhanced = true;
+          return true;
+        }
 
         function applyOverrides() {
           if (!document.querySelector('#main .framer-rm8id')) return;
@@ -512,16 +757,26 @@
               node.style.setProperty('display', 'none', 'important');
             });
           });
-          overridesDone = true;
+          enhanceMetaWorkPlayPolaroids();
         }
 
         function scheduleOverrides() {
-          if (pending || overridesDone) return;
+          if (pending) return;
           pending = true;
           requestAnimationFrame(function () {
             pending = false;
             applyOverrides();
           });
+        }
+
+        function startMetaPolaroidWatch() {
+          var retry = window.setInterval(function () {
+            metaEnhanceAttempts += 1;
+            applyOverrides();
+            if (metaPolaroidsEnhanced || metaEnhanceAttempts >= 45) {
+              window.clearInterval(retry);
+            }
+          }, 1000);
         }
 
         function startObserver() {
@@ -535,16 +790,13 @@
             }
           });
           observer.observe(main, { childList: true, subtree: true });
-          window.setTimeout(function () {
-            if (observer) observer.disconnect();
-            observer = null;
-            applyOverrides();
-          }, 8000);
         }
 
         window.addEventListener('load', function () {
           startObserver();
-          [500, 2000, 5000].forEach(function (delay) {
+          startMetaPolaroidWatch();
+          window.addEventListener('scroll', scheduleOverrides, { passive: true });
+          [0, 500, 1500, 3000, 5000, 8000, 12000, 20000].forEach(function (delay) {
             window.setTimeout(applyOverrides, delay);
           });
         });
