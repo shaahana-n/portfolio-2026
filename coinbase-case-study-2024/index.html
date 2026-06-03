@@ -1858,49 +1858,100 @@
       font-size: 22px;
     }
   }
-  .coinbase-search-carousel {
+  .coinbase-search-explorations {
     width: 100%;
     margin-top: 8px;
   }
-  .coinbase-search-carousel__track {
+  .coinbase-search-explorations__track {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 24px;
+    gap: clamp(12px, 1.5vw, 24px);
     width: 100%;
     margin: 0;
-    padding: 4px 4px 20px;
-    overflow-x: auto;
-    overflow-y: visible;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--divider) transparent;
-  }
-  .coinbase-search-carousel__track::-webkit-scrollbar {
-    height: 6px;
-  }
-  .coinbase-search-carousel__track::-webkit-scrollbar-thumb {
-    background: var(--divider);
-    border-radius: 999px;
+    padding: 0;
   }
   .coinbase-search-card {
-    flex: 0 0 clamp(260px, 38vw, 400px);
-    scroll-snap-align: start;
+    flex: 1 1 0;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    min-width: 0;
+    gap: 16px;
   }
-  .coinbase-search-card__label {
-    margin: 0 0 12px;
-    font-family: 'PP Editorial Old Ultralight Italic', serif;
-    font-size: 24px;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.15;
-    color: var(--text);
+  .coinbase-search-card__caption {
+    margin: 0;
+    text-align: left;
+  }
+  .coinbase-search-card__figure--zoomable {
+    cursor: zoom-in;
+  }
+  .coinbase-search-card__figure--zoomable:focus-visible {
+    outline: 2px solid rgba(55, 115, 245, 0.65);
+    outline-offset: 3px;
+  }
+  .coinbase-image-lightbox {
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    background: transparent;
+    overflow: hidden;
+  }
+  .coinbase-image-lightbox::backdrop {
+    background: rgba(10, 11, 13, 0.78);
+  }
+  .coinbase-image-lightbox__panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: clamp(56px, 10vw, 88px) clamp(20px, 4vw, 48px);
+    box-sizing: border-box;
+    position: relative;
+  }
+  .coinbase-image-lightbox__img {
+    display: block;
+    max-width: min(96vw, 1100px);
+    max-height: min(86vh, 820px);
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  }
+  .coinbase-image-lightbox__close {
+    position: fixed;
+    top: clamp(16px, 3vw, 28px);
+    right: clamp(16px, 3vw, 28px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .coinbase-image-lightbox__close:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+  .coinbase-image-lightbox__close:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
   }
   .coinbase-search-card__figure {
     margin: 0;
@@ -1909,19 +1960,29 @@
     line-height: 0;
     width: 100%;
     flex-shrink: 0;
+    aspect-ratio: 651 / 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
   }
   .coinbase-search-card__figure img {
     display: block;
     width: 100%;
     height: auto;
+    object-fit: contain;
+    object-position: center;
     border-radius: 8px;
   }
   @media (max-width: 809px) {
-    .coinbase-search-card {
-      flex: 0 0 min(78vw, 320px);
+    .coinbase-search-explorations__track {
+      flex-direction: column;
+      gap: 32px;
     }
-    .coinbase-search-card__label {
-      font-size: 22px;
+    .coinbase-search-card {
+      flex: none;
+      width: 100%;
     }
   }
   .coinbase-hmw__list {
@@ -2149,41 +2210,33 @@
           By default, a user will land in Standard mode. Once they open the search container, they see an infinite scroll and they can look through the 23,000 assets we have on Standard, or they can search for a derivative. If they search for a derivative like gold, they get no results. This results in users thinking that Coinbase doesn't offer the ability to trade gold, but it does, just on another mode.
         </p>
 
-        <div class="coinbase-search-carousel" role="region" aria-label="Search exploration variants">
-          <div class="coinbase-search-carousel__track">
+        <div class="coinbase-search-explorations" role="region" aria-label="Search exploration variants">
+          <div class="coinbase-search-explorations__track">
             <article class="coinbase-search-card">
-              <p class="coinbase-search-card__label">Existing State</p>
               <figure class="coinbase-search-card__figure">
                 <img src="../images/coinbase/existing.svg?v=20260604" width="651" height="500" alt="Existing State search results exploration" decoding="async">
               </figure>
+              <p class="coinbase-problem-content__text coinbase-search-card__caption">Existing State</p>
             </article>
 
             <article class="coinbase-search-card">
-              <p class="coinbase-search-card__label">Tagged Results</p>
-              <figure class="coinbase-search-card__figure">
-                <img src="../images/coinbase/option1.svg?v=20260604" width="651" height="500" alt="Tagged Results search exploration" decoding="async">
-              </figure>
-            </article>
-
-            <article class="coinbase-search-card">
-              <p class="coinbase-search-card__label">Card Upsell</p>
               <figure class="coinbase-search-card__figure">
                 <img src="../images/coinbase/option2.svg?v=20260604" width="651" height="500" alt="Card Upsell search exploration" decoding="async">
               </figure>
+              <p class="coinbase-problem-content__text coinbase-search-card__caption">Card Upsell</p>
             </article>
 
             <article class="coinbase-search-card">
-              <p class="coinbase-search-card__label">Segmented Results</p>
               <figure class="coinbase-search-card__figure">
                 <img src="../images/coinbase/option3.svg?v=20260604" width="651" height="500" alt="Segmented Results search exploration" decoding="async">
               </figure>
+              <p class="coinbase-problem-content__text coinbase-search-card__caption">Segmented Results</p>
             </article>
           </div>
         </div>
 
         <div class="coinbase-search-feel__summary">
           <p class="coinbase-problem-content__text">The existing state offers infinite scroll across Standard assets, but it isn't a true global search.</p>
-          <p class="coinbase-problem-content__text">I explored tagging Advanced derivatives on L1 for clearer separation. It's technically complex (assets are stored separately across modes) and can distract Standard traders who should stay in Standard.</p>
           <p class="coinbase-problem-content__text">A card upsell matched existing patterns and improved discoverability, but it still wasn't global search—and it pushed Standard results further down.</p>
           <p class="coinbase-problem-content__text">Segmented containers separated Standard and Advanced clearly, but the nested two-container pattern felt inconsistent with familiar search patterns.</p>
         </div>
@@ -2401,6 +2454,13 @@
       </div>
     </section>
 
+    <dialog class="coinbase-image-lightbox" id="coinbase-image-lightbox" aria-label="Expanded case study image">
+      <div class="coinbase-image-lightbox__panel">
+        <button type="button" class="coinbase-image-lightbox__close" aria-label="Close expanded view">&times;</button>
+        <img class="coinbase-image-lightbox__img" src="" alt="">
+      </div>
+    </dialog>
+
     <div class="site-case-tail">
       <footer class="site-footer">
         <div class="site-footer__main">
@@ -2555,6 +2615,8 @@
         var discoverabilityMounted = false;
         var projectImpactMounted = false;
         var workPlayMounted = false;
+        var searchLightboxBound = false;
+        var coinbaseLightboxUiBound = false;
 
         function findProblemSection() {
           var blocks = document.querySelectorAll('#main .framer-1fl6dup');
@@ -2780,6 +2842,73 @@
           setMode('standard');
         }
 
+        function updateReadTime() {
+          var readWrap = document.querySelector('#main .framer-wslfdh');
+          if (!readWrap || readWrap.dataset.readTimeUpdated) return;
+          var readText = readWrap.querySelector('h6, p');
+          if (readText) readText.textContent = 'Estimated 8 min read';
+          readWrap.dataset.readTimeUpdated = 'true';
+        }
+
+        function initSearchExplorationsLightbox() {
+          if (searchLightboxBound) return;
+          var container = document.querySelector('.coinbase-search-explorations');
+          var lightbox = document.getElementById('coinbase-image-lightbox');
+          if (!container || !lightbox || !lightbox.showModal) return;
+          var lightboxImg = lightbox.querySelector('.coinbase-image-lightbox__img');
+          var closeBtn = lightbox.querySelector('.coinbase-image-lightbox__close');
+          if (!lightboxImg || !closeBtn) return;
+
+          function openLightbox(thumb) {
+            lightboxImg.src = thumb.currentSrc || thumb.src;
+            lightboxImg.alt = thumb.alt || '';
+            lightbox.showModal();
+            closeBtn.focus();
+          }
+
+          function closeLightbox() {
+            if (lightbox.open) lightbox.close();
+          }
+
+          if (!coinbaseLightboxUiBound) {
+            closeBtn.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', function (e) {
+              if (
+                e.target === lightbox ||
+                e.target.classList.contains('coinbase-image-lightbox__panel')
+              ) {
+                closeLightbox();
+              }
+            });
+            lightbox.addEventListener('cancel', closeLightbox);
+            coinbaseLightboxUiBound = true;
+          }
+
+          container.querySelectorAll('.coinbase-search-card__figure img').forEach(function (thumb) {
+            var figure = thumb.closest('.coinbase-search-card__figure');
+            if (!figure || figure.dataset.lightboxBound === 'true') return;
+            figure.dataset.lightboxBound = 'true';
+            figure.classList.add('coinbase-search-card__figure--zoomable');
+            figure.setAttribute('role', 'button');
+            figure.setAttribute('tabindex', '0');
+            figure.setAttribute(
+              'aria-label',
+              'View larger: ' + (thumb.alt || 'search exploration variant')
+            );
+            figure.addEventListener('click', function () {
+              openLightbox(thumb);
+            });
+            figure.addEventListener('keydown', function (e) {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(thumb);
+              }
+            });
+          });
+
+          searchLightboxBound = true;
+        }
+
         function applyOverrides() {
           if (!document.querySelector('#main .framer-q1wjr1')) return;
           glowSelectors.forEach(function (selector) {
@@ -2789,12 +2918,14 @@
             });
           });
           hideLegacyFramerNodes();
+          updateReadTime();
           injectContextExtraParagraph();
           mountContextDerivatives();
           renameLearningsHeading();
           mountProblemContent();
           mountOpportunitySection();
           mountSearchFeelSection();
+          initSearchExplorationsLightbox();
           mountCellLookSection();
           mountDiscoverabilitySection();
           mountProjectImpactSection();

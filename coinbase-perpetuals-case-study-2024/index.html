@@ -57,6 +57,45 @@
     --divider: #e4e9ee;
     --coinbase-stroke: #ececec;
     --accent: #3f89fe;
+    --coinbase-gradient-angle: 128deg;
+    --coinbase-gradient-green-teal: linear-gradient(
+      var(--coinbase-gradient-angle),
+      rgba(86, 138, 154, 0) 0%,
+      rgba(53, 143, 181, 0.2) 100%
+    );
+    --coinbase-gradient-white-wash: linear-gradient(
+      var(--coinbase-gradient-angle),
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0.45) 100%
+    );
+    --coinbase-gradient-blue-base: linear-gradient(
+      var(--coinbase-gradient-angle),
+      #0052ff 0%,
+      #8bbae5 50%,
+      #5459ce 100%
+    );
+    --coinbase-gradient-stack: var(--coinbase-gradient-green-teal), var(--coinbase-gradient-white-wash),
+      var(--coinbase-gradient-blue-base);
+    --coinbase-device-radius: 36px;
+    --coinbase-final-gradient-angle: 128deg;
+    --coinbase-final-gradient-stack:
+      linear-gradient(
+        var(--coinbase-final-gradient-angle),
+        rgba(255, 255, 255, 0.28) 0%,
+        rgba(255, 255, 255, 0.28) 100%
+      ),
+      linear-gradient(
+        var(--coinbase-final-gradient-angle),
+        rgba(116, 154, 86, 0) 0%,
+        rgba(90, 160, 210, 0.1) 45%,
+        rgba(78, 181, 53, 0.16) 100%
+      ),
+      linear-gradient(
+        var(--coinbase-final-gradient-angle),
+        #5385ee 0%,
+        rgba(183, 214, 245, 0.72) 50%,
+        #578bfa 100%
+      );
   }
   #main {
     --token-c8a5d239-1d55-4b5a-b6fa-69d9d208c91c: #333333;
@@ -82,8 +121,130 @@
     font-weight: 400 !important;
     color: var(--text-body) !important;
   }
-  #main .coinbase-context-extra {
+  #main .coinbase-context-extra,
+  #main .coinbase-context-problem,
+  #main .coinbase-context-goal {
     margin-top: 1em;
+  }
+  .coinbase-context-business-goal {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 20px;
+    box-sizing: border-box;
+  }
+  .coinbase-context-business-goal img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .coinbase-activation-journey {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    margin-top: 28px;
+    box-sizing: border-box;
+  }
+  .coinbase-activation-journey__intro {
+    width: 100%;
+    margin: 0 0 12px;
+  }
+  .coinbase-activation-journey__track {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .coinbase-activation-journey__visuals {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(20px, 5vw, 56px);
+    width: 100%;
+    align-items: center;
+    justify-items: start;
+  }
+  .coinbase-activation-journey__line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: var(--divider);
+    transform: translateY(-50%);
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+  }
+  .coinbase-activation-journey__steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(20px, 5vw, 56px);
+    width: 100%;
+    align-items: start;
+  }
+  .coinbase-activation-journey__step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 0;
+  }
+  .coinbase-activation-journey__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .coinbase-activation-journey__step-title {
+    width: 100%;
+    margin: 0;
+  }
+  .coinbase-activation-journey__step-desc {
+    width: 100%;
+    margin: 0;
+  }
+  .coinbase-activation-journey__icon {
+    width: 100%;
+    max-width: 88px;
+    margin: 0;
+    line-height: 0;
+  }
+  .coinbase-activation-journey__frame {
+    padding: 12px;
+    border: 1px solid var(--coinbase-stroke);
+    border-radius: 4px;
+    background: #ffffff;
+    box-sizing: border-box;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+  }
+  .coinbase-activation-journey__frame img {
+    display: block;
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+  }
+  @media (max-width: 809px) {
+    .coinbase-activation-journey__visuals,
+    .coinbase-activation-journey__steps {
+      grid-template-columns: 1fr;
+      row-gap: 24px;
+      column-gap: 0;
+    }
+    .coinbase-activation-journey__line {
+      display: none;
+    }
+    .coinbase-activation-journey__track {
+      margin-bottom: 0;
+    }
   }
   #main .framer-wslfdh,
   #main .framer-wslfdh h6,
@@ -202,9 +363,9 @@
     padding: 0 !important;
     overflow: hidden !important;
   }
-  /* Framer ships 220px top padding for the in-page nav we hide; Meta page stack uses 100px */
+  /* Framer ships 220px top padding for the in-page nav we hide */
   #main .framer-12sf4l4 {
-    padding-top: 100px !important;
+    padding-top: 48px !important;
   }
   .site-case-loading {
     width: 80vw;
@@ -389,6 +550,8 @@
     visibility: visible !important;
     pointer-events: none !important;
     background-color: var(--divider) !important;
+    position: relative;
+    z-index: 1;
   }
   #main .framer-1qssw8f {
     display: none !important;
@@ -401,6 +564,7 @@
   #main .framer-rxqxp8 {
     gap: 0 !important;
     margin-top: 0 !important;
+    padding-top: 0 !important;
   }
   #main .framer-qqqv28 {
     overflow: visible !important;
@@ -408,12 +572,13 @@
     align-content: flex-start !important;
     width: 80% !important;
     max-width: 80vw;
-    gap: 16px !important;
+    gap: 8px !important;
   }
   #main .framer-cqm6l {
     align-items: flex-start !important;
     align-content: flex-start !important;
     width: 100% !important;
+    gap: 4px !important;
   }
   #main .framer-4wt03m,
   #main .framer-wslfdh {
@@ -421,15 +586,18 @@
     text-align: left !important;
   }
   #main .framer-1y1xs {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     width: 100% !important;
     max-width: 100% !important;
-    max-height: clamp(240px, 32vw, 300px) !important;
-    margin: 0 !important;
-    align-self: flex-start !important;
+    margin: -8px 0 0 !important;
+    align-self: stretch !important;
     aspect-ratio: auto !important;
     min-height: 0 !important;
     height: auto !important;
-    overflow: hidden !important;
+    max-height: none !important;
+    overflow: visible !important;
     background: transparent !important;
     --border-top-width: 0px !important;
     --border-right-width: 0px !important;
@@ -445,36 +613,53 @@
     content: none !important;
     border: none !important;
   }
-  .coinbase-perpetuals-phones {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: clamp(14px, 2.4vw, 28px);
-    width: 100%;
-    height: auto;
+  #main .framer-1y1xs.coinbase-perpetuals-hero {
+    overflow: hidden !important;
+    cursor: default;
+    position: relative;
+    z-index: 0;
+    margin-bottom: 0 !important;
   }
-  .coinbase-perpetuals-phones__phone {
+  .coinbase-perpetuals-hero__clip {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    line-height: 0;
+  }
+  .coinbase-perpetuals-hero__image {
     display: block;
-    flex: 0 1 clamp(132px, 20vw, 210px);
-    min-width: 0;
-    width: clamp(132px, 20vw, 210px);
-    max-width: 210px;
+    width: 100%;
+    max-width: 100%;
     height: auto;
-    filter: drop-shadow(0 8px 20px rgba(10, 11, 13, 0.08));
+    margin: 0 auto;
+    object-fit: contain;
+    object-position: center top;
     pointer-events: none;
     user-select: none;
+    transform: scale(1);
+    transform-origin: 50% 42%;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  #main .framer-1y1xs.coinbase-perpetuals-hero:hover .coinbase-perpetuals-hero__image,
+  #main .framer-1y1xs.coinbase-perpetuals-hero:focus-within .coinbase-perpetuals-hero__image {
+    transform: scale(1.03);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .coinbase-perpetuals-hero__image {
+      transition: none;
+      will-change: auto;
+    }
+    #main .framer-1y1xs.coinbase-perpetuals-hero:hover .coinbase-perpetuals-hero__image,
+    #main .framer-1y1xs.coinbase-perpetuals-hero:focus-within .coinbase-perpetuals-hero__image {
+      transform: none;
+    }
   }
   @media (max-width: 809px) {
-    #main .framer-1y1xs {
-      max-height: clamp(200px, 38vw, 260px) !important;
-    }
-    .coinbase-perpetuals-phones {
-      gap: 10px;
-    }
-    .coinbase-perpetuals-phones__phone {
-      flex: 0 1 clamp(96px, 28vw, 140px);
-      width: clamp(96px, 28vw, 140px);
-      max-width: 140px;
+    #main .framer-12sf4l4 {
+      padding-top: 32px !important;
     }
   }
   .site-case-nav-wrap,
@@ -486,7 +671,7 @@
   .site-case-nav-wrap {
     width: 80vw;
     margin: 0 auto;
-    padding: 60px 0 0;
+    padding: 36px 0 0;
     box-sizing: border-box;
   }
   .site-top-links {
@@ -626,6 +811,11 @@
   /* Shared two-column layout: 25% section title | flex body, 24px gap (matches Framer Context / Problem) */
   #main .framer-e0r1t5,
   #main .framer-1fl6dup,
+  #main #coinbase-audit-flow.coinbase-audit-flow,
+  #main #coinbase-entry-points.coinbase-entry-points,
+  #main #coinbase-progress-tracking.coinbase-progress-tracking,
+  #main #coinbase-delight.coinbase-delight,
+  #main #coinbase-final-prototype.coinbase-final-prototype,
   #main #coinbase-opportunity.coinbase-opportunity,
   #main #coinbase-search-feel.coinbase-search-feel,
   #main #coinbase-cell-look.coinbase-cell-look,
@@ -645,8 +835,17 @@
   #main .framer-e0r1t5 {
     padding-top: 32px !important;
   }
+  #main .framer-d842hh + .framer-e0r1t5 {
+    padding-top: 16px !important;
+    margin-top: -12px !important;
+  }
   #main .framer-e0r1t5 > .framer-170i4ao,
   #main .framer-1fl6dup > .framer-1uukkn7,
+  #main #coinbase-audit-flow > .coinbase-case-section__heading,
+  #main #coinbase-entry-points > .coinbase-case-section__heading,
+  #main #coinbase-progress-tracking > .coinbase-case-section__heading,
+  #main #coinbase-delight > .coinbase-case-section__heading,
+  #main #coinbase-final-prototype > .coinbase-case-section__heading,
   #main #coinbase-opportunity > .coinbase-case-section__heading,
   #main #coinbase-search-feel > .coinbase-case-section__heading,
   #main #coinbase-cell-look > .coinbase-case-section__heading,
@@ -660,6 +859,11 @@
     padding: 0;
     align-self: flex-start !important;
   }
+  #coinbase-audit-flow > .coinbase-case-section__heading,
+  #coinbase-entry-points > .coinbase-case-section__heading,
+  #coinbase-progress-tracking > .coinbase-case-section__heading,
+  #coinbase-delight > .coinbase-case-section__heading,
+  #coinbase-final-prototype > .coinbase-case-section__heading,
   #coinbase-opportunity > .coinbase-case-section__heading,
   #coinbase-search-feel > .coinbase-case-section__heading,
   #coinbase-cell-look > .coinbase-case-section__heading,
@@ -668,6 +872,16 @@
   #coinbase-work-play > .coinbase-case-section__heading {
     display: block;
   }
+  #coinbase-audit-flow .coinbase-case-section__title,
+  #coinbase-audit-flow .coinbase-case-section__heading h3,
+  #coinbase-entry-points .coinbase-case-section__title,
+  #coinbase-entry-points .coinbase-case-section__heading h3,
+  #coinbase-progress-tracking .coinbase-case-section__title,
+  #coinbase-progress-tracking .coinbase-case-section__heading h3,
+  #coinbase-delight .coinbase-case-section__title,
+  #coinbase-delight .coinbase-case-section__heading h3,
+  #coinbase-final-prototype .coinbase-case-section__title,
+  #coinbase-final-prototype .coinbase-case-section__heading h3,
   #coinbase-opportunity .coinbase-case-section__title,
   #coinbase-opportunity .coinbase-case-section__heading h3,
   #coinbase-search-feel .coinbase-case-section__title,
@@ -692,6 +906,11 @@
   }
   #main .framer-e0r1t5 > .framer-silqe3,
   #main .framer-1fl6dup > .coinbase-problem-content,
+  #main #coinbase-audit-flow > .coinbase-audit-flow__content,
+  #main #coinbase-entry-points > .coinbase-entry-points__content,
+  #main #coinbase-progress-tracking > .coinbase-progress-tracking__content,
+  #main #coinbase-delight > .coinbase-delight__content,
+  #main #coinbase-final-prototype > .coinbase-final-prototype__content,
   #main #coinbase-opportunity > .coinbase-opportunity__content,
   #main #coinbase-search-feel > .coinbase-search-feel__content,
   #main #coinbase-cell-look > .coinbase-cell-look__content,
@@ -1032,12 +1251,312 @@
     font-weight: 400;
     color: #333333;
   }
+  .coinbase-audit-flow__content,
+  .coinbase-entry-points__content,
+  .coinbase-progress-tracking__content,
+  .coinbase-delight__content,
   .coinbase-opportunity__content {
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: stretch;
     box-sizing: border-box;
+  }
+  .coinbase-audit-flow__body,
+  .coinbase-entry-points__body,
+  .coinbase-progress-tracking__body,
+  .coinbase-delight__body {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .coinbase-audit-flow__body .coinbase-problem-content__text,
+  .coinbase-entry-points__body .coinbase-problem-content__text,
+  .coinbase-progress-tracking__body .coinbase-problem-content__text,
+  .coinbase-delight__body .coinbase-problem-content__text {
+    width: 100%;
+    margin: 0;
+    padding: 0 !important;
+    text-indent: 0 !important;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  .coinbase-delight__showcase {
+    position: relative;
+    width: 100%;
+    margin-top: 8px;
+    box-sizing: border-box;
+  }
+  .coinbase-delight__screens {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 20px);
+    width: 100%;
+    align-items: start;
+  }
+  .coinbase-delight__screen {
+    margin: 0;
+    line-height: 0;
+  }
+  .coinbase-delight__screen img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  .coinbase-delight__screen--zoomable {
+    cursor: zoom-in;
+  }
+  @media (max-width: 809px) {
+    .coinbase-delight__screens {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 480px) {
+    .coinbase-delight__screens {
+      grid-template-columns: 1fr;
+    }
+  }
+  #coinbase-final-prototype[hidden] {
+    display: none !important;
+  }
+  .coinbase-final-prototype__content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .coinbase-final-prototype__reflections {
+    flex: 1 1 220px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-self: center;
+  }
+  .coinbase-final-prototype__reflection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .coinbase-final-prototype__reflection .coinbase-problem-content__heading {
+    margin: 0;
+  }
+  .coinbase-final-prototype__media {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: min(340px, 48%);
+    min-width: 280px;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    margin: 0;
+    padding: 40px 76px;
+    overflow: visible;
+    line-height: 0;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+  .coinbase-final-prototype__media.coinbase-final-gradient {
+    background: var(--coinbase-final-gradient-stack);
+    background-size: 100% 100%;
+  }
+  .coinbase-final-prototype__frame {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 188px;
+    min-width: 0;
+    margin: 0 auto;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    border: 1px solid var(--coinbase-stroke);
+    border-radius: var(--coinbase-device-radius);
+    overflow: hidden;
+    background: #0a0a0a;
+    box-shadow: none;
+  }
+  .coinbase-final-prototype__video {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 120px;
+    vertical-align: top;
+    object-fit: contain;
+    background: #0a0a0a;
+    border-radius: calc(var(--coinbase-device-radius) - 1px);
+  }
+  .coinbase-final-prototype__control {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 10px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    color: #333333;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  }
+  .coinbase-final-prototype__control:hover {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
+  }
+  .coinbase-final-prototype__control:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .coinbase-final-prototype__control-icon {
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+  .coinbase-final-prototype__control-icon svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+  .coinbase-final-prototype__control-icon--play {
+    display: none;
+  }
+  .coinbase-final-prototype__control.is-paused .coinbase-final-prototype__control-icon--pause {
+    display: none;
+  }
+  .coinbase-final-prototype__control.is-paused .coinbase-final-prototype__control-icon--play {
+    display: inline-flex;
+  }
+  @media (max-width: 640px) {
+    .coinbase-final-prototype__content {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 28px;
+    }
+    .coinbase-final-prototype__reflections {
+      align-self: stretch;
+    }
+    .coinbase-final-prototype__reflections {
+      flex: 1 1 auto;
+      width: 100%;
+      gap: 24px;
+    }
+    .coinbase-final-prototype__media {
+      width: min(300px, 100%);
+      min-width: 0;
+      margin: 0 auto;
+      padding: 36px 64px;
+    }
+    .coinbase-final-prototype__frame {
+      max-width: 172px;
+      border-radius: 32px;
+    }
+    .coinbase-final-prototype__video {
+      border-radius: 31px;
+    }
+    .coinbase-final-prototype__control {
+      right: 10px;
+      bottom: 10px;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+  }
+  .coinbase-entry-proposals {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .coinbase-entry-proposals::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 36%;
+    height: 24%;
+    background:
+      linear-gradient(
+        var(--coinbase-gradient-angle),
+        rgba(86, 138, 154, 0) 0%,
+        rgba(53, 143, 181, 0.1) 100%
+      ),
+      linear-gradient(
+        var(--coinbase-gradient-angle),
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0.35) 100%
+      ),
+      linear-gradient(
+        var(--coinbase-gradient-angle),
+        rgba(0, 82, 255, 0.14) 0%,
+        rgba(139, 186, 229, 0.18) 50%,
+        rgba(84, 89, 206, 0.12) 100%
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+  .coinbase-entry-proposals .coinbase-audit-flow__screens {
+    position: relative;
+    z-index: 1;
+  }
+  .coinbase-entry-proposals .coinbase-audit-flow__screen img {
+    border: none;
+    border-radius: 0;
+  }
+  .coinbase-audit-flow__body .coinbase-problem-hmw {
+    margin-top: 40px;
+  }
+  .coinbase-audit-flow__screens {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 20px);
+    width: 100%;
+    align-items: start;
+  }
+  .coinbase-audit-flow__screen {
+    margin: 0;
+    line-height: 0;
+    container-type: inline-size;
+  }
+  .coinbase-audit-flow__screen img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12.21cqw;
+    border: 3.82cqw solid rgba(156, 156, 156, 0.2);
+    box-sizing: border-box;
+  }
+  @media (max-width: 809px) {
+    .coinbase-audit-flow__screens {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 16px;
+    }
   }
   #coinbase-opportunity .coinbase-problem-content__heading,
   #coinbase-opportunity .coinbase-problem-content__text {
@@ -1200,6 +1719,11 @@
       transform: none;
     }
   }
+  .coinbase-audit-flow.coinbase-case-section,
+  .coinbase-entry-points.coinbase-case-section,
+  .coinbase-progress-tracking.coinbase-case-section,
+  .coinbase-delight.coinbase-case-section,
+  .coinbase-final-prototype.coinbase-case-section,
   .coinbase-search-feel.coinbase-case-section,
   .coinbase-cell-look.coinbase-case-section,
   .coinbase-discoverability.coinbase-case-section,
@@ -1531,6 +2055,102 @@
     margin: 0;
     text-align: left;
   }
+  .coinbase-progress-variants {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .coinbase-progress-variants.coinbase-guardrails {
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+  .coinbase-progress-variants .coinbase-guardrails__media {
+    aspect-ratio: 651 / 500;
+  }
+  .coinbase-progress-variants .coinbase-guardrails__media > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+  }
+  .coinbase-progress-variants .coinbase-guardrails__card:first-child .coinbase-guardrails__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .coinbase-progress-variants .coinbase-guardrails__media--zoomable {
+    cursor: zoom-in;
+  }
+  .coinbase-progress-variants .coinbase-guardrails__media--zoomable:focus-visible {
+    outline: 2px solid rgba(55, 115, 245, 0.65);
+    outline-offset: 3px;
+  }
+  .coinbase-image-lightbox {
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    background: transparent;
+    overflow: hidden;
+  }
+  .coinbase-image-lightbox::backdrop {
+    background: rgba(10, 11, 13, 0.78);
+  }
+  .coinbase-image-lightbox__panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: clamp(56px, 10vw, 88px) clamp(20px, 4vw, 48px);
+    box-sizing: border-box;
+    position: relative;
+  }
+  .coinbase-image-lightbox__img {
+    display: block;
+    max-width: min(96vw, 1100px);
+    max-height: min(86vh, 820px);
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  }
+  .coinbase-image-lightbox__close {
+    position: fixed;
+    top: clamp(16px, 3vw, 28px);
+    right: clamp(16px, 3vw, 28px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .coinbase-image-lightbox__close:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+  .coinbase-image-lightbox__close:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
   @media (max-width: 809px) {
     .coinbase-guardrails {
       margin-top: 20px;
@@ -1610,6 +2230,44 @@
   .coinbase-search-feel__summary .coinbase-problem-content__text {
     margin: 0;
   }
+  .coinbase-progress-tracking__comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .coinbase-progress-tracking__comparison .coinbase-problem-content__text {
+    margin: 0;
+  }
+  .coinbase-progress-solution {
+    width: 100%;
+    margin-top: 0;
+  }
+  .coinbase-progress-solution .coinbase-search-solution__media {
+    flex: 1 1 58%;
+    max-width: min(100%, 889px);
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+  }
+  .coinbase-progress-solution .coinbase-search-solution__media > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .coinbase-progress-solution .coinbase-search-solution__notes {
+    flex: 1 1 32%;
+    min-width: min(220px, 34%);
+    align-self: center;
+  }
+  .coinbase-progress-solution .coinbase-search-solution__media--zoomable {
+    cursor: zoom-in;
+  }
+  .coinbase-progress-solution .coinbase-search-solution__media--zoomable:focus-visible {
+    outline: 2px solid rgba(55, 115, 245, 0.65);
+    outline-offset: 3px;
+  }
   .coinbase-search-solution {
     display: flex;
     flex-direction: column;
@@ -1668,23 +2326,7 @@
     position: relative;
     isolation: isolate;
     border: none;
-    background:
-      linear-gradient(
-        128deg,
-        rgba(86, 138, 154, 0) 0%,
-        rgba(53, 143, 181, 0.2) 100%
-      ),
-      linear-gradient(
-        128deg,
-        rgba(255, 255, 255, 0.45) 0%,
-        rgba(255, 255, 255, 0.45) 100%
-      ),
-      linear-gradient(
-        128deg,
-        #0052ff 0%,
-        #8bbae5 50%,
-        #5459ce 100%
-      );
+    background: var(--coinbase-gradient-stack);
     background-size: 180% 180%, 180% 180%, 180% 180%;
     animation: coinbase-ticker-gradient-shift 20s ease-in-out infinite;
   }
@@ -1763,6 +2405,10 @@
     margin: 0;
   }
   @media (max-width: 809px) {
+    .coinbase-progress-solution .coinbase-search-solution__notes {
+      min-width: 0;
+      width: 100%;
+    }
     .coinbase-search-solution__layout {
       flex-direction: column;
       gap: 24px;
@@ -1781,49 +2427,30 @@
       font-size: 22px;
     }
   }
-  .coinbase-search-carousel {
+  .coinbase-search-explorations {
     width: 100%;
     margin-top: 8px;
   }
-  .coinbase-search-carousel__track {
+  .coinbase-search-explorations__track {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 24px;
+    gap: clamp(12px, 1.5vw, 24px);
     width: 100%;
     margin: 0;
-    padding: 4px 4px 20px;
-    overflow-x: auto;
-    overflow-y: visible;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--divider) transparent;
-  }
-  .coinbase-search-carousel__track::-webkit-scrollbar {
-    height: 6px;
-  }
-  .coinbase-search-carousel__track::-webkit-scrollbar-thumb {
-    background: var(--divider);
-    border-radius: 999px;
+    padding: 0;
   }
   .coinbase-search-card {
-    flex: 0 0 clamp(260px, 38vw, 400px);
-    scroll-snap-align: start;
+    flex: 1 1 0;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    min-width: 0;
+    gap: 16px;
   }
-  .coinbase-search-card__label {
-    margin: 0 0 12px;
-    font-family: 'PP Editorial Old Ultralight Italic', serif;
-    font-size: 24px;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.15;
-    color: var(--text);
+  .coinbase-search-card__caption {
+    margin: 0;
+    text-align: left;
   }
   .coinbase-search-card__figure {
     margin: 0;
@@ -1832,19 +2459,29 @@
     line-height: 0;
     width: 100%;
     flex-shrink: 0;
+    aspect-ratio: 651 / 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
   }
   .coinbase-search-card__figure img {
     display: block;
     width: 100%;
     height: auto;
+    object-fit: contain;
+    object-position: center;
     border-radius: 8px;
   }
   @media (max-width: 809px) {
-    .coinbase-search-card {
-      flex: 0 0 min(78vw, 320px);
+    .coinbase-search-explorations__track {
+      flex-direction: column;
+      gap: 32px;
     }
-    .coinbase-search-card__label {
-      font-size: 22px;
+    .coinbase-search-card {
+      flex: none;
+      width: 100%;
     }
   }
   .coinbase-hmw__list {
@@ -1954,6 +2591,225 @@
       </div>
       <span class="site-case-loading__label">Loading case study</span>
     </div>
+
+    <section id="coinbase-audit-flow" class="coinbase-case-section coinbase-audit-flow" hidden aria-labelledby="coinbase-audit-flow-heading">
+      <div class="coinbase-case-section__heading">
+        <h3 id="coinbase-audit-flow-heading" class="coinbase-case-section__title">Auditing the flow</h3>
+      </div>
+      <div class="coinbase-audit-flow__content">
+        <div class="coinbase-audit-flow__body">
+          <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">I began by understanding the user flow through conducting a design audit looking at the end-to-end flow and noting which screens might be impacted. This allowed me to identify opportunities, limitations, as well as design considerations</p>
+          <div class="coinbase-audit-flow__screens" aria-label="Perpetuals onboarding flow screens">
+            <figure class="coinbase-audit-flow__screen">
+              <img src="../images/coinbase/perps-1.svg?v=20260603" width="393" height="852" alt="Perpetuals onboarding screen 1" loading="lazy" decoding="async">
+            </figure>
+            <figure class="coinbase-audit-flow__screen">
+              <img src="../images/coinbase/perps-2.svg?v=20260603" width="393" height="852" alt="Perpetuals onboarding screen 2" loading="lazy" decoding="async">
+            </figure>
+            <figure class="coinbase-audit-flow__screen">
+              <img src="../images/coinbase/perps-3.svg?v=20260603" width="393" height="852" alt="Perpetuals onboarding screen 3" loading="lazy" decoding="async">
+            </figure>
+            <figure class="coinbase-audit-flow__screen">
+              <img src="../images/coinbase/perps-4.svg?v=20260603" width="393" height="852" alt="Perpetuals onboarding screen 4" loading="lazy" decoding="async">
+            </figure>
+          </div>
+          <div class="coinbase-problem-hmw">
+            <h4 class="coinbase-problem-hmw__title">How might we ....</h4>
+            <ul class="coinbase-hmw__list">
+              <li class="coinbase-hmw__item">
+                <img class="coinbase-hmw__icon" src="../images/coinbase/hmw-search.svg?v=20260603" width="60" height="60" alt="" decoding="async">
+                <div class="coinbase-hmw__item-copy">
+                  <h4 class="coinbase-problem-content__heading">Seamless integration</h4>
+                  <p class="coinbase-problem-content__text">Integrate entry points to incentives, without disrupting the user’s happy path</p>
+                </div>
+              </li>
+              <li class="coinbase-hmw__item">
+                <img class="coinbase-hmw__icon" src="../images/coinbase/hmw-progress.svg?v=20260603" width="60" height="60" alt="" decoding="async">
+                <div class="coinbase-hmw__item-copy">
+                  <h4 class="coinbase-problem-content__heading">Progress tracking</h4>
+                  <p class="coinbase-problem-content__text">Provide a permanent home for progress tracking and re-entry - maintaining consistency across mobile/web.</p>
+                </div>
+              </li>
+              <li class="coinbase-hmw__item">
+                <img class="coinbase-hmw__icon" src="../images/coinbase/hmw-motion.svg?v=20260603" width="60" height="60" alt="" decoding="async">
+                <div class="coinbase-hmw__item-copy">
+                  <h4 class="coinbase-problem-content__heading">Motion and visuals</h4>
+                  <p class="coinbase-problem-content__text">Incorporate strong motion and visuals for success and primary entry points</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="coinbase-entry-points" class="coinbase-case-section coinbase-entry-points" hidden aria-labelledby="coinbase-entry-points-heading">
+      <div class="coinbase-case-section__heading">
+        <h3 id="coinbase-entry-points-heading" class="coinbase-case-section__title">How might we seamlessly integrate entry points to incentives?</h3>
+      </div>
+      <div class="coinbase-entry-points__content">
+        <div class="coinbase-entry-points__body">
+          <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">After exploring multiple placement options across the perpetuals flow, these were the final entry point proposals we pushed — each designed to surface the onboarding incentive without pulling users off their happy path.</p>
+          <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">There are various possible entry points around the product - with varying levels of prominence.</p>
+          <div class="coinbase-entry-proposals">
+            <div class="coinbase-audit-flow__screens" aria-label="Entry point proposals">
+              <figure class="coinbase-audit-flow__screen">
+                <img src="../images/coinbase/entrypt1.svg?v=20260604" width="423" height="882" alt="Entry point proposal 1" loading="lazy" decoding="async">
+              </figure>
+              <figure class="coinbase-audit-flow__screen">
+                <img src="../images/coinbase/entrypt2.svg?v=20260603" width="423" height="882" alt="Entry point proposal 2" loading="lazy" decoding="async">
+              </figure>
+              <figure class="coinbase-audit-flow__screen">
+                <img src="../images/coinbase/entrypt3.svg?v=20260603" width="423" height="882" alt="Entry point proposal 3" loading="lazy" decoding="async">
+              </figure>
+              <figure class="coinbase-audit-flow__screen">
+                <img src="../images/coinbase/entrypt4.svg?v=20260603" width="423" height="882" alt="Entry point proposal 4" loading="lazy" decoding="async">
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="coinbase-progress-tracking" class="coinbase-case-section coinbase-progress-tracking" hidden aria-labelledby="coinbase-progress-tracking-heading">
+      <div class="coinbase-case-section__heading">
+        <h3 id="coinbase-progress-tracking-heading" class="coinbase-case-section__title">How might we provide a permanent entry point for progress tracking?</h3>
+      </div>
+      <div class="coinbase-progress-tracking__content">
+        <div class="coinbase-progress-tracking__body">
+          <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">We wanted this progress tracker to live on the portfolio tab - a tab where users come to view their overall crypto portfolio and positions.</p>
+          <div class="coinbase-guardrails coinbase-progress-variants" aria-label="Progress tracker placement variants">
+            <div class="coinbase-guardrails__track">
+              <article class="coinbase-guardrails__card">
+                <figure class="coinbase-guardrails__media coinbase-solution-gradient">
+                  <img src="../images/coinbase/progress-1.svg?v=20260603" width="651" height="500" alt="Progress Bar and Illustration progress tracker variant" loading="lazy" decoding="async">
+                </figure>
+                <p class="coinbase-problem-content__text coinbase-guardrails__description">Progress Bar &amp; Illustration</p>
+              </article>
+              <article class="coinbase-guardrails__card">
+                <figure class="coinbase-guardrails__media coinbase-solution-gradient">
+                  <img src="../images/coinbase/progress-2.svg?v=20260603" width="651" height="500" alt="Percent Progress Tracker variant" loading="lazy" decoding="async">
+                </figure>
+                <p class="coinbase-problem-content__text coinbase-guardrails__description">% Progress Tracker</p>
+              </article>
+              <article class="coinbase-guardrails__card">
+                <figure class="coinbase-guardrails__media coinbase-solution-gradient">
+                  <img src="../images/coinbase/progress-3.svg?v=20260603" width="651" height="500" alt="Step Navigation progress tracker variant" loading="lazy" decoding="async">
+                </figure>
+                <p class="coinbase-problem-content__text coinbase-guardrails__description">Step Navigation</p>
+              </article>
+            </div>
+          </div>
+          <div class="coinbase-progress-tracking__comparison">
+            <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">We explored different options to present progress and let users navigate between steps.</p>
+            <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">The progress bar with illustration kept users focused but hid what came next, and reused a Standard-mode card that didn&rsquo;t match Advanced&rsquo;s visual language. A percentage-based tracker showed one step at a time without illustration—less engaging, and a percent readout added little value for a three-step flow. Horizontal card navigation got us closer, but critique surfaced a mismatch: that style already signals distinct upsells in the app (for example, earn by trading versus earn by referring a friend), which felt out of place for connected, sequential steps.</p>
+          </div>
+          <div class="coinbase-search-solution coinbase-progress-solution">
+            <p class="coinbase-search-solution__label">Final solution: step indicator with dynamic CTAs</p>
+            <div class="coinbase-search-solution__layout">
+              <figure class="coinbase-search-solution__media coinbase-solution-gradient">
+                <img src="../images/coinbase/progress-final.svg?v=20260603" width="889" height="500" alt="Final progress tracker solution on portfolio tab" loading="lazy" decoding="async">
+              </figure>
+              <ul class="coinbase-search-solution__notes" aria-label="Final solution pros">
+                <li class="coinbase-search-solution__point">
+                  <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
+                  <p class="coinbase-problem-content__text">A header that signals this is a rewards experience.</p>
+                </li>
+                <li class="coinbase-search-solution__point">
+                  <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
+                  <p class="coinbase-problem-content__text">A step indicator that shows what the process entails, with users automatically scrolled to the relevant step.</p>
+                </li>
+                <li class="coinbase-search-solution__point">
+                  <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
+                  <p class="coinbase-problem-content__text">A CTA that updates based on the step a user is in.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="coinbase-delight" class="coinbase-case-section coinbase-delight" hidden aria-labelledby="coinbase-delight-heading">
+      <div class="coinbase-case-section__heading">
+        <h3 id="coinbase-delight-heading" class="coinbase-case-section__title">How might we design for delight?</h3>
+      </div>
+      <div class="coinbase-delight__content">
+        <div class="coinbase-delight__body">
+          <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">Through most of my past experiences, I had always seen myself as a functional designer especially having an engineering background.</p>
+          <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">I challenged myself to make 100s of explorations of the same screens. I tried prototyping animations, creating illustrations myself, and leveraging Figma&rsquo;s many plugins to skew screens.</p>
+          <div class="coinbase-delight__showcase" aria-label="Motion and visual explorations">
+            <div class="coinbase-delight__screens">
+              <figure class="coinbase-delight__screen">
+                <img src="../images/coinbase/motion-2.svg?v=20260606" width="405" height="828" alt="Motion exploration 2" loading="lazy" decoding="async">
+              </figure>
+              <figure class="coinbase-delight__screen">
+                <img src="../images/coinbase/motion-3.svg?v=20260606" width="405" height="842" alt="Motion exploration 3" loading="lazy" decoding="async">
+              </figure>
+              <figure class="coinbase-delight__screen">
+                <img src="../images/coinbase/motion-4.svg?v=20260606" width="405" height="842" alt="Motion exploration 4" loading="lazy" decoding="async">
+              </figure>
+              <figure class="coinbase-delight__screen">
+                <img src="../images/coinbase/motion-5.svg?v=20260606" width="405" height="842" alt="Motion exploration 5" loading="lazy" decoding="async">
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="coinbase-final-prototype" class="coinbase-case-section coinbase-final-prototype" hidden aria-labelledby="coinbase-final-prototype-heading" aria-label="Final solution and reflections">
+      <div class="coinbase-case-section__heading">
+        <h3 id="coinbase-final-prototype-heading" class="coinbase-case-section__title">Final solution &amp; reflections</h3>
+      </div>
+      <div class="coinbase-final-prototype__content">
+        <div class="coinbase-final-prototype__media coinbase-final-gradient">
+          <div class="coinbase-final-prototype__frame">
+            <video
+              id="coinbase-final-prototype-video"
+              class="coinbase-final-prototype__video"
+              playsinline
+              muted
+              loop
+              preload="metadata"
+              aria-label="Final perpetuals trading prototype walkthrough"
+            >
+              <source src="../images/coinbase/final-prototype-mobile.mp4?v=20260603mobile" type="video/mp4">
+            </video>
+          </div>
+          <button type="button" class="coinbase-final-prototype__control" aria-pressed="true" aria-label="Pause prototype video">
+            <span class="coinbase-final-prototype__control-icon coinbase-final-prototype__control-icon--pause" aria-hidden="true">
+              <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="1.5" width="3.5" height="11" rx="0.75"/><rect x="8.5" y="1.5" width="3.5" height="11" rx="0.75"/></svg>
+            </span>
+            <span class="coinbase-final-prototype__control-icon coinbase-final-prototype__control-icon--play" aria-hidden="true">
+              <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M4 2.2v9.6L11.5 7 4 2.2z"/></svg>
+            </span>
+            <span class="coinbase-final-prototype__control-label">Pause</span>
+          </button>
+        </div>
+        <div class="coinbase-final-prototype__reflections" aria-label="Reflections">
+          <div class="coinbase-final-prototype__reflection">
+            <h4 class="coinbase-problem-content__heading">Detach instance</h4>
+            <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">Push yourself to explore &mdash; be creative and test the boundaries of the systems which you&rsquo;re confined to.</p>
+          </div>
+          <div class="coinbase-final-prototype__reflection">
+            <h4 class="coinbase-problem-content__heading">Leverage your team</h4>
+            <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">Leverage the resources around you, especially adjacent design partners.</p>
+          </div>
+          <div class="coinbase-final-prototype__reflection">
+            <h4 class="coinbase-problem-content__heading">Prototype to get closer to the user&rsquo;s experience</h4>
+            <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">Striking the balance between business and user needs through prototyping.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <dialog class="coinbase-image-lightbox" id="coinbase-image-lightbox" aria-label="Expanded progress tracker variant">
+      <div class="coinbase-image-lightbox__panel">
+        <button type="button" class="coinbase-image-lightbox__close" aria-label="Close expanded view">&times;</button>
+        <img class="coinbase-image-lightbox__img" src="" alt="">
+      </div>
+    </dialog>
 
     <div class="site-case-tail">
       <footer class="site-footer">
@@ -2100,6 +2956,13 @@
         var tradeModesMounted = false;
         var tradeModesReady = false;
         var contextExtraDone = false;
+        var auditFlowMounted = false;
+        var entryPointsMounted = false;
+        var progressTrackingMounted = false;
+        var delightMounted = false;
+        var finalPrototypeMounted = false;
+        var finalPrototypeVideoReady = false;
+        var progressLightboxBound = false;
         var learningsRenamed = false;
         var problemContentMounted = false;
         var opportunityMounted = false;
@@ -2258,6 +3121,172 @@
           return null;
         }
 
+        function mountAuditFlowSection() {
+          if (auditFlowMounted) return;
+          var section = document.getElementById('coinbase-audit-flow');
+          if (!section) return;
+          var contextBlock = findContextBlock();
+          if (!contextBlock || !contextBlock.parentNode) return;
+          contextBlock.insertAdjacentElement('afterend', section);
+          section.hidden = false;
+          auditFlowMounted = true;
+        }
+
+        function mountEntryPointsSection() {
+          if (entryPointsMounted) return;
+          var section = document.getElementById('coinbase-entry-points');
+          if (!section) return;
+          var auditFlow = document.getElementById('coinbase-audit-flow');
+          if (!auditFlow || !auditFlow.parentNode) return;
+          auditFlow.insertAdjacentElement('afterend', section);
+          section.hidden = false;
+          entryPointsMounted = true;
+        }
+
+        function mountProgressTrackingSection() {
+          if (progressTrackingMounted) return;
+          var section = document.getElementById('coinbase-progress-tracking');
+          if (!section) return;
+          var entryPoints = document.getElementById('coinbase-entry-points');
+          if (!entryPoints || !entryPoints.parentNode) return;
+          entryPoints.insertAdjacentElement('afterend', section);
+          section.hidden = false;
+          progressTrackingMounted = true;
+        }
+
+        function mountDelightSection() {
+          if (delightMounted) return;
+          var section = document.getElementById('coinbase-delight');
+          if (!section) return;
+          var progressTracking = document.getElementById('coinbase-progress-tracking');
+          if (!progressTracking || !progressTracking.parentNode) return;
+          progressTracking.insertAdjacentElement('afterend', section);
+          section.hidden = false;
+          delightMounted = true;
+        }
+
+        function mountFinalPrototypeSection() {
+          if (finalPrototypeMounted) return;
+          var section = document.getElementById('coinbase-final-prototype');
+          if (!section) return;
+          var delight = document.getElementById('coinbase-delight');
+          if (!delight || !delight.parentNode) return;
+          delight.insertAdjacentElement('afterend', section);
+          section.hidden = false;
+          finalPrototypeMounted = true;
+        }
+
+        function initFinalPrototypeVideo() {
+          if (finalPrototypeVideoReady) return;
+          var video = document.getElementById('coinbase-final-prototype-video');
+          var control = document.querySelector('.coinbase-final-prototype__control');
+          if (!video || !control) return;
+          finalPrototypeVideoReady = true;
+
+          var label = control.querySelector('.coinbase-final-prototype__control-label');
+          var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+          function syncControl() {
+            var paused = video.paused;
+            control.classList.toggle('is-paused', paused);
+            control.setAttribute('aria-pressed', paused ? 'false' : 'true');
+            control.setAttribute('aria-label', paused ? 'Play prototype video' : 'Pause prototype video');
+            if (label) label.textContent = paused ? 'Play' : 'Pause';
+          }
+
+          control.addEventListener('click', function () {
+            if (video.paused) {
+              video.play().catch(function () {});
+            } else {
+              video.pause();
+            }
+          });
+
+          video.addEventListener('play', syncControl);
+          video.addEventListener('pause', syncControl);
+          syncControl();
+
+          if (prefersReducedMotion) {
+            video.pause();
+            video.removeAttribute('autoplay');
+            return;
+          }
+
+          video.setAttribute('autoplay', '');
+          video.play().catch(function () {
+            video.pause();
+            syncControl();
+          });
+        }
+
+        function initProgressVariantLightbox() {
+          if (progressLightboxBound) return;
+          var lightbox = document.getElementById('coinbase-image-lightbox');
+          if (!lightbox || !lightbox.showModal) return;
+          var lightboxImg = lightbox.querySelector('.coinbase-image-lightbox__img');
+          var closeBtn = lightbox.querySelector('.coinbase-image-lightbox__close');
+          if (!lightboxImg || !closeBtn) return;
+
+          function openLightbox(thumb) {
+            lightboxImg.src = thumb.currentSrc || thumb.src;
+            lightboxImg.alt = thumb.alt || '';
+            lightbox.showModal();
+            closeBtn.focus();
+          }
+
+          function closeLightbox() {
+            if (lightbox.open) lightbox.close();
+          }
+
+          function bindZoomableFigure(thumb) {
+            var media = thumb.closest(
+              '.coinbase-guardrails__media, .coinbase-search-solution__media, .coinbase-delight__screen'
+            );
+            if (!media || media.dataset.lightboxBound === 'true') return;
+            media.dataset.lightboxBound = 'true';
+            if (media.classList.contains('coinbase-search-solution__media')) {
+              media.classList.add('coinbase-search-solution__media--zoomable');
+            } else if (media.classList.contains('coinbase-delight__screen')) {
+              media.classList.add('coinbase-delight__screen--zoomable');
+            } else {
+              media.classList.add('coinbase-guardrails__media--zoomable');
+            }
+            media.setAttribute('role', 'button');
+            media.setAttribute('tabindex', '0');
+            media.setAttribute(
+              'aria-label',
+              'View larger: ' + (thumb.alt || 'progress tracker image')
+            );
+            media.addEventListener('click', function () {
+              openLightbox(thumb);
+            });
+            media.addEventListener('keydown', function (e) {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(thumb);
+              }
+            });
+          }
+
+          document
+            .querySelectorAll(
+              '.coinbase-progress-variants .coinbase-guardrails__media img, .coinbase-progress-solution .coinbase-search-solution__media img, .coinbase-delight__screens .coinbase-delight__screen img'
+            )
+            .forEach(bindZoomableFigure);
+
+          closeBtn.addEventListener('click', closeLightbox);
+          lightbox.addEventListener('click', function (e) {
+            if (
+              e.target === lightbox ||
+              e.target.classList.contains('coinbase-image-lightbox__panel')
+            ) {
+              closeLightbox();
+            }
+          });
+          lightbox.addEventListener('cancel', closeLightbox);
+          progressLightboxBound = true;
+        }
+
         function stretchContextTextColumn(contextBlock) {
           if (!contextBlock) contextBlock = findContextBlock();
           if (!contextBlock) return;
@@ -2274,21 +3303,141 @@
           if (!contextBlock) contextBlock = findContextBlock();
           if (!contextBlock) return;
           stretchContextTextColumn(contextBlock);
-          if (contextExtraDone) return;
-          if (contextBlock.querySelector('.coinbase-context-extra')) {
-            contextExtraDone = true;
-            return;
-          }
           var body = contextBlock.querySelector('.framer-silqe3');
           if (!body) return;
-          var extra = document.createElement('p');
-          extra.className = 'framer-styles-preset-1c8iaiz coinbase-context-extra';
-          extra.setAttribute('data-styles-preset', 'qkjogPjJl');
-          extra.textContent =
-            'This project was uniquely positioned - impacting multiple teams across the Standard and Advanced trading modes. I was the lead designer, collaborating with a PM and engineering team.';
-          body.appendChild(extra);
+
+          if (!contextBlock.querySelector('.coinbase-context-problem')) {
+            var problem = document.createElement('p');
+            problem.className = 'framer-styles-preset-1c8iaiz coinbase-context-problem';
+            problem.setAttribute('data-styles-preset', 'qkjogPjJl');
+            problem.textContent =
+              'The problem was that only 0.24% of Coinbase users trade perpetual futures with Coinbase, despite derivatives accounting for 78.2% of global crypto trading volume.';
+            body.appendChild(problem);
+          }
+
+          if (!contextBlock.querySelector('.coinbase-context-goal')) {
+            var goal = document.createElement('p');
+            goal.className = 'framer-styles-preset-1c8iaiz coinbase-context-goal';
+            goal.setAttribute('data-styles-preset', 'qkjogPjJl');
+            goal.textContent =
+              'Our goal was to introduce an onboarding incentive to drive user growth through offering 40 USDC upon first futures trade.';
+            body.appendChild(goal);
+          }
+
+          if (!contextBlock.querySelector('.coinbase-context-business-goal')) {
+            var figure = document.createElement('figure');
+            figure.className = 'coinbase-context-business-goal';
+            figure.setAttribute('aria-label', 'Business goal: onboarding incentive for first futures trade');
+            var img = document.createElement('img');
+            img.src = '../images/coinbase/business-goal.svg?v=20260602';
+            img.width = 960;
+            img.height = 433;
+            img.alt = 'Coinbase onboarding incentive offering 40 USDC on first futures trade';
+            img.decoding = 'async';
+            img.loading = 'lazy';
+            figure.appendChild(img);
+            body.appendChild(figure);
+          }
+
+          injectActivationJourney(contextBlock, body);
+
           stretchContextTextColumn(contextBlock);
           contextExtraDone = true;
+        }
+
+        function injectActivationJourney(contextBlock, body) {
+          if (!contextBlock || !body) return;
+          if (contextBlock.querySelector('.coinbase-activation-journey')) return;
+
+          var journey = document.createElement('section');
+          journey.className = 'coinbase-activation-journey';
+          journey.setAttribute('aria-label', 'User journey to activation');
+
+          var intro = document.createElement('p');
+          intro.className = 'framer-styles-preset-1c8iaiz coinbase-activation-journey__intro';
+          intro.setAttribute('data-styles-preset', 'qkjogPjJl');
+          intro.textContent = 'Users have 3 key steps on their journey to activation.';
+
+          var track = document.createElement('div');
+          track.className = 'coinbase-activation-journey__track';
+
+          var line = document.createElement('div');
+          line.className = 'coinbase-activation-journey__line';
+          line.setAttribute('aria-hidden', 'true');
+
+          var visuals = document.createElement('div');
+          visuals.className = 'coinbase-activation-journey__visuals';
+
+          var steps = document.createElement('div');
+          steps.className = 'coinbase-activation-journey__steps';
+
+          var iconBase = '../images/coinbase/activation-journey/';
+          var stepData = [
+            {
+              icon: iconBase + 'id.svg?v=20260602',
+              title: '01 Apply',
+              desc: 'Apply for a perpetual futures account and get approved',
+              alt: 'Apply for a perpetual futures account'
+            },
+            {
+              icon: iconBase + 'borrow.svg?v=20260602',
+              title: '02 Transfer',
+              desc: 'Deposit funds into perpetuals portfolio',
+              alt: 'Deposit funds into perpetuals portfolio'
+            },
+            {
+              icon: iconBase + 'trading.svg?v=20260602',
+              title: '03 Trade',
+              desc: 'Trade perpetual futures and open a position',
+              alt: 'Trade perpetual futures and open a position'
+            }
+          ];
+
+          stepData.forEach(function (step) {
+            var iconWrap = document.createElement('figure');
+            iconWrap.className = 'coinbase-activation-journey__icon';
+            var iconFrame = document.createElement('div');
+            iconFrame.className = 'coinbase-activation-journey__frame';
+            var iconImg = document.createElement('img');
+            iconImg.src = step.icon;
+            iconImg.width = 88;
+            iconImg.height = 88;
+            iconImg.alt = step.alt;
+            iconImg.decoding = 'async';
+            iconImg.loading = 'lazy';
+            iconFrame.appendChild(iconImg);
+            iconWrap.appendChild(iconFrame);
+            visuals.appendChild(iconWrap);
+
+            var item = document.createElement('article');
+            item.className = 'coinbase-activation-journey__step';
+
+            var copy = document.createElement('div');
+            copy.className = 'coinbase-activation-journey__copy';
+
+            var titleEl = document.createElement('h4');
+            titleEl.className =
+              'framer-styles-preset-1mgyxpm coinbase-problem-content__heading coinbase-activation-journey__step-title';
+            titleEl.setAttribute('data-styles-preset', 'oyJfEZAy8');
+            titleEl.textContent = step.title;
+
+            var desc = document.createElement('p');
+            desc.className = 'framer-styles-preset-1c8iaiz coinbase-activation-journey__step-desc';
+            desc.setAttribute('data-styles-preset', 'qkjogPjJl');
+            desc.textContent = step.desc;
+
+            copy.appendChild(titleEl);
+            copy.appendChild(desc);
+            item.appendChild(copy);
+            steps.appendChild(item);
+          });
+
+          track.appendChild(line);
+          track.appendChild(visuals);
+          journey.appendChild(intro);
+          journey.appendChild(track);
+          journey.appendChild(steps);
+          body.appendChild(journey);
         }
 
         function mountTradeModes() {
@@ -2348,6 +3497,14 @@
           titleText.textContent = 'Drive user growth to perpetuals trading';
         }
 
+        function updateReadTime() {
+          var readWrap = document.querySelector('#main .framer-wslfdh');
+          if (!readWrap || readWrap.dataset.readTimeUpdated) return;
+          var readText = readWrap.querySelector('h6, p');
+          if (readText) readText.textContent = 'Estimated 8 min read';
+          readWrap.dataset.readTimeUpdated = 'true';
+        }
+
         function swapHeroImage() {
           var hero = document.querySelector('#main .framer-1y1xs');
           if (!hero || hero.dataset.perpetualsHeroSwapped) return;
@@ -2356,37 +3513,26 @@
           hero.style.background = 'transparent';
           hero.style.backgroundImage = 'none';
 
-          var scene = document.createElement('div');
-          scene.className = 'coinbase-perpetuals-phones';
-          scene.setAttribute('aria-hidden', 'true');
+          var img = document.createElement('img');
+          img.src = '../images/coinbase/coinbase-mobile.svg?v=20260602';
+          hero.style.setProperty('display', 'flex', 'important');
+          hero.style.setProperty('justify-content', 'center', 'important');
+          hero.style.setProperty('align-items', 'center', 'important');
+          img.alt = 'Coinbase perpetuals mobile screens';
+          img.className = 'coinbase-perpetuals-hero__image';
+          img.width = 1779;
+          img.height = 814;
+          img.decoding = 'async';
 
-          [
-            {
-              src: '../images/coinbase/screen-1.svg?v=20260604',
-              alt: 'Coinbase Perpetuals mobile screen'
-            },
-            {
-              src: '../images/coinbase/screen-2.svg?v=20260604',
-              alt: 'Coinbase tutorial mobile screen'
-            },
-            {
-              src: '../images/coinbase/screen-3.svg?v=20260604',
-              alt: 'Coinbase portfolio mobile screen'
-            }
-          ].forEach(function (phone) {
-            var img = document.createElement('img');
-            img.src = phone.src;
-            img.alt = phone.alt;
-            img.className = 'coinbase-perpetuals-phones__phone';
-            img.width = 437;
-            img.height = 896;
-            img.decoding = 'async';
-            scene.appendChild(img);
-          });
-
-          hero.appendChild(scene);
+          var clip = document.createElement('div');
+          clip.className = 'coinbase-perpetuals-hero__clip';
+          clip.appendChild(img);
+          hero.appendChild(clip);
+          hero.classList.add('coinbase-perpetuals-hero');
           hero.style.setProperty('min-height', '0', 'important');
           hero.style.setProperty('height', 'auto', 'important');
+          hero.style.setProperty('max-height', 'none', 'important');
+          hero.style.setProperty('overflow', 'hidden', 'important');
           hero.dataset.perpetualsHeroSwapped = 'true';
         }
 
@@ -2400,8 +3546,17 @@
           });
           hideLegacyFramerNodes();
           updateHeroTitle();
+          updateReadTime();
           swapHeroImage();
           updateContextCopy();
+          injectContextExtraParagraph();
+          mountAuditFlowSection();
+          mountEntryPointsSection();
+          mountProgressTrackingSection();
+          mountDelightSection();
+          mountFinalPrototypeSection();
+          initFinalPrototypeVideo();
+          initProgressVariantLightbox();
           revealCaseStudy();
         }
 
