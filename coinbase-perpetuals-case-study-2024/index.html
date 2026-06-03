@@ -8,7 +8,7 @@
     <!-- End of headStart -->
     <meta name="viewport" content="width=device-width">
     <meta name="generator" content="Framer 915daba">
-    <title>Redesigning search to improve discoverability at Coinbase — Shaahana Naufal</title>
+    <title>Drive user growth to perpetuals trading — Shaahana Naufal</title>
     <meta name="description" content="Case study on ML-based world recommendation notifications at Coinbase.">
     <meta name="framer-search-index" content="https://framerusercontent.com/sites/1Ne0Ti0K7hfsJEOedwVdtj/searchIndex-RoNjpdNjtRmd.json">
     <meta name="framer-html-plugin" content="disable">
@@ -16,7 +16,7 @@
     <link href="assets/images/4887e3_JR5rpakBNgRI9SHSfu6pcGmcuA.jpg" rel="icon" media="(prefers-color-scheme: dark)">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Redesigning search to improve discoverability at Coinbase">
+    <meta property="og:title" content="Drive user growth to perpetuals trading">
     <meta property="og:description" content="Case study on ML-based world recommendation notifications at Coinbase.">
     <meta property="og:image" content="assets/images/dcfab9_Hge79AkQI8IwsBdcC4J38f5MSQ.svg">
     <!-- Twitter -->
@@ -403,7 +403,7 @@
     text-align: left !important;
   }
   #main .framer-1y1xs {
-    aspect-ratio: 1440 / 900 !important;
+    aspect-ratio: 1436 / 1080 !important;
     width: 100% !important;
     max-width: none !important;
     align-self: stretch !important;
@@ -1344,12 +1344,10 @@
     position: relative;
     width: 90%;
     max-width: 90%;
-    min-height: clamp(400px, 52vw, 520px);
-    padding-bottom: 28px;
+    aspect-ratio: 1144 / 580;
     margin: 40px auto 0;
     align-self: center;
     isolation: isolate;
-    overflow: visible;
   }
   .coinbase-discoverability__card {
     position: absolute;
@@ -1362,114 +1360,12 @@
       transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
       z-index 0s linear 0.21s;
   }
-  .coinbase-reddit-post {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .coinbase-discoverability__card img {
+    display: block;
     width: 100%;
-    padding: 20px 22px 18px;
-    border: 1px solid var(--coinbase-stroke);
+    height: auto;
     border-radius: 12px;
-    background: #ffffff;
     box-shadow: 0 4px 16px rgba(10, 11, 13, 0.045);
-    box-sizing: border-box;
-    text-align: left;
-  }
-  .coinbase-reddit-post__meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0;
-  }
-  .coinbase-reddit-post__icon {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #0052ff;
-    color: #ffffff;
-    font-family: 'Manrope', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 28px;
-    text-align: center;
-  }
-  .coinbase-reddit-post__meta-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-  }
-  .coinbase-reddit-post__subreddit {
-    margin: 0;
-    font-family: 'Manrope', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.3;
-    color: var(--text);
-  }
-  .coinbase-reddit-post__subreddit span {
-    font-weight: 400;
-    color: var(--text-body);
-  }
-  .coinbase-reddit-post__user {
-    margin: 0;
-    font-family: 'Manrope', sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.3;
-    color: var(--text-body);
-  }
-  .coinbase-reddit-post__title {
-    margin: 0;
-    font-family: 'Manrope', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.35;
-    color: var(--text);
-  }
-  .coinbase-reddit-post__body {
-    margin: 0;
-    font-family: 'Manrope', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.55;
-    color: var(--text);
-  }
-  .coinbase-reddit-post__body ul {
-    margin: 8px 0 0;
-    padding-left: 18px;
-  }
-  .coinbase-reddit-post__body li + li {
-    margin-top: 6px;
-  }
-  .coinbase-reddit-post__actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    margin: 4px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  .coinbase-reddit-post__action {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border: 0;
-    border-radius: 999px;
-    background: #f2f4f5;
-    font-family: 'Manrope', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--text-muted);
-  }
-  .coinbase-reddit-post__action-icon {
-    font-size: 12px;
-    line-height: 1;
-    color: var(--text-body);
   }
   /* Shorter card — Figma: x 409, y 232, 0deg, 1069.74 × 314.85 */
   .coinbase-discoverability__card--back {
@@ -1508,21 +1404,6 @@
   @media (max-width: 809px) {
     .coinbase-discoverability__stack {
       margin-top: 32px;
-      min-height: 380px;
-      padding-bottom: 16px;
-    }
-    .coinbase-discoverability__copy--after-reddit {
-      margin-top: 32px;
-    }
-    .coinbase-reddit-post {
-      padding: 16px 18px 14px;
-      gap: 10px;
-    }
-    .coinbase-reddit-post__title {
-      font-size: 16px;
-    }
-    .coinbase-reddit-post__body {
-      font-size: 14px;
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -1545,9 +1426,6 @@
   .coinbase-discoverability-mount {
     display: block;
     width: 100%;
-  }
-  .coinbase-discoverability-mount[hidden] {
-    display: none !important;
   }
   .coinbase-guardrails {
     width: 100%;
@@ -2035,375 +1913,6 @@
       <span class="site-case-loading__label">Loading case study</span>
     </div>
 
-    <section id="coinbase-trade-modes" class="coinbase-trade-modes" hidden aria-label="Standard and Advanced trading modes">
-      <div class="coinbase-trade-modes__tabs" role="tablist" aria-label="Trading mode">
-        <button type="button" class="coinbase-trade-modes__tab" role="tab" id="coinbase-tab-standard" aria-selected="true" aria-controls="coinbase-panel-standard" data-mode="standard">
-          <img src="../images/coinbase/standard-icon.svg" width="22" height="22" alt="" decoding="async">
-          Standard
-        </button>
-        <button type="button" class="coinbase-trade-modes__tab" role="tab" id="coinbase-tab-advanced" aria-selected="false" aria-controls="coinbase-panel-advanced" data-mode="advanced" tabindex="-1">
-          <img src="../images/coinbase/advanced-icon.svg" width="22" height="22" alt="" decoding="async">
-          Advanced
-        </button>
-      </div>
-      <div class="coinbase-trade-modes__viewport">
-        <div class="coinbase-trade-modes__stage">
-          <img class="coinbase-trade-modes__screen is-active" id="coinbase-panel-standard" role="tabpanel" aria-labelledby="coinbase-tab-standard" src="../images/coinbase/standard-screen.svg?v=20260601" alt="Coinbase Standard trading screen" width="1440" height="900" decoding="async">
-          <img class="coinbase-trade-modes__screen" id="coinbase-panel-advanced" role="tabpanel" aria-labelledby="coinbase-tab-advanced" src="../images/coinbase/advanced-screen.svg?v=20260601" alt="Coinbase Advanced trading screen" width="1440" height="900" decoding="async">
-        </div>
-      </div>
-    </section>
-
-    <section id="coinbase-context-derivatives" class="coinbase-context-derivatives" hidden aria-label="What are derivatives?">
-      <div class="coinbase-problem-content__block">
-        <h4 class="framer-styles-preset-1mgyxpm coinbase-problem-content__heading" data-styles-preset="oyJfEZAy8">What are derivatives?</h4>
-        <p class="coinbase-problem-content__text">A type of contract where users agree to sell a particular asset at a predetermined point in time.</p>
-      </div>
-      <div class="coinbase-option-cell-wrap">
-        <figure class="coinbase-option-cell" tabindex="0" aria-label="Derivative contract cell example. Hover for annotations.">
-          <div class="coinbase-option-cell__callout coinbase-option-cell__callout--left" aria-hidden="true">
-            <span class="coinbase-option-cell__label">Contract Expiry Date</span>
-            <span class="coinbase-option-cell__line"></span>
-          </div>
-          <div class="coinbase-option-cell__frame">
-            <img src="../images/coinbase/option-cell.svg?v=20260601b" width="531" height="96" alt="BTC 30 NOV 24 derivative contract cell" decoding="async">
-          </div>
-          <div class="coinbase-option-cell__callout coinbase-option-cell__callout--right" aria-hidden="true">
-            <span class="coinbase-option-cell__line"></span>
-            <span class="coinbase-option-cell__label">BTC = Bitcoin</span>
-          </div>
-        </figure>
-      </div>
-    </section>
-
-    <section id="coinbase-problem-content" class="coinbase-problem-content" hidden aria-label="What's the problem?">
-      <div class="coinbase-problem-content__block">
-        <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">11,000 users are searching for derivatives while in Coinbase Standard where they are not discoverable or accessible. Users are getting dead-ended right away and end up churning.</p>
-        <div class="coinbase-problem-content__figure-wrap">
-          <figure class="coinbase-problem-content__figure">
-            <img src="../images/coinbase/derivatives-empty-search.svg?v=20260601" width="1440" height="336" alt="Empty search results for derivatives in Coinbase Standard" decoding="async">
-          </figure>
-        </div>
-      </div>
-      <div class="coinbase-problem-hmw">
-        <h4 class="coinbase-problem-hmw__title">How might we ....</h4>
-        <ul class="coinbase-hmw__list">
-          <li class="coinbase-hmw__item">
-            <img class="coinbase-hmw__icon" src="../images/coinbase/hmw-oil.svg?v=20260602" width="60" height="60" alt="" decoding="async">
-            <div class="coinbase-hmw__item-copy">
-              <h4 class="coinbase-problem-content__heading">Integrate global search</h4>
-              <p class="coinbase-problem-content__text">Allow users to search for derivatives including commodities such as oil/gold and crypto futures</p>
-            </div>
-          </li>
-          <li class="coinbase-hmw__item">
-            <img class="coinbase-hmw__icon" src="../images/coinbase/hmw-spot.svg?v=20260602" width="60" height="60" alt="" decoding="async">
-            <div class="coinbase-hmw__item-copy">
-              <h4 class="coinbase-problem-content__heading">Route users to Advanced</h4>
-              <p class="coinbase-problem-content__text">Clearly indicate where derivatives are found and reroute users to Advanced?</p>
-            </div>
-          </li>
-          <li class="coinbase-hmw__item">
-            <img class="coinbase-hmw__icon" src="../images/coinbase/hmw-explore.svg?v=20260602" width="60" height="60" alt="" decoding="async">
-            <div class="coinbase-hmw__item-copy">
-              <h4 class="coinbase-problem-content__heading">Derivatives w/o disruption</h4>
-              <p class="coinbase-problem-content__text">Include derivatives without disrupting the experience of those who it is not relevant to</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="coinbase-opportunity" class="coinbase-case-section coinbase-opportunity" hidden aria-labelledby="coinbase-opportunity-heading">
-      <div class="coinbase-case-section__heading">
-        <h3 id="coinbase-opportunity-heading" class="coinbase-case-section__title">User and market opportunity</h3>
-      </div>
-      <div class="coinbase-opportunity__content">
-        <h4 class="coinbase-problem-content__heading">Global search should be global: users should be able to view the breadth of Coinbase’s offerings.</h4>
-        <p class="coinbase-problem-content__text">Users should be able to view the breadth of Coinbase's offerings from anywhere in the product. Through research, we learned that 51% of Advanced traders also use Standard mode, thus the modes are not mutually exclusive.</p>
-        <ul class="coinbase-opportunity__quotes" aria-label="User quotes">
-          <li class="coinbase-opportunity__quote coinbase-opportunity__quote--left">
-            <div class="coinbase-opportunity__quote-tilt">
-              <div class="coinbase-opportunity__quote-avatar">
-                <img src="../images/coinbase/quote1.svg?v=20260601" width="48" height="48" alt="" decoding="async">
-              </div>
-              <blockquote class="coinbase-opportunity__quote-bubble">I had no idea there was even another mode 🤯</blockquote>
-            </div>
-          </li>
-          <li class="coinbase-opportunity__quote coinbase-opportunity__quote--right">
-            <div class="coinbase-opportunity__quote-tilt">
-              <div class="coinbase-opportunity__quote-avatar">
-                <img src="../images/coinbase/quote2.svg?v=20260601" width="48" height="48" alt="" decoding="async">
-              </div>
-              <blockquote class="coinbase-opportunity__quote-bubble">Ahh, so that's where it is!</blockquote>
-            </div>
-          </li>
-        </ul>
-        <p class="coinbase-opportunity__research">I dove into market research to better understand the general opportunity and how Coinbase is currently doing in the market. Anchoring to this data helped me advocate for design decisions down the line and explain the gap.</p>
-        <p class="coinbase-opportunity__research">From a business perspective, we had only 13,000 users trading derivatives in the US or 0.24% of Coinbase users, despite derivatives accounting for 78.2% of global crypto trading volume. There’s an untapped market here, and improving discoverability brings us closer to reaching that 78.2%.</p>
-      </div>
-    </section>
-
-    <section id="coinbase-search-feel" class="coinbase-case-section coinbase-search-feel" hidden aria-labelledby="coinbase-search-feel-title">
-      <div class="coinbase-case-section__heading">
-        <h3 id="coinbase-search-feel-title" class="coinbase-case-section__title">How should search feel and results appear?</h3>
-      </div>
-      <div class="coinbase-search-feel__content">
-        <p class="coinbase-problem-content__text coinbase-search-feel__existing">
-          By default, a user will land in Standard mode. Once they open the search container, they see an infinite scroll and they can look through the 23,000 assets we have on Standard, or they can search for a derivative. If they search for a derivative like gold, they get no results. This results in users thinking that Coinbase doesn't offer the ability to trade gold, but it does, just on another mode.
-        </p>
-
-        <div class="coinbase-search-carousel" role="region" aria-label="Search exploration variants">
-          <div class="coinbase-search-carousel__track">
-            <article class="coinbase-search-card">
-              <p class="coinbase-search-card__label">Existing State</p>
-              <figure class="coinbase-search-card__figure">
-                <img src="../images/coinbase/existing.svg?v=20260604" width="651" height="500" alt="Existing State search results exploration" decoding="async">
-              </figure>
-            </article>
-
-            <article class="coinbase-search-card">
-              <p class="coinbase-search-card__label">Tagged Results</p>
-              <figure class="coinbase-search-card__figure">
-                <img src="../images/coinbase/option1.svg?v=20260604" width="651" height="500" alt="Tagged Results search exploration" decoding="async">
-              </figure>
-            </article>
-
-            <article class="coinbase-search-card">
-              <p class="coinbase-search-card__label">Card Upsell</p>
-              <figure class="coinbase-search-card__figure">
-                <img src="../images/coinbase/option2.svg?v=20260604" width="651" height="500" alt="Card Upsell search exploration" decoding="async">
-              </figure>
-            </article>
-
-            <article class="coinbase-search-card">
-              <p class="coinbase-search-card__label">Segmented Results</p>
-              <figure class="coinbase-search-card__figure">
-                <img src="../images/coinbase/option3.svg?v=20260604" width="651" height="500" alt="Segmented Results search exploration" decoding="async">
-              </figure>
-            </article>
-          </div>
-        </div>
-
-        <div class="coinbase-search-feel__summary">
-          <p class="coinbase-problem-content__text">The existing state offers infinite scroll across Standard assets, but it isn't a true global search.</p>
-          <p class="coinbase-problem-content__text">I explored tagging Advanced derivatives on L1 for clearer separation. It's technically complex (assets are stored separately across modes) and can distract Standard traders who should stay in Standard.</p>
-          <p class="coinbase-problem-content__text">A card upsell matched existing patterns and improved discoverability, but it still wasn't global search—and it pushed Standard results further down.</p>
-          <p class="coinbase-problem-content__text">Segmented containers separated Standard and Advanced clearly, but the nested two-container pattern felt inconsistent with familiar search patterns.</p>
-        </div>
-
-        <div class="coinbase-search-solution">
-          <p class="coinbase-search-solution__label">Final Solution: Filter &amp; Banner</p>
-          <div class="coinbase-search-solution__layout">
-            <figure class="coinbase-search-solution__media">
-              <video src="../images/coinbase/search-only.mp4" width="651" height="500" autoplay muted loop playsinline preload="metadata" aria-label="Final search solution demonstration"></video>
-            </figure>
-            <ul class="coinbase-search-solution__notes" aria-label="Solution pros">
-              <li class="coinbase-search-solution__point">
-                <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
-                <p class="coinbase-problem-content__text">Clear separation of results on Standard and Advanced</p>
-              </li>
-              <li class="coinbase-search-solution__point">
-                <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
-                <p class="coinbase-problem-content__text">Consistency with existing visual and interaction patterns</p>
-              </li>
-              <li class="coinbase-search-solution__point">
-                <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
-                <p class="coinbase-problem-content__text">Non-dismissible banner informing users derivatives are traded on Advanced</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="coinbase-cell-look" class="coinbase-case-section coinbase-cell-look" hidden aria-labelledby="coinbase-cell-look-title">
-      <div class="coinbase-case-section__heading">
-        <h3 id="coinbase-cell-look-title" class="coinbase-case-section__title">How does each cell look?</h3>
-      </div>
-      <div class="coinbase-cell-look__content">
-        <p class="coinbase-problem-content__text">The next design decision was identifying what content we should include in each cell. Derivatives and standard cryptocurrency have different pieces of information. We need to include more information but are confined to the same width and height.</p>
-        <div class="coinbase-cell-look__compare">
-          <figure class="coinbase-cell-look__item">
-            <img src="../images/coinbase/standard-cell.svg?v=20260604" width="531" height="96" alt="Standard mode search result cell" decoding="async">
-            <figcaption class="coinbase-cell-look__label">Standard</figcaption>
-          </figure>
-          <figure class="coinbase-cell-look__item">
-            <img src="../images/coinbase/advanced-cell.svg?v=20260604" width="533" height="99" alt="Advanced mode search result cell" decoding="async">
-            <figcaption class="coinbase-cell-look__label">Advanced</figcaption>
-          </figure>
-        </div>
-
-        <div class="coinbase-search-solution">
-          <p class="coinbase-search-solution__label">Final Solution: Contract Name &amp; Ticker</p>
-          <div class="coinbase-search-solution__layout">
-            <figure class="coinbase-search-solution__media coinbase-search-solution__media--ticker coinbase-solution-gradient">
-              <img src="../images/coinbase/ticker.svg?v=20260606" width="651" height="358" alt="Final cell design with contract name and ticker" decoding="async">
-            </figure>
-            <ul class="coinbase-search-solution__notes" aria-label="Solution pros">
-              <li class="coinbase-search-solution__point">
-                <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
-                <p class="coinbase-problem-content__text">Consistent with content on Advanced</p>
-              </li>
-              <li class="coinbase-search-solution__point">
-                <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
-                <p class="coinbase-problem-content__text">Technical labelling functions as a guardrail</p>
-              </li>
-              <li class="coinbase-search-solution__point">
-                <img class="coinbase-search-solution__icon" src="../images/coinbase/icon-check.svg?v=20260603" width="24" height="24" alt="" decoding="async">
-                <p class="coinbase-problem-content__text">Provides all relevant information for the user</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div id="coinbase-discoverability-mount" class="coinbase-discoverability-mount" hidden>
-    <section id="coinbase-discoverability" class="coinbase-case-section coinbase-discoverability" aria-labelledby="coinbase-discoverability-title">
-      <div class="coinbase-case-section__heading">
-        <h3 id="coinbase-discoverability-title" class="coinbase-case-section__title">How might we improve discoverability for our high-intent users?</h3>
-      </div>
-      <div class="coinbase-discoverability__content">
-        <div class="coinbase-discoverability__copy">
-          <p class="coinbase-problem-content__text">Today, users can switch between modes as easy as a toggle switch. We want to improve discoverability for users like our graduating standard trader and advanced trader, but we don't want the standard trader to get lost in Advanced mode.</p>
-          <p class="coinbase-problem-content__text">Our user research team was worried that doing this would take standard users to Advanced accidentally. They'd become lost, and exit the product completely. Secondary research via tools like Reddit amplified this.</p>
-        </div>
-        <div class="coinbase-discoverability__stack" role="group" aria-label="Reddit research posts">
-          <figure class="coinbase-discoverability__card coinbase-discoverability__card--back">
-            <article class="coinbase-reddit-post">
-              <header class="coinbase-reddit-post__meta">
-                <div class="coinbase-reddit-post__icon" aria-hidden="true">C</div>
-                <div class="coinbase-reddit-post__meta-copy">
-                  <p class="coinbase-reddit-post__subreddit">r/CoinBase <span>· 1 yr. ago</span></p>
-                  <p class="coinbase-reddit-post__user">Tasty-Job-2592</p>
-                </div>
-              </header>
-              <h4 class="coinbase-reddit-post__title">Advance trade gone on mobile, why?</h4>
-              <div class="coinbase-reddit-post__body">So advance trade isn't showing as an option on the tab 'trade' on mobile app, is this any different on desktop? If not is this permanent, if anyone could bring any insight on this it would be perfect</div>
-              <footer class="coinbase-reddit-post__actions" aria-label="Post actions">
-                <span class="coinbase-reddit-post__action"><span class="coinbase-reddit-post__action-icon" aria-hidden="true">▲</span> 15</span>
-                <span class="coinbase-reddit-post__action">43 comments</span>
-                <span class="coinbase-reddit-post__action">Share</span>
-              </footer>
-            </article>
-          </figure>
-          <figure class="coinbase-discoverability__card coinbase-discoverability__card--front">
-            <article class="coinbase-reddit-post">
-              <header class="coinbase-reddit-post__meta">
-                <div class="coinbase-reddit-post__icon" aria-hidden="true">C</div>
-                <div class="coinbase-reddit-post__meta-copy">
-                  <p class="coinbase-reddit-post__subreddit">r/CoinBase <span>· 2 yr. ago</span></p>
-                  <p class="coinbase-reddit-post__user">Smart_Breakfast5126</p>
-                </div>
-              </header>
-              <h4 class="coinbase-reddit-post__title">Is Coinbase ONE same as Pro/Advanced?</h4>
-              <div class="coinbase-reddit-post__body">
-                <p>In short I'm getting into the automated world and saw the "zero trading fees" for CBOne. That sounds cool, but I don't understand if for example:</p>
-                <ul>
-                  <li>I'm using normal CBase, have API linked with automaters</li>
-                  <li>I purchase CBOne</li>
-                  <li>Would the zero-trade-fee just magically kick-in and be awesome? Or is it like a different service/wallet?</li>
-                </ul>
-                <p>Sorry noob question.</p>
-              </div>
-              <footer class="coinbase-reddit-post__actions" aria-label="Post actions">
-                <span class="coinbase-reddit-post__action"><span class="coinbase-reddit-post__action-icon" aria-hidden="true">▲</span> 7</span>
-                <span class="coinbase-reddit-post__action">46 comments</span>
-                <span class="coinbase-reddit-post__action">Share</span>
-              </footer>
-            </article>
-          </figure>
-        </div>
-        <div class="coinbase-discoverability__copy coinbase-discoverability__copy--after-reddit">
-          <p class="coinbase-problem-content__text">We explored a few different guardrails to ensure that we were pulling the right users into Advanced mode.</p>
-          <p class="coinbase-problem-content__text">Banner informing users that futures are traded in a different mode, with technical labelling on each cell. We also expanded outside of the search container, with a modal to confirm user's intent and understanding that they will be switched to Advanced, and a tooltip to clarify how to return to Coinbase Standard.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="coinbase-guardrails" aria-label="Search guardrails">
-      <div class="coinbase-guardrails__track">
-        <article class="coinbase-guardrails__card">
-          <figure class="coinbase-guardrails__media coinbase-solution-gradient">
-            <img src="../images/coinbase/guardrail-1.svg?v=20260614" width="651" height="734" alt="Banner and technical labelling for futures traded in Advanced mode" decoding="async">
-          </figure>
-          <p class="coinbase-problem-content__text coinbase-guardrails__description">Banner &amp; Technical Labelling</p>
-        </article>
-        <article class="coinbase-guardrails__card">
-          <figure class="coinbase-guardrails__media coinbase-solution-gradient">
-            <img src="../images/coinbase/guardrail-2.svg?v=20260613" width="956" height="735" alt="Modal confirming intent to switch to Advanced mode" decoding="async">
-          </figure>
-          <p class="coinbase-problem-content__text coinbase-guardrails__description">Modal</p>
-        </article>
-        <article class="coinbase-guardrails__card">
-          <figure class="coinbase-guardrails__media coinbase-solution-gradient">
-            <img src="../images/coinbase/guardrail-3.svg?v=20260613" width="956" height="735" alt="Tooltip and switch indicator for returning to Coinbase Standard" decoding="async">
-          </figure>
-          <p class="coinbase-problem-content__text coinbase-guardrails__description">Tooltip &amp; Switch Indicator</p>
-        </article>
-      </div>
-    </div>
-    </div>
-
-    <section id="coinbase-project-impact" class="coinbase-case-section coinbase-project-impact" hidden aria-labelledby="coinbase-project-impact-title">
-      <div class="coinbase-case-section__heading">
-        <h3 id="coinbase-project-impact-title" class="coinbase-case-section__title">Project Impact</h3>
-      </div>
-      <div class="coinbase-project-impact__content">
-        <div class="coinbase-problem-content__block">
-          <h4 class="coinbase-problem-content__heading">High touch, high impact</h4>
-          <p class="coinbase-problem-content__text">Designed on a surface with 847,480 weekly users and shipped within 2024.</p>
-        </div>
-        <div class="coinbase-problem-content__block">
-          <h4 class="coinbase-problem-content__heading">Scalability</h4>
-          <p class="coinbase-problem-content__text">Accelerated conversations regarding global search, across the consumer org and sought to understand how this project impacts the organization at a systems-thinking level.</p>
-        </div>
-        <div class="coinbase-problem-content__block">
-          <h4 class="coinbase-problem-content__heading">Simplifying complexity</h4>
-          <p class="coinbase-problem-content__text">Managed complexity through presenting derivatives on Standard, providing a contextual pathway to Advanced.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="coinbase-work-play" class="coinbase-case-section coinbase-work-play" hidden aria-labelledby="coinbase-work-play-title">
-      <div class="coinbase-case-section__heading">
-        <h3 id="coinbase-work-play-title" class="coinbase-case-section__title">Work &amp; play</h3>
-      </div>
-      <div class="coinbase-work-play__content">
-        <p class="coinbase-problem-content__text">I had a great time as an intern at Coinbase, learning in a high craft environment with a talented team and intern cohort. Grateful for the opportunity to join the team. <button type="button" class="coinbase-work-play__rocket-trigger" aria-label="Launch rocket">🚀</button></p>
-        <div class="coinbase-work-play__polaroids" role="group" aria-label="Coinbase internship moments">
-          <figure class="coinbase-work-play__polaroid coinbase-work-play__polaroid--1">
-            <div class="coinbase-work-play__frame">
-              <div class="coinbase-work-play__photo">
-                <img src="../images/coinbase/fun-1.svg?v=20260602" width="328" height="372" alt="Coinbase internship moment 1" decoding="async" loading="lazy">
-              </div>
-            </div>
-          </figure>
-          <figure class="coinbase-work-play__polaroid coinbase-work-play__polaroid--2">
-            <div class="coinbase-work-play__frame">
-              <div class="coinbase-work-play__photo">
-                <img src="../images/coinbase/fun-2.svg?v=20260602" width="327" height="371" alt="Coinbase internship moment 2" decoding="async" loading="lazy">
-              </div>
-            </div>
-          </figure>
-          <figure class="coinbase-work-play__polaroid coinbase-work-play__polaroid--3">
-            <div class="coinbase-work-play__frame">
-              <div class="coinbase-work-play__photo">
-                <img src="../images/coinbase/fun-3.svg?v=20260602" width="328" height="372" alt="Coinbase internship moment 3" decoding="async" loading="lazy">
-              </div>
-            </div>
-          </figure>
-          <figure class="coinbase-work-play__polaroid coinbase-work-play__polaroid--4">
-            <div class="coinbase-work-play__frame">
-              <div class="coinbase-work-play__photo">
-                <img src="../images/coinbase/fun-4.svg?v=20260602" width="327" height="371" alt="Coinbase internship moment 4" decoding="async" loading="lazy">
-              </div>
-            </div>
-          </figure>
-        </div>
-      </div>
-    </section>
-
     <div class="site-case-tail">
       <footer class="site-footer">
         <div class="site-footer__main">
@@ -2471,7 +1980,7 @@
           loadingEl.className = 'site-case-loading is-error';
           var isFile = location.protocol === 'file:';
           loadingEl.innerHTML = isFile
-            ? 'This page needs a local server — Chrome cannot load the case study from a file on disk. In Terminal, run <code>npm run serve</code> in the project folder, then open <code>http://localhost:8765/coinbase-case-study-2024/</code>.'
+            ? 'This page needs a local server — Chrome cannot load the case study from a file on disk. In Terminal, run <code>npm run serve</code> in the project folder, then open <code>http://localhost:8765/coinbase-perpetuals-case-study-2024/</code>.'
             : 'The case study did not load. Hard-refresh (<code>Cmd+Shift+R</code>), confirm <code>npm run serve</code> is running, and check the Console for red errors.';
         }
 
@@ -2496,6 +2005,7 @@
         var glowSelectors = ['#main', '#main .framer-q1wjr1'];
         var hideSelectors = [
           '.framer-d842hh',
+          '.framer-1fl6dup',
           '.framer-2fjxf8',
           '.framer-k4ap2i',
           '.framer-m7zsaz',
@@ -2545,7 +2055,6 @@
         }
         var observer = null;
         var pending = false;
-        var overridesDone = false;
         var tradeModesMounted = false;
         var tradeModesReady = false;
         var contextExtraDone = false;
@@ -2783,6 +2292,35 @@
           setMode('standard');
         }
 
+        function updateContextCopy() {
+          var context = document.querySelector('#main .framer-e0r1t5 .framer-4uj28v p');
+          if (!context || context.dataset.perpetualsUpdated) return;
+          context.textContent = 'Coinbase is a secure platform for buying, selling, and storing cryptocurrency. During Summer 2024, I worked on mobile initiatives to grow perpetuals trading — helping users discover and engage with perpetual futures products.';
+          context.dataset.perpetualsUpdated = 'true';
+        }
+
+        function updateHeroTitle() {
+          var titleWrap = document.querySelector('#main .framer-4wt03m');
+          if (!titleWrap) return;
+          var titleText = titleWrap.querySelector('p') || titleWrap;
+          titleText.textContent = 'Drive user growth to perpetuals trading';
+        }
+
+        function swapHeroImage() {
+          var hero = document.querySelector('#main .framer-1y1xs');
+          if (!hero || hero.dataset.perpetualsHeroSwapped) return;
+          var src = '../images/coinbase/coinbase-may.svg?v=20260603';
+          var img = hero.querySelector('img');
+          if (img) {
+            img.src = src;
+            img.removeAttribute('srcset');
+          }
+          hero.querySelectorAll('[style*="background-image"]').forEach(function (node) {
+            node.style.backgroundImage = 'url("' + src + '")';
+          });
+          hero.dataset.perpetualsHeroSwapped = 'true';
+        }
+
         function applyOverrides() {
           if (!document.querySelector('#main .framer-q1wjr1')) return;
           glowSelectors.forEach(function (selector) {
@@ -2792,25 +2330,14 @@
             });
           });
           hideLegacyFramerNodes();
-          injectContextExtraParagraph();
-          mountContextDerivatives();
-          renameLearningsHeading();
-          mountProblemContent();
-          mountOpportunitySection();
-          mountSearchFeelSection();
-          mountCellLookSection();
-          mountDiscoverabilitySection();
-          mountProjectImpactSection();
-          mountWorkPlaySection();
-          mountTradeModes();
-          if (problemContentMounted) {
-            overridesDone = true;
-            revealCaseStudy();
-          }
+          updateHeroTitle();
+          swapHeroImage();
+          updateContextCopy();
+          revealCaseStudy();
         }
 
         function scheduleOverrides() {
-          if (pending || overridesDone) return;
+          if (pending) return;
           pending = true;
           requestAnimationFrame(function () {
             pending = false;
@@ -2822,7 +2349,6 @@
           if (!window.MutationObserver || observer) return;
           observer = new MutationObserver(function (mutations) {
             hideLegacyFramerNodes();
-            if (overridesDone) return;
             for (var i = 0; i < mutations.length; i++) {
               if (mutations[i].addedNodes.length) {
                 scheduleOverrides();
