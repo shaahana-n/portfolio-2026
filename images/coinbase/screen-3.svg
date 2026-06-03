@@ -179,7 +179,7 @@
 <path d="M105.624 57.6674H108V44.3327H105.633L102.16 46.7815V49.0271L105.467 46.6799H105.624V57.6674Z" fill="white"/>
 <rect x="155" y="33" width="126" height="36" rx="18" fill="black"/>
 </g>
-<rect x="11" y="11" width="415" height="874" rx="59" stroke="white" stroke-opacity="0.5" stroke-width="22"/>
+<rect x="11" y="11" width="415" height="874" rx="59" stroke="#8A919E" stroke-opacity="0.72" stroke-width="22"/>
 <defs>
 <clipPath id="clip0_306_57730">
 <rect x="22" y="22" width="393" height="852" rx="48" fill="white"/>
