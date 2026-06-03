@@ -338,12 +338,28 @@
       gap: 74px;
     }
     .hero {
+      position: relative;
+      isolation: isolate;
       display: flex;
       flex-direction: column;
       gap: 32px;
       margin: 0;
       width: 75vw;
       max-width: 100%;
+      padding: 12px 0 8px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -32px -28px -40px -20px;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 52% 46% at 22% 38%, rgba(255, 186, 214, 0.22) 0%, transparent 68%),
+        radial-gradient(ellipse 48% 50% at 76% 58%, rgba(168, 202, 255, 0.24) 0%, transparent 70%),
+        radial-gradient(ellipse 36% 34% at 54% 12%, rgba(220, 195, 255, 0.12) 0%, transparent 72%);
+      border-radius: 48% 52% 58% 42% / 44% 56% 48% 52%;
+      opacity: 0.95;
     }
     .hero h1,
     .hero .subhead {
@@ -569,6 +585,7 @@
       <nav class="site-top-links motion-enter motion-enter--0" aria-label="Site sections">
         <div class="site-nav-pill">
           <a href="index.html" class="site-nav-link" aria-current="page">Work</a>
+          <a href="play.html" class="site-nav-link">Play</a>
           <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
         </div>
       </nav>
