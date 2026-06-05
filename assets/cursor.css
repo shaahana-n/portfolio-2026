@@ -31,6 +31,7 @@ html {
   .about-tile-card--link,
   .project-card,
   .site-nav-link,
+  .site-footer__nav-link,
   .coinbase-trade-modes__toggle-btn
 ):not([disabled]) {
   cursor: var(--cursor-sparkle) !important;

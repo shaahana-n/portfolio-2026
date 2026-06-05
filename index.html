@@ -289,11 +289,14 @@
       height: 14px;
     }
     .site-footer__contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
       text-align: right;
     }
     .site-footer__email {
       display: inline-block;
-      margin-bottom: 12px;
       color: var(--grey-secondary);
       transition: color 0.2s ease;
     }
@@ -322,6 +325,24 @@
       width: 16px;
       height: 16px;
       color: var(--grey-secondary);
+    }
+    .site-footer__nav {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .site-footer__nav-link {
+      color: var(--grey-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .site-footer__nav-link:hover {
+      color: var(--text);
+    }
+    .site-footer__nav-link[aria-current="page"] {
+      color: var(--text);
+      font-weight: 500;
     }
     .site-footer__meta {
       margin-top: 48px;
@@ -363,11 +384,11 @@
       z-index: -1;
       pointer-events: none;
       background:
-        radial-gradient(ellipse 58% 52% at 22% 38%, rgba(255, 186, 214, 0.2) 0%, rgba(255, 186, 214, 0.06) 45%, transparent 82%),
-        radial-gradient(ellipse 72% 68% at 76% 58%, rgba(168, 202, 255, 0.18) 0%, rgba(168, 202, 255, 0.07) 38%, rgba(168, 202, 255, 0.02) 62%, transparent 88%),
-        radial-gradient(ellipse 42% 40% at 54% 12%, rgba(220, 195, 255, 0.1) 0%, transparent 80%);
-      filter: blur(14px);
-      opacity: 0.92;
+        radial-gradient(ellipse 58% 52% at 22% 38%, rgba(255, 186, 214, 0.38) 0%, rgba(255, 186, 214, 0.14) 45%, transparent 82%),
+        radial-gradient(ellipse 72% 68% at 76% 58%, rgba(168, 202, 255, 0.34) 0%, rgba(168, 202, 255, 0.14) 38%, rgba(168, 202, 255, 0.05) 62%, transparent 88%),
+        radial-gradient(ellipse 42% 40% at 54% 12%, rgba(220, 195, 255, 0.2) 0%, transparent 80%);
+      filter: blur(12px);
+      opacity: 1;
     }
     .hero h1,
     .hero .subhead {
@@ -577,9 +598,13 @@
         gap: 28px;
       }
       .site-footer__contact {
+        align-items: flex-start;
         text-align: left;
       }
       .site-footer__social {
+        justify-content: flex-start;
+      }
+      .site-footer__nav {
         justify-content: flex-start;
       }
       .site-footer__meta {
@@ -694,6 +719,11 @@
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
               </a>
             </div>
+            <nav class="site-footer__nav" aria-label="Site sections">
+              <a href="index.html" class="site-footer__nav-link" aria-current="page">Work</a>
+              <a href="about.html" class="site-footer__nav-link">About</a>
+              <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-footer__nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+            </nav>
           </div>
         </div>
         <div class="site-footer__meta">
