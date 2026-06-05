@@ -8,6 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/cursor.css">
   <link rel="stylesheet" href="assets/sparkle-click.css">
+  <link rel="stylesheet" href="assets/nda-modal.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
@@ -718,7 +719,7 @@
       <section class="featured" id="featured">
         <p class="featured__label motion-enter motion-enter--3">Selected work</p>
         <div class="projects-grid">
-          <article class="project-card project-card--ig project-card--editorial project-card--large-cover motion-scroll">
+          <button type="button" class="project-card project-card--ig project-card--editorial project-card--large-cover motion-scroll" data-nda-modal aria-haspopup="dialog">
             <div class="card-image">
               <div class="card-image__gradient" aria-hidden="true"></div>
               <div class="card-image__media">
@@ -729,7 +730,7 @@
               <p class="card-label">Instagram · 2025–2026</p>
               <p class="card-headline">Improving ads recommendations</p>
             </div>
-          </article>
+          </button>
           <a href="coinbase-case-study-2024/index.html" class="project-card project-card--gif project-card--editorial project-card--case-study motion-scroll">
             <div class="card-image">
               <div class="card-image__media">
@@ -931,6 +932,23 @@
       }
     })();
   </script>
+  <dialog class="nda-modal" id="nda-modal" aria-labelledby="nda-modal-title">
+    <div class="nda-modal__panel">
+      <button type="button" class="nda-modal__close" aria-label="Close">&times;</button>
+      <h2 class="nda-modal__title" id="nda-modal-title">Work under NDA</h2>
+      <p class="nda-modal__text">This work is under NDA. Please reach out for more details via email.</p>
+      <div class="nda-modal__email-box">
+        <div class="nda-modal__email-row">
+          <a href="mailto:shaahananaufal@gmail.com" class="nda-modal__email">shaahananaufal@gmail.com</a>
+          <button type="button" class="nda-modal__copy" data-copy-email="shaahananaufal@gmail.com" aria-label="Copy email address">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+        <span class="nda-modal__copy-feedback" aria-live="polite"></span>
+      </div>
+    </div>
+  </dialog>
+  <script src="assets/nda-modal.js"></script>
   <script src="assets/sparkle-click.js" defer></script>
 </body>
 </html>

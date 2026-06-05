@@ -1,0 +1,184 @@
+button.project-card[data-nda-modal] {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+  text-align: inherit;
+  width: 100%;
+  cursor: pointer;
+}
+
+button.project-card[data-nda-modal]:hover,
+button.project-card[data-nda-modal]:focus-visible {
+  color: inherit;
+}
+
+.nda-modal {
+  margin: auto;
+  padding: 0;
+  border: none;
+  width: min(92vw, 440px);
+  max-width: 100%;
+  background: transparent;
+  overflow: visible;
+}
+
+.nda-modal::backdrop {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.nda-modal__panel {
+  position: relative;
+  padding: 32px 32px 28px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 32px rgba(10, 11, 13, 0.08);
+  font-family: 'Manrope', sans-serif;
+  color: #333333;
+}
+
+.nda-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  color: #9a9a9a;
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nda-modal__close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #333333;
+}
+
+.nda-modal__close:focus-visible {
+  outline: 2px solid #3f89fe;
+  outline-offset: 2px;
+}
+
+.nda-modal__title {
+  margin: 0 36px 12px 0;
+  font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #333333;
+}
+
+.nda-modal__text {
+  margin: 0 0 18px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #333333;
+}
+
+.nda-modal__email-box {
+  padding: 12px 14px;
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.nda-modal__email-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.nda-modal__email {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nda-modal__email:hover,
+.nda-modal__email:focus-visible {
+  color: #b4236b;
+}
+
+.nda-modal__copy {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #333333;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nda-modal__copy svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.nda-modal__copy:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #333333;
+}
+
+.nda-modal__copy:focus-visible {
+  outline: 2px solid #3f89fe;
+  outline-offset: 2px;
+}
+
+.nda-modal__copy.is-copied {
+  background: rgba(0, 0, 0, 0.06);
+  color: #333333;
+}
+
+.nda-modal__copy-feedback {
+  display: block;
+  min-height: 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9a9a9a;
+}
+
+.nda-modal__copy-feedback:not(:empty) {
+  min-height: 1.2em;
+  margin-top: 8px;
+}
+
+@media (max-width: 680px) {
+  .nda-modal__panel {
+    padding: 28px 24px 24px;
+  }
+
+  .nda-modal__title {
+    font-size: 22px;
+  }
+
+  .nda-modal__text {
+    font-size: 15px;
+  }
+}
