@@ -1,0 +1,59 @@
+.sparkle-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.sparkle-burst {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.sparkle-particle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--size, 12px);
+  height: var(--size, 12px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M21 12C14.403 12 12 14.403 12 21C12 14.403 9.597 12 3 12C9.597 12 12 9.597 12 3C12 9.597 14.403 12 21 12Z' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.35) rotate(0deg);
+  animation: sparkle-pop 720ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.sparkle-particle:nth-child(3n) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M21 12C14.403 12 12 14.403 12 21C12 14.403 9.597 12 3 12C9.597 12 12 9.597 12 3C12 9.597 14.403 12 21 12Z' stroke='%239a9a9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.sparkle-particle:nth-child(5n) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M21 12C14.403 12 12 14.403 12 21C12 14.403 9.597 12 3 12C9.597 12 12 9.597 12 3C12 9.597 14.403 12 21 12Z' stroke='%233f89fe' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+@keyframes sparkle-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.35) rotate(0deg);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(calc(var(--rot, 0deg) * 0.25));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px))) scale(0.55) rotate(var(--rot, 0deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sparkle-layer {
+    display: none !important;
+  }
+}

@@ -1,0 +1,88 @@
+:root {
+  --cursor-sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M21 12C14.403 12 12 14.403 12 21C12 14.403 9.597 12 3 12C9.597 12 12 9.597 12 3C12 9.597 14.403 12 21 12Z' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 12 12, auto;
+  --cursor-sparkle-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M21 12C14.403 12 12 14.403 12 21C12 14.403 9.597 12 3 12C9.597 12 12 9.597 12 3C12 9.597 14.403 12 21 12Z' fill='%23333333' stroke='%23333333' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 12 12, auto;
+  --selection-bg: #ffdcee;
+  --selection-text: #b4236b;
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+::-moz-selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+html {
+  cursor: var(--cursor-sparkle) !important;
+}
+
+:is(
+  a,
+  button,
+  summary,
+  label[for],
+  select,
+  [role='button'],
+  [role='tab'],
+  .about-tile-card--expand,
+  .about-tile-card--link,
+  .project-card,
+  .site-nav-link,
+  .coinbase-trade-modes__toggle-btn
+):not([disabled]) {
+  cursor: var(--cursor-sparkle) !important;
+}
+
+:is(
+  .card-image,
+  .card-image__media,
+  .about-tile,
+  .about-tile__media,
+  .about-wrapped,
+  .about-polaroid,
+  a img,
+  a video,
+  button img,
+  button video,
+  .project-card img,
+  .project-card video,
+  .about-tile-card img,
+  .about-tile-card video
+) {
+  cursor: var(--cursor-sparkle) !important;
+}
+
+:is(
+  .card-image,
+  .card-image__media,
+  .about-tile,
+  .about-tile__media,
+  .about-wrapped,
+  .about-polaroid
+):hover,
+:is(a, button, .project-card, .about-tile-card--link, .about-tile-card--expand):hover :is(
+  .card-image,
+  .card-image__media,
+  .about-tile,
+  .about-tile__media,
+  .about-wrapped,
+  .about-polaroid,
+  img,
+  video
+),
+:is(a, button) img:hover,
+:is(a, button) video:hover,
+.project-card img:hover,
+.project-card video:hover,
+.about-tile-card img:hover,
+.about-tile-card video:hover {
+  cursor: var(--cursor-sparkle-filled) !important;
+}
+
+input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']),
+textarea {
+  cursor: text !important;
+}
