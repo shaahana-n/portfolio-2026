@@ -33,13 +33,6 @@
 <style type="text/css" data-framer-css="true"></style><style>.framer-reveal{opacity:1!important;transform:none!important;transition:opacity .6s cubic-bezier(0.215,0.61,0.355,1),transform .6s cubic-bezier(0.215,0.61,0.355,1)}.framer-reveal.visible{opacity:1!important;transform:var(--fr-base-transform,none)!important}</style>
 <style id="site-case-study-overrides">
   @font-face {
-    font-family: 'PP Editorial Old Ultralight Italic';
-    src: url('../assets/fonts/490f0e_bc9XGXnb6GMyRa5LT5y4giQlQxQ.woff2') format('woff2');
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-  }
-  @font-face {
     font-family: 'PP Writer Thin';
     src: url('../assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
     font-weight: 400;
@@ -295,7 +288,9 @@
   #main h4.framer-styles-preset-1mgyxpm,
   #main .framer-styles-preset-1mgyxpm:not(.rich-text-wrapper),
   #main .framer-styles-preset-1mgyxpm.rich-text-wrapper h4,
-  .coinbase-problem-content__heading {
+  .coinbase-problem-content__heading,
+  .coinbase-problem-hmw__title,
+  .coinbase-search-solution__label {
     --framer-font-family: "Manrope", "Manrope Placeholder", sans-serif !important;
     --framer-font-size: 16px !important;
     --framer-line-height: 19px !important;
@@ -943,7 +938,7 @@
   #main .coinbase-trade-modes {
     display: grid;
     grid-template-columns: 25% minmax(0, 1fr);
-    gap: 24px;
+    gap: 16px;
     width: 100%;
     margin-top: 32px;
     margin-bottom: 40px;
@@ -953,43 +948,38 @@
   .coinbase-trade-modes[hidden] {
     display: none !important;
   }
-  .coinbase-trade-modes__tabs {
+  .coinbase-trade-modes__toggle {
     grid-column: 1 / -1;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  .coinbase-trade-modes__tab {
+    justify-self: center;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
     margin: 0;
-    padding: 10px 18px;
+    padding: 4px;
     border: 1px solid var(--coinbase-stroke);
     border-radius: 999px;
     background: #ffffff;
-    font-family: 'Manrope', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.55;
-    color: var(--text-body);
+    width: fit-content;
+  }
+  .coinbase-trade-modes__toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
     cursor: pointer;
     transition: background-color 0.25s var(--motion-ease, ease);
   }
-  .coinbase-trade-modes__tab:hover {
+  .coinbase-trade-modes__toggle-btn:hover {
     background: #f9f9f9;
   }
-  .coinbase-trade-modes__tab[aria-selected="true"] {
-    border-color: var(--coinbase-stroke);
+  .coinbase-trade-modes__toggle-btn[aria-selected="true"] {
     background: var(--coinbase-stroke);
-    color: var(--text);
   }
-  .coinbase-trade-modes__tab img {
+  .coinbase-trade-modes__toggle-btn img {
     width: 22px;
     height: 22px;
     flex-shrink: 0;
@@ -1037,9 +1027,6 @@
       grid-template-columns: 1fr;
       gap: 16px;
     }
-    .coinbase-trade-modes__tabs {
-      flex-wrap: wrap;
-    }
   }
   #main .framer-1fl6dup {
     justify-content: flex-start !important;
@@ -1082,12 +1069,6 @@
   }
   .coinbase-problem-hmw__title {
     margin: 0;
-    font-family: 'PP Editorial Old Ultralight Italic', serif;
-    font-size: 24px;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.15;
-    color: var(--text);
   }
   .coinbase-problem-content__block {
     display: flex;
@@ -2276,12 +2257,6 @@
   }
   .coinbase-search-solution__label {
     margin: 0;
-    font-family: 'PP Editorial Old Ultralight Italic', serif;
-    font-size: 24px;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.15;
-    color: var(--text);
   }
   .coinbase-search-solution__layout {
     display: flex;
@@ -2422,9 +2397,6 @@
       width: 100%;
       min-width: 0;
     }
-    .coinbase-search-solution__label {
-      font-size: 22px;
-    }
   }
   .coinbase-search-explorations {
     width: 100%;
@@ -2562,6 +2534,7 @@
       <nav class="site-top-links" aria-label="Site sections">
         <div class="site-nav-pill">
           <a href="../index.html" class="site-nav-link">Work</a>
+          <a href="../about.html" class="site-nav-link">About</a>
           <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
         </div>
       </nav>
@@ -2704,7 +2677,7 @@
             <p class="framer-styles-preset-1c8iaiz coinbase-problem-content__text" data-styles-preset="qkjogPjJl">The progress bar with illustration kept users focused but hid what came next, and reused a Standard-mode card that didn&rsquo;t match Advanced&rsquo;s visual language. A percentage-based tracker showed one step at a time without illustration—less engaging, and a percent readout added little value for a three-step flow. Horizontal card navigation got us closer, but critique surfaced a mismatch: that style already signals distinct upsells in the app (for example, earn by trading versus earn by referring a friend), which felt out of place for connected, sequential steps.</p>
           </div>
           <div class="coinbase-search-solution coinbase-progress-solution">
-            <p class="coinbase-search-solution__label">Final solution: step indicator with dynamic CTAs</p>
+            <h4 class="coinbase-search-solution__label coinbase-problem-content__heading">Final solution: step indicator with dynamic CTAs</h4>
             <div class="coinbase-search-solution__layout">
               <figure class="coinbase-search-solution__media coinbase-solution-gradient">
                 <img src="../images/coinbase/progress-final.svg?v=20260603" width="889" height="500" alt="Final progress tracker solution on portfolio tab" loading="lazy" decoding="async">
@@ -3456,7 +3429,7 @@
         }
 
         function initCoinbaseTradeModes(root) {
-          var tabs = root.querySelectorAll('.coinbase-trade-modes__tab');
+          var tabs = root.querySelectorAll('.coinbase-trade-modes__toggle-btn');
           var panels = {
             standard: document.getElementById('coinbase-panel-standard'),
             advanced: document.getElementById('coinbase-panel-advanced')

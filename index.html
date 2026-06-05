@@ -147,6 +147,12 @@
       .project-card--ig .card-image__gradient {
         animation: none;
       }
+      .card-body {
+        max-height: none;
+        margin-top: 12px;
+        opacity: 1;
+        transition: none;
+      }
     }
     .page-loader {
       position: fixed;
@@ -401,17 +407,16 @@
       width: 100%;
       text-decoration: none;
       color: inherit;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 20px;
-      overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      border: none;
+      background: transparent;
+      padding: 0;
+      overflow: visible;
+      box-shadow: none;
     }
     a.project-card:hover,
     a.project-card:hover .card-title,
     a.project-card:hover .card-arrow {
-      color: var(--text);
+      color: var(--grey-secondary);
     }
     .project-card.motion-scroll {
       opacity: 0;
@@ -488,36 +493,47 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 16px 0 0;
+      margin: 0;
+      padding: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition:
+        max-height var(--motion-duration-medium) var(--motion-ease),
+        opacity var(--motion-duration-medium) var(--motion-ease),
+        margin-top var(--motion-duration-medium) var(--motion-ease);
+    }
+    @media (hover: hover) {
+      .project-card:hover .card-body,
+      .project-card:focus-within .card-body {
+        max-height: 8em;
+        margin-top: 12px;
+        opacity: 1;
+      }
     }
     .card-header {
       display: flex;
-      align-items: baseline;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 0;
     }
     .card-title {
       margin: 0;
+      flex: 1;
+      min-width: 0;
       font-family: 'Manrope', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.2;
-      color: var(--text);
-    }
-    .card-description {
-      margin: 8px 0 0;
-      font-family: 'Manrope', sans-serif;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 400;
-      line-height: 1.45;
-      color: var(--card-description);
+      line-height: 1.4;
+      color: var(--grey-secondary);
+      text-wrap: pretty;
     }
     .card-arrow {
       display: inline-flex;
       align-items: center;
       flex-shrink: 0;
-      color: var(--text);
+      color: var(--grey-secondary);
     }
     .card-arrow svg {
       display: block;
@@ -544,14 +560,8 @@
       .project-card {
         width: 100%;
       }
-      .card-body {
-        padding: 16px 0 0;
-      }
       .card-title {
-        font-size: 16px;
-      }
-      .card-description {
-        font-size: 16px;
+        font-size: 15px;
       }
       .projects-grid {
         grid-template-columns: 1fr;
@@ -585,6 +595,7 @@
       <nav class="site-top-links motion-enter motion-enter--0" aria-label="Site sections">
         <div class="site-nav-pill">
           <a href="index.html" class="site-nav-link" aria-current="page">Work</a>
+          <a href="about.html" class="site-nav-link">About</a>
           <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
         </div>
       </nav>
@@ -608,7 +619,6 @@
               <div class="card-header">
                 <h3 class="card-title">Improving ads recommendations on Instagram</h3>
               </div>
-              <p class="card-description">Working on various ads curation controls, allowing for transparency and improved recommendations</p>
             </div>
           </article>
           <a href="coinbase-case-study-2024/index.html" class="project-card project-card--gif project-card--case-study motion-scroll">
@@ -619,10 +629,9 @@
             </div>
             <div class="card-body">
               <div class="card-header">
-                <h3 class="card-title">Crafting a bridge between Coinbase's trading modes</h3>
+                <h3 class="card-title">Designing global search for Coinbase's trading modes</h3>
                 <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
               </div>
-              <p class="card-description">Designed global search to improve discoverability of the Advanced trading surface</p>
             </div>
           </a>
           <a href="coinbase-perpetuals-case-study-2024/index.html" class="project-card project-card--coinbase project-card--large-cover project-card--case-study motion-scroll">
@@ -636,7 +645,6 @@
                 <h3 class="card-title">Drive user growth to perpetuals trading</h3>
                 <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
               </div>
-              <p class="card-description">Worked on various mobile initiatives to drive user growth and improve discoverability of perpetuals trading</p>
             </div>
           </a>
           <a href="meta-case-study-2024/index.html" class="project-card project-card--large-cover project-card--case-study motion-scroll">
@@ -647,10 +655,9 @@
             </div>
             <div class="card-body">
               <div class="card-header">
-                <h3 class="card-title">Keeping users connected in VR</h3>
+                <h3 class="card-title">Keeping users connected in VR with Meta Horizon Worlds</h3>
                 <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
               </div>
-              <p class="card-description">Worked on the Horizon Worlds social connections team to create a framework for world recommendation notifications</p>
             </div>
           </a>
         </div>

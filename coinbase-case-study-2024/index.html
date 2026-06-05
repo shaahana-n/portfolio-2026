@@ -33,13 +33,6 @@
 <style type="text/css" data-framer-css="true"></style><style>.framer-reveal{opacity:1!important;transform:none!important;transition:opacity .6s cubic-bezier(0.215,0.61,0.355,1),transform .6s cubic-bezier(0.215,0.61,0.355,1)}.framer-reveal.visible{opacity:1!important;transform:var(--fr-base-transform,none)!important}</style>
 <style id="site-case-study-overrides">
   @font-face {
-    font-family: 'PP Editorial Old Ultralight Italic';
-    src: url('../assets/fonts/490f0e_bc9XGXnb6GMyRa5LT5y4giQlQxQ.woff2') format('woff2');
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-  }
-  @font-face {
     font-family: 'PP Writer Thin';
     src: url('../assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
     font-weight: 400;
@@ -134,7 +127,9 @@
   #main h4.framer-styles-preset-1mgyxpm,
   #main .framer-styles-preset-1mgyxpm:not(.rich-text-wrapper),
   #main .framer-styles-preset-1mgyxpm.rich-text-wrapper h4,
-  .coinbase-problem-content__heading {
+  .coinbase-problem-content__heading,
+  .coinbase-problem-hmw__title,
+  .coinbase-search-solution__label {
     --framer-font-family: "Manrope", "Manrope Placeholder", sans-serif !important;
     --framer-font-size: 16px !important;
     --framer-line-height: 19px !important;
@@ -682,7 +677,7 @@
   #main .coinbase-trade-modes {
     display: grid;
     grid-template-columns: 25% minmax(0, 1fr);
-    gap: 24px;
+    gap: 16px;
     width: 100%;
     margin-top: 32px;
     margin-bottom: 40px;
@@ -692,43 +687,38 @@
   .coinbase-trade-modes[hidden] {
     display: none !important;
   }
-  .coinbase-trade-modes__tabs {
+  .coinbase-trade-modes__toggle {
     grid-column: 1 / -1;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  .coinbase-trade-modes__tab {
+    justify-self: center;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
     margin: 0;
-    padding: 10px 18px;
+    padding: 4px;
     border: 1px solid var(--coinbase-stroke);
     border-radius: 999px;
     background: #ffffff;
-    font-family: 'Manrope', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.55;
-    color: var(--text-body);
+    width: fit-content;
+  }
+  .coinbase-trade-modes__toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
     cursor: pointer;
     transition: background-color 0.25s var(--motion-ease, ease);
   }
-  .coinbase-trade-modes__tab:hover {
+  .coinbase-trade-modes__toggle-btn:hover {
     background: #f9f9f9;
   }
-  .coinbase-trade-modes__tab[aria-selected="true"] {
-    border-color: var(--coinbase-stroke);
+  .coinbase-trade-modes__toggle-btn[aria-selected="true"] {
     background: var(--coinbase-stroke);
-    color: var(--text);
   }
-  .coinbase-trade-modes__tab img {
+  .coinbase-trade-modes__toggle-btn img {
     width: 22px;
     height: 22px;
     flex-shrink: 0;
@@ -776,9 +766,6 @@
       grid-template-columns: 1fr;
       gap: 16px;
     }
-    .coinbase-trade-modes__tabs {
-      flex-wrap: wrap;
-    }
   }
   #main .framer-1fl6dup {
     justify-content: flex-start !important;
@@ -821,12 +808,6 @@
   }
   .coinbase-problem-hmw__title {
     margin: 0;
-    font-family: 'PP Editorial Old Ultralight Italic', serif;
-    font-size: 24px;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.15;
-    color: var(--text);
   }
   .coinbase-problem-content__block {
     display: flex;
@@ -1343,7 +1324,7 @@
     position: relative;
     width: 90%;
     max-width: 90%;
-    min-height: clamp(360px, 48vw, 480px);
+    min-height: clamp(300px, 40vw, 420px);
     padding-bottom: 12px;
     margin: 40px auto 0;
     align-self: center;
@@ -1422,10 +1403,11 @@
   .coinbase-reddit-post__title {
     margin: 0;
     font-family: 'Manrope', sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1.35;
     color: var(--text);
+    text-wrap: pretty;
   }
   .coinbase-reddit-post__body {
     margin: 0;
@@ -1479,9 +1461,8 @@
     transform-origin: center;
     z-index: 1;
   }
-  /* Bigger card — Figma: x 485, y 325, -3.43deg, 1068 × 487 */
   .coinbase-discoverability__card--front {
-    top: 16.03%;
+    top: 18%;
     left: 6.64%;
     width: 93.36%;
     transform: rotate(-3.43deg);
@@ -1506,19 +1487,37 @@
   }
   @media (max-width: 809px) {
     .coinbase-discoverability__stack {
-      margin-top: 32px;
-      min-height: 340px;
-      padding-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 24px;
+      min-height: 0;
+      padding-bottom: 0;
+    }
+    .coinbase-discoverability__card {
+      position: static;
+      width: 100% !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+    }
+    .coinbase-discoverability__card--back:hover,
+    .coinbase-discoverability__card--back:focus-within,
+    .coinbase-discoverability__card--front:hover,
+    .coinbase-discoverability__card--front:focus-within {
+      transform: none !important;
     }
     .coinbase-discoverability__copy--after-reddit {
       margin-top: 12px;
     }
     .coinbase-reddit-post {
       padding: 14px 16px 12px;
-      gap: 10px;
+      gap: 8px;
     }
     .coinbase-reddit-post__title {
-      font-size: 14px;
+      font-size: 15px;
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -1695,12 +1694,6 @@
   }
   .coinbase-search-solution__label {
     margin: 0;
-    font-family: 'PP Editorial Old Ultralight Italic', serif;
-    font-size: 24px;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.15;
-    color: var(--text);
   }
   .coinbase-search-solution__layout {
     display: flex;
@@ -1852,9 +1845,6 @@
       flex: none;
       width: 100%;
       min-width: 0;
-    }
-    .coinbase-search-solution__label {
-      font-size: 22px;
     }
   }
   .coinbase-search-explorations {
@@ -2063,6 +2053,7 @@
       <nav class="site-top-links" aria-label="Site sections">
         <div class="site-nav-pill">
           <a href="../index.html" class="site-nav-link">Work</a>
+          <a href="../about.html" class="site-nav-link">About</a>
           <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
         </div>
       </nav>
@@ -2093,14 +2084,12 @@
     </div>
 
     <section id="coinbase-trade-modes" class="coinbase-trade-modes" hidden aria-label="Standard and Advanced trading modes">
-      <div class="coinbase-trade-modes__tabs" role="tablist" aria-label="Trading mode">
-        <button type="button" class="coinbase-trade-modes__tab" role="tab" id="coinbase-tab-standard" aria-selected="true" aria-controls="coinbase-panel-standard" data-mode="standard">
+      <div class="coinbase-trade-modes__toggle" role="tablist" aria-label="Trading mode">
+        <button type="button" class="coinbase-trade-modes__toggle-btn" role="tab" id="coinbase-tab-standard" aria-selected="true" aria-controls="coinbase-panel-standard" data-mode="standard" aria-label="Standard">
           <img src="../images/coinbase/standard-icon.svg" width="22" height="22" alt="" decoding="async">
-          Standard
         </button>
-        <button type="button" class="coinbase-trade-modes__tab" role="tab" id="coinbase-tab-advanced" aria-selected="false" aria-controls="coinbase-panel-advanced" data-mode="advanced" tabindex="-1">
+        <button type="button" class="coinbase-trade-modes__toggle-btn" role="tab" id="coinbase-tab-advanced" aria-selected="false" aria-controls="coinbase-panel-advanced" data-mode="advanced" tabindex="-1" aria-label="Advanced">
           <img src="../images/coinbase/advanced-icon.svg" width="22" height="22" alt="" decoding="async">
-          Advanced
         </button>
       </div>
       <div class="coinbase-trade-modes__viewport">
@@ -2241,7 +2230,7 @@
         </div>
 
         <div class="coinbase-search-solution">
-          <p class="coinbase-search-solution__label">Final Solution: Filter &amp; Banner</p>
+          <h4 class="coinbase-search-solution__label coinbase-problem-content__heading">Final Solution: Filter &amp; Banner</h4>
           <div class="coinbase-search-solution__layout">
             <figure class="coinbase-search-solution__media">
               <video src="../images/coinbase/search-only.mp4" width="651" height="500" autoplay muted loop playsinline preload="metadata" aria-label="Final search solution demonstration"></video>
@@ -2283,7 +2272,7 @@
         </div>
 
         <div class="coinbase-search-solution">
-          <p class="coinbase-search-solution__label">Final Solution: Contract Name &amp; Ticker</p>
+          <h4 class="coinbase-search-solution__label coinbase-problem-content__heading">Final Solution: Contract Name &amp; Ticker</h4>
           <div class="coinbase-search-solution__layout">
             <figure class="coinbase-search-solution__media coinbase-search-solution__media--ticker coinbase-solution-gradient">
               <img src="../images/coinbase/ticker.svg?v=20260606" width="651" height="358" alt="Final cell design with contract name and ticker" decoding="async">
@@ -2328,7 +2317,7 @@
                 </div>
               </header>
               <h4 class="coinbase-reddit-post__title">Advance trade gone on mobile, why?</h4>
-              <div class="coinbase-reddit-post__body">So advance trade isn't showing as an option on the tab 'trade' on mobile app, is this any different on desktop? If not is this permanent, if anyone could bring any insight on this it would be perfect</div>
+              <div class="coinbase-reddit-post__body">Advance trade isn't showing on the 'trade' tab on mobile—is this any different on desktop, or permanent?</div>
               <footer class="coinbase-reddit-post__actions" aria-label="Post actions">
                 <span class="coinbase-reddit-post__action"><span class="coinbase-reddit-post__action-icon" aria-hidden="true">▲</span> 15</span>
                 <span class="coinbase-reddit-post__action">43 comments</span>
@@ -2347,13 +2336,11 @@
               </header>
               <h4 class="coinbase-reddit-post__title">Is Coinbase ONE same as Pro/Advanced?</h4>
               <div class="coinbase-reddit-post__body">
-                <p>In short I'm getting into the automated world and saw the "zero trading fees" for CBOne. That sounds cool, but I don't understand if for example:</p>
+                <p>I'm getting into automated trading and saw the "zero trading fees" for CBOne. I don't understand if:</p>
                 <ul>
-                  <li>I'm using normal CBase, have API linked with automaters</li>
-                  <li>I purchase CBOne</li>
-                  <li>Would the zero-trade-fee just magically kick-in and be awesome? Or is it like a different service/wallet?</li>
+                  <li>I'm using normal CBase with API linked to automaters</li>
+                  <li>Would zero-trade-fee kick in after I purchase CBOne, or is it a different wallet?</li>
                 </ul>
-                <p>Sorry noob question.</p>
               </div>
               <footer class="coinbase-reddit-post__actions" aria-label="Post actions">
                 <span class="coinbase-reddit-post__action"><span class="coinbase-reddit-post__action-icon" aria-hidden="true">▲</span> 7</span>
@@ -2815,7 +2802,7 @@
         }
 
         function initCoinbaseTradeModes(root) {
-          var tabs = root.querySelectorAll('.coinbase-trade-modes__tab');
+          var tabs = root.querySelectorAll('.coinbase-trade-modes__toggle-btn');
           var panels = {
             standard: document.getElementById('coinbase-panel-standard'),
             advanced: document.getElementById('coinbase-panel-advanced')

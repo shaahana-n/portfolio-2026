@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About — Shaahana Naufal</title>
-  <meta name="description" content="About Shaahana Naufal — designer at Instagram in San Francisco.">
+  <meta name="description" content="About Shaahana Naufal — product designer at Instagram in San Francisco.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,40 +27,147 @@
 
     :root {
       --bg: #ffffff;
-      --text: #1a1a1a;
-      --text-muted: #666;
+      --text: #333333;
+      --grey-secondary: #9a9a9a;
+      --border-subtle: #ececec;
+      --divider: #e4e9ee;
       --accent: #3f89fe;
       --page-max-width: 1400px;
+      --motion-duration-medium: 0.6s;
+      --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --loader-fade-duration: 0.5s;
+      --motion-handoff-delay: 480ms;
     }
     * { box-sizing: border-box; }
     html {
       scroll-behavior: smooth;
       background-color: var(--bg);
     }
+    @keyframes load-shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    @keyframes bg-shimmer-drift {
+      0% { transform: translateX(-18%); }
+      100% { transform: translateX(18%); }
+    }
+    @keyframes fade-up-in {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     body {
       margin: 0;
       font-family: 'Inter', -apple-system, sans-serif;
       font-size: 14px;
       color: var(--text);
-      background-color: var(--bg);
+      background-color: transparent;
       -webkit-font-smoothing: antialiased;
       line-height: 1.5;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: -35%;
+      width: 170%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(
+        105deg,
+        transparent 38%,
+        rgba(255, 255, 255, 0.45) 46%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 255, 255, 0.45) 54%,
+        transparent 62%
+      );
+      animation: bg-shimmer-drift 16s ease-in-out infinite alternate;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.02;
+      background-image: url('assets/images/Noise.png');
+      background-repeat: repeat;
+      background-size: 200px 200px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation: none; transform: none; }
+      :root { --motion-handoff-delay: 0ms; }
+      .page { opacity: 1; transition: none; }
+      .motion-enter { opacity: 1; transform: none; animation: none; }
+      .about-row.motion-scroll { opacity: 1; transform: none; transition: none; }
+      .about-wrapped__device { transform: none; }
+      .about-tile__media {
+        transform: none;
+        transition: none;
+      }
+      .about-tile-card:hover .about-tile__media,
+      .about-tile-card:focus-within .about-tile__media {
+        transform: none;
+      }
+      .about-tile-card--polaroid:hover .about-polaroid,
+      .about-tile-card--polaroid:focus-within .about-polaroid {
+        transform: none;
+      }
+      .card-body {
+        max-height: none;
+        margin-top: 12px;
+        opacity: 1;
+        transition: none;
+      }
+    }
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      overflow: hidden;
+      transition: opacity 0.5s ease-out;
+      pointer-events: none;
+    }
+    .page-loader::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.02) 45%,
+        rgba(0, 0, 0, 0.06) 50%,
+        rgba(0, 0, 0, 0.02) 55%,
+        transparent 100%
+      );
+      animation: load-shimmer 2s ease-in-out infinite;
+    }
+    body.loaded .page-loader {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--loader-fade-duration) ease-out, visibility 0s linear var(--loader-fade-duration);
     }
     a { color: inherit; text-decoration: none; }
     a:hover { color: var(--accent); }
 
     .page {
+      position: relative;
+      z-index: 1;
       max-width: var(--page-max-width);
       margin: 0 auto;
       padding: 64px 10vw 48px;
+      opacity: 0;
     }
-    .hero-with-nav {
-      width: 100%;
-      max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 100px;
+    body.loaded .page {
+      opacity: 1;
+      transition: opacity 0s linear var(--loader-fade-duration);
     }
+
     .site-top-links {
       display: flex;
       justify-content: center;
@@ -72,18 +179,16 @@
       gap: 28px;
       padding: 16px 32px;
       background: #ffffff;
-      border: 1px solid #ececec;
+      border: 1px solid var(--border-subtle);
       border-radius: 999px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     .site-top-links .site-nav-link {
       font-family: 'Manrope', sans-serif;
-      font-style: normal;
       font-weight: 400;
       font-size: 15px;
       line-height: 1;
       color: var(--text);
-      text-decoration: none;
       transition: opacity 0.2s ease;
     }
     .site-top-links .site-nav-link:hover {
@@ -91,19 +196,44 @@
       opacity: 0.55;
     }
     .site-top-links .site-nav-link[aria-current="page"] {
-      color: var(--text);
       opacity: 1;
       font-weight: 500;
     }
-    .about {
+
+    .hero-with-nav {
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 74px;
+    }
+    .hero {
+      position: relative;
+      isolation: isolate;
       display: flex;
       flex-direction: column;
       gap: 32px;
-      width: 75vw;
+      margin: 0;
+      width: 100%;
       max-width: 100%;
+      padding: 12px 0 8px;
     }
-    .about-copy {
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -48px -40px -56px -32px;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 58% 52% at 22% 38%, rgba(255, 186, 214, 0.34) 0%, rgba(255, 186, 214, 0.12) 45%, transparent 82%),
+        radial-gradient(ellipse 72% 68% at 76% 58%, rgba(168, 202, 255, 0.3) 0%, rgba(168, 202, 255, 0.12) 38%, rgba(168, 202, 255, 0.04) 62%, transparent 88%),
+        radial-gradient(ellipse 42% 40% at 54% 12%, rgba(220, 195, 255, 0.18) 0%, transparent 80%);
+      filter: blur(12px);
+      opacity: 1;
+    }
+    .hero h1,
+    .hero .subhead {
+      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', serif;
       font-weight: 400;
       font-size: 32px;
       line-height: 1.25;
@@ -111,34 +241,653 @@
       margin: 0;
       text-wrap: pretty;
     }
-    .contact-text-link {
-      font-family: 'Manrope', sans-serif;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 1.3;
-      color: var(--text-muted);
-      transition: color 0.2s ease;
+
+    .about-featured {
+      margin-top: 110px;
     }
-    .contact-text-link:hover {
+    .about-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 88px;
+    }
+    .about-row {
+      container-type: inline-size;
+      min-width: 0;
+    }
+    .about-row.motion-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity var(--motion-duration-medium) var(--motion-ease),
+        transform var(--motion-duration-medium) var(--motion-ease);
+      transition-delay: var(--scroll-delay, 0ms);
+    }
+    .about-row.motion-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .about-row.motion-scroll:nth-child(2) { --scroll-delay: 80ms; }
+    .about-row.motion-scroll:nth-child(3) { --scroll-delay: 160ms; }
+    .about-row__label {
+      margin: 0 0 28px;
+      font-family: 'PP Editorial Old Ultralight Italic', serif;
+      font-size: clamp(28px, 3.2vw, 36px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.1;
       color: var(--text);
     }
-    .footer {
-      margin-top: 88px;
-      padding-top: 56px;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    .about-row__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px;
+      align-items: start;
     }
-    .footer h2 {
-      font-family: 'PP Writer Thin', sans-serif;
-      font-size: 2rem;
-      font-weight: 400;
-      margin: 0 0 12px 0;
-    }
-    .footer-links {
+    .about-row__grid--scroll {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px 20px;
-      margin-top: 16px;
+      gap: 24px;
+      overflow-x: auto;
+      overflow-y: visible;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
     }
+    .about-row__grid--scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .about-row__grid--scroll .about-tile-card {
+      flex: 0 0 calc((100% - 48px) / 3);
+      min-width: min(100%, 280px);
+      scroll-snap-align: start;
+    }
+    .about-tile-card--expand {
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .about-tile-card--expand:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .about-tile-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100%;
+      width: 100%;
+      color: inherit;
+      text-decoration: none;
+      border: none;
+      background: transparent;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: none;
+    }
+    a.about-tile-card--link:hover,
+    a.about-tile-card--link:hover .card-title,
+    a.about-tile-card--link:hover .card-arrow {
+      color: var(--grey-secondary);
+    }
+    .about-tile-card--link {
+      cursor: pointer;
+    }
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition:
+        max-height var(--motion-duration-medium) var(--motion-ease),
+        opacity var(--motion-duration-medium) var(--motion-ease),
+        margin-top var(--motion-duration-medium) var(--motion-ease);
+    }
+    @media (hover: hover) {
+      .about-tile-card:hover .card-body,
+      .about-tile-card:focus-within .card-body {
+        max-height: 8em;
+        margin-top: 12px;
+        opacity: 1;
+      }
+    }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 0;
+    }
+    .card-title {
+      margin: 0;
+      flex: 1;
+      min-width: 0;
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--grey-secondary);
+      text-wrap: pretty;
+    }
+    .card-arrow {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: var(--grey-secondary);
+    }
+    .card-arrow svg {
+      display: block;
+      width: 13px;
+      height: 13px;
+    }
+    .about-tile {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 1436 / 1080;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      background: #ffffff;
+      text-decoration: none;
+      color: inherit;
+    }
+    .about-tile--wrapped {
+      background: transparent;
+    }
+    .about-tile__img,
+    .about-tile__video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .about-tile__media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform var(--motion-duration-medium) var(--motion-ease);
+    }
+    .about-tile-card:hover .about-tile__media,
+    .about-tile-card:focus-within .about-tile__media {
+      transform: scale(1.02);
+    }
+    .about-tile-card:hover .about-tile--wrapped .about-tile__media,
+    .about-tile-card:focus-within .about-tile--wrapped .about-tile__media,
+    .about-tile-card--video:hover .about-tile__media,
+    .about-tile-card--video:focus-within .about-tile__media {
+      transform: none;
+    }
+    .about-tile-card--polaroid:hover .about-tile__media,
+    .about-tile-card--polaroid:focus-within .about-tile__media {
+      transform: none;
+    }
+    .about-tile-card--polaroid {
+      overflow: visible;
+    }
+    .about-tile--polaroid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      padding: clamp(16px, 5.5%, 28px);
+      box-sizing: border-box;
+      background: #f7f6f3;
+    }
+    .about-polaroid {
+      width: min(62%, 220px);
+      max-width: 100%;
+      margin: 0 auto;
+      flex-shrink: 0;
+      transform: rotate(-2.2deg);
+      transform-origin: center center;
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .about-polaroid__frame {
+      display: block;
+      padding: 12px 12px 40px;
+      border-radius: 2px;
+      background-color: #fefefe;
+      background-image:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 48%),
+        url('assets/images/Noise.png');
+      background-size: 100% 100%, 200px 200px;
+      border: 1px solid rgba(0, 0, 0, 0.035);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 1),
+        0 1px 2px rgba(0, 0, 0, 0.02),
+        0 6px 18px rgba(10, 11, 13, 0.04),
+        0 2px 6px rgba(10, 11, 13, 0.025);
+    }
+    .about-polaroid__photo {
+      display: block;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #101010;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    }
+    .about-polaroid__photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    @media (hover: hover) {
+      .about-tile-card--polaroid:hover,
+      .about-tile-card--polaroid:focus-within {
+        position: relative;
+        z-index: 2;
+      }
+      .about-tile-card--polaroid:hover .about-polaroid,
+      .about-tile-card--polaroid:focus-within .about-polaroid {
+        transform: rotate(-2.2deg) translateY(-6px) scale(1.03);
+      }
+    }
+    .about-tile--wrapped {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 72% 58% at 18% 22%, rgba(255, 196, 178, 0.28) 0%, transparent 62%),
+        radial-gradient(ellipse 68% 54% at 84% 78%, rgba(186, 204, 255, 0.24) 0%, transparent 58%),
+        linear-gradient(158deg, #faf7f4 0%, #f4f0fa 46%, #eef3fb 100%);
+    }
+    .about-tile--braille {
+      background:
+        radial-gradient(ellipse 72% 58% at 18% 22%, rgba(255, 255, 255, 0.55) 0%, transparent 62%),
+        radial-gradient(ellipse 68% 54% at 84% 78%, rgba(0, 0, 0, 0.04) 0%, transparent 58%),
+        linear-gradient(158deg, #f7f6f3 0%, #f3f2ef 46%, #fafafa 100%);
+    }
+    .about-tile--braille .about-wrapped {
+      padding: 5% 7%;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-tile--braille .about-wrapped__device {
+      width: auto;
+      height: auto;
+      max-height: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      align-self: center;
+      flex-shrink: 0;
+      transform: none;
+      aspect-ratio: 452 / 656;
+      border-radius: 8px;
+      border: none;
+      box-shadow:
+        inset 0 0 0 4px rgba(255, 255, 255, 0.96),
+        inset 0 0 0 5px rgba(10, 10, 10, 0.35),
+        0 10px 36px rgba(20, 22, 30, 0.1);
+    }
+    .about-tile--braille .about-wrapped__video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+    }
+    .about-tile--tone-kiln {
+      background:
+        radial-gradient(ellipse 70% 55% at 22% 20%, rgba(220, 190, 160, 0.36) 0%, transparent 62%),
+        radial-gradient(ellipse 68% 52% at 80% 84%, rgba(150, 130, 115, 0.3) 0%, transparent 58%),
+        linear-gradient(145deg, #5c4f45 0%, #9a8470 46%, #e8ddd0 100%);
+    }
+    .about-tile--tone-hawaii {
+      background:
+        radial-gradient(ellipse 70% 55% at 22% 18%, rgba(82, 110, 130, 0.38) 0%, transparent 62%),
+        radial-gradient(ellipse 68% 52% at 78% 84%, rgba(27, 30, 33, 0.35) 0%, transparent 58%),
+        linear-gradient(158deg, #1b1e21 0%, #29282d 46%, #526e82 100%);
+    }
+    .about-tile--tone-yosemite {
+      background:
+        radial-gradient(ellipse 70% 55% at 20% 18%, rgba(147, 163, 167, 0.32) 0%, transparent 62%),
+        radial-gradient(ellipse 68% 52% at 84% 82%, rgba(69, 67, 57, 0.35) 0%, transparent 58%),
+        linear-gradient(145deg, #454339 0%, #636359 42%, #93a3a7 100%);
+    }
+    .about-tile--tone-sf-bridge {
+      background:
+        radial-gradient(ellipse 70% 55% at 22% 20%, rgba(255, 196, 140, 0.36) 0%, transparent 62%),
+        radial-gradient(ellipse 68% 52% at 78% 82%, rgba(72, 128, 168, 0.32) 0%, transparent 58%),
+        linear-gradient(145deg, #2a4a62 0%, #6b8ea8 42%, #e8a86a 100%);
+    }
+    .about-wrapped {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+    .about-wrapped__device {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 8px;
+      overflow: hidden;
+      background: transparent;
+      line-height: 0;
+      box-shadow: none;
+      transform: none;
+      transform-origin: center center;
+    }
+    .about-wrapped__video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      vertical-align: top;
+    }
+    .about-wrapped--landscape {
+      padding: 0;
+    }
+    .about-wrapped__device--landscape {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      transform: none;
+    }
+    .about-tile--wrapped-2025 .about-wrapped {
+      padding: 10% 12%;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-tile--wrapped-2025 .about-wrapped__device {
+      width: auto;
+      height: 100%;
+      max-height: 100%;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      background: #0a0a0a;
+      box-shadow: 0 10px 36px rgba(20, 22, 30, 0.1);
+      transform: rotate(-2deg);
+    }
+    .about-tile--wrapped-2025 .about-wrapped__video {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .about-tile--instagram-memory .about-wrapped {
+      padding: 10% 12%;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-tile--instagram-memory .about-wrapped__device {
+      width: auto;
+      height: 100%;
+      max-height: 100%;
+      max-width: 100%;
+      aspect-ratio: 1280 / 832;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      transform: none;
+    }
+    .about-tile--instagram-memory .about-wrapped__img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 8px;
+    }
+
+    .about-lightbox {
+      margin: 0;
+      padding: 0;
+      border: none;
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      max-height: 100%;
+      background: transparent;
+      overflow: hidden;
+    }
+    .about-lightbox::backdrop {
+      background: rgba(10, 11, 13, 0.82);
+    }
+    .about-lightbox__panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: clamp(56px, 10vw, 88px) clamp(20px, 4vw, 48px);
+      box-sizing: border-box;
+      position: relative;
+    }
+    .about-lightbox__stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: min(96vw, 1100px);
+      max-height: min(78vh, 820px);
+    }
+    .about-lightbox__stage img,
+    .about-lightbox__stage video {
+      display: block;
+      max-width: 100%;
+      max-height: min(78vh, 820px);
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+    }
+    .about-lightbox__device {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: min(78vh, 820px);
+      padding: 0;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      box-shadow: none;
+      transform: none;
+    }
+    .about-lightbox__device video {
+      display: block;
+      width: 100%;
+      max-width: min(96vw, 1100px);
+      max-height: min(78vh, 820px);
+      object-fit: contain;
+      object-position: center;
+      border-radius: 8px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+    }
+    .about-lightbox__device--framed {
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: #0a0a0a;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+      transform: rotate(-2deg);
+    }
+    .about-lightbox__device--framed video {
+      width: auto;
+      height: auto;
+      max-height: min(72vh, 760px);
+      object-fit: contain;
+      box-shadow: none;
+    }
+    .about-lightbox__device--braille {
+      transform: none;
+      border: none;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow:
+        inset 0 0 0 4px rgba(255, 255, 255, 0.22),
+        0 24px 64px rgba(0, 0, 0, 0.35);
+    }
+    .about-lightbox__device--braille video {
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+    }
+    .about-lightbox__caption {
+      margin: 0;
+      max-width: min(96vw, 640px);
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.78);
+      text-align: center;
+    }
+    .about-lightbox__close {
+      position: fixed;
+      top: clamp(16px, 3vw, 28px);
+      right: clamp(16px, 3vw, 28px);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      margin: 0;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-family: 'Manrope', sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .about-lightbox__close:hover {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+    .about-lightbox__close:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
+
+    .site-footer {
+      margin-top: 120px;
+      padding-top: 28px;
+      border-top: 1px solid var(--divider);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      color: var(--grey-secondary);
+    }
+
+    .motion-enter {
+      opacity: 0;
+    }
+    body.loaded .motion-enter {
+      animation: fade-up-in var(--motion-duration-medium) var(--motion-ease) forwards;
+      animation-delay: calc(var(--motion-handoff-delay) + var(--motion-delay, 0ms));
+    }
+    .motion-enter--0 { --motion-delay: 0ms; }
+    .motion-enter--1 { --motion-delay: 120ms; }
+    .motion-enter--2 { --motion-delay: 240ms; }
+    .motion-enter--3 { --motion-delay: 360ms; }
+
+    .site-footer__main {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .site-footer__identity {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .site-footer__status,
+    .site-footer__listening {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+    }
+    .site-footer__icon {
+      display: inline-flex;
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      color: var(--grey-secondary);
+    }
+    .site-footer__icon svg {
+      display: block;
+      width: 14px;
+      height: 14px;
+    }
+    .site-footer__contact {
+      text-align: right;
+    }
+    .site-footer__email {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--grey-secondary);
+      transition: color 0.2s ease;
+    }
+    .site-footer__email:hover {
+      color: var(--text);
+    }
+    .site-footer__social {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+    .site-footer__social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      color: var(--grey-secondary);
+      transition: color 0.2s ease;
+    }
+    .site-footer__social a:hover {
+      color: var(--text);
+    }
+    .site-footer__social svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+    .site-footer__meta {
+      margin-top: 48px;
+      text-align: center;
+    }
+    .site-footer__built {
+      margin: 0 0 6px;
+    }
+    .site-footer__changelog {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
     @media (max-width: 680px) {
       .site-nav-pill {
         gap: 20px;
@@ -147,52 +896,555 @@
       .site-top-links .site-nav-link {
         font-size: 14px;
       }
-      .about-copy {
+      .hero h1,
+      .hero .subhead {
         font-size: 26px;
         line-height: 1.35;
+      }
+      .about-rows {
+        gap: 64px;
+      }
+      .about-row__label {
+        margin-bottom: 20px;
+        font-size: 28px;
+      }
+      .about-row__grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .card-title {
+        font-size: 15px;
+      }
+      .about-row__grid--scroll {
+        display: flex;
+        gap: 20px;
+      }
+      .about-row__grid--scroll .about-tile-card {
+        flex: 0 0 min(78vw, 320px);
+        min-width: min(78vw, 320px);
+      }
+      .about-row.motion-scroll:nth-child(2),
+      .about-row.motion-scroll:nth-child(3) {
+        --scroll-delay: 0ms;
+      }
+      .about-tile--braille .about-wrapped {
+        padding: 4% 5%;
+        align-items: center;
+        justify-content: center;
+      }
+      .about-tile--wrapped-2025 .about-wrapped {
+        padding: 10% 8%;
+      }
+      .about-tile--instagram-memory .about-wrapped {
+        padding: 10% 8%;
+      }
+      .site-footer__main {
+        flex-direction: column;
+        gap: 28px;
+      }
+      .site-footer__contact {
+        text-align: left;
+      }
+      .site-footer__social {
+        justify-content: flex-start;
+      }
+      .site-footer__meta {
+        margin-top: 40px;
+        text-align: left;
       }
     }
   </style>
 </head>
 <body>
+  <div class="page-loader" aria-hidden="true"></div>
   <div class="page">
     <main>
       <div class="hero-with-nav">
-        <nav class="site-top-links" aria-label="Site sections">
+        <nav class="site-top-links motion-enter motion-enter--0" aria-label="Site sections">
           <div class="site-nav-pill">
             <a href="index.html" class="site-nav-link">Work</a>
+            <a href="about.html" class="site-nav-link" aria-current="page">About</a>
             <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
           </div>
         </nav>
-        <section class="about">
-          <p class="about-copy">Shaahana is a designer at Instagram in San Francisco. She enjoys solving highly ambiguous problems and has a background in Systems Design Engineering from Waterloo.</p>
-          <p class="about-copy">Outside of work, she's always creating—behind the camera, in the pottery studio, or deep in a craft.</p>
-          <p class="about-copy">She's previously designed at Coinbase, Meta, Intuit and Bubble.</p>
+
+        <section class="hero">
+          <h1 class="motion-enter motion-enter--1">Hi, I'm Shaahana. I'm a product designer that cares about both designing systems, and sweating the details.</h1>
+          <p class="subhead motion-enter motion-enter--2">I'm drawn to design problems that are human-centric and look at the social impact of design, having spent time between the Engineering and English departments during my Masters at Waterloo.</p>
+          <p class="subhead motion-enter motion-enter--3">I've designed across industries and worn many different hats. I've been a Content Design Intern at Meta Reality Labs, engineered for 6 years during my time at Waterloo, and worked in many Product Design roles.</p>
         </section>
       </div>
 
-      <footer class="footer">
-        <h2>Thanks for coming by!</h2>
-        <nav class="footer-links" aria-label="Contact and social links">
-          <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener" class="contact-text-link">LinkedIn</a>
-          <a href="#" class="contact-text-link">Twitter</a>
-          <a href="#" class="contact-text-link copy-email" data-email="shaahananaufal@gmail.com">Email</a>
-        </nav>
+      <section class="about-featured" aria-label="Projects and interests">
+        <div class="about-rows">
+          <section class="about-row motion-scroll" aria-labelledby="about-row-community">
+            <h2 class="about-row__label" id="about-row-community">Community</h2>
+            <div class="about-row__grid">
+              <a href="https://lnkd.in/gGaqW-_3" class="about-tile-card about-tile-card--link" target="_blank" rel="noopener noreferrer">
+                <span class="about-tile">
+                  <span class="about-tile__media">
+                    <img class="about-tile__img" src="workshop.svg" width="1436" height="1080" alt="" loading="lazy" decoding="async">
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Hosting portfolio &amp; Figma workshops with Figma UCLA &amp; UW</h3>
+                    <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                  </div>
+                </div>
+              </a>
+              <a href="https://x.com/lychkel/status/1770071053043179952?s=20" class="about-tile-card about-tile-card--link about-tile-card--polaroid" target="_blank" rel="noopener noreferrer">
+                <span class="about-tile about-tile--polaroid">
+                  <span class="about-polaroid">
+                    <span class="about-polaroid__frame">
+                      <span class="about-polaroid__photo">
+                        <img src="assets/images/design-mentor.png" width="654" height="654" alt="" loading="lazy" decoding="async">
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Design mentorship at hackathons and events</h3>
+                    <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                  </div>
+                </div>
+              </a>
+              <a href="https://uwblueprint.org/" class="about-tile-card about-tile-card--link" target="_blank" rel="noopener noreferrer">
+                <span class="about-tile">
+                  <span class="about-tile__media">
+                    <img class="about-tile__img" src="blueprint.svg" width="1436" height="1080" alt="" loading="lazy" decoding="async">
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">UW Blueprint – building tech for social good</h3>
+                    <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </section>
+
+          <section class="about-row motion-scroll" aria-labelledby="about-row-creations">
+            <h2 class="about-row__label" id="about-row-creations">Creations</h2>
+            <div class="about-row__grid">
+              <button type="button" class="about-tile-card about-tile-card--expand" data-lightbox-id="wrapped-2025" data-lightbox-type="video" data-lightbox-src="2025%20wrapped.mp4" data-lightbox-caption="2025 Wrapped">
+                <span class="about-tile about-tile--wrapped about-tile--wrapped-2025">
+                  <span class="about-wrapped">
+                    <span class="about-wrapped__device">
+                      <video
+                        class="about-wrapped__video"
+                        src="2025%20wrapped.mp4"
+                        width="2160"
+                        height="3840"
+                        playsinline
+                        muted
+                        loop
+                        autoplay
+                        preload="metadata"
+                        aria-hidden="true">
+                      </video>
+                    </span>
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">2025 Wrapped</h3>
+                  </div>
+                </div>
+              </button>
+              <a href="https://shaahana.substack.com/" class="about-tile-card about-tile-card--link" target="_blank" rel="noopener noreferrer">
+                <span class="about-tile">
+                  <span class="about-tile__media">
+                    <img class="about-tile__img" src="substack.svg" width="1436" height="1080" alt="" loading="lazy" decoding="async">
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Writing on Substack</h3>
+                    <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                  </div>
+                </div>
+              </a>
+              <button type="button" class="about-tile-card about-tile-card--expand about-tile-card--video" data-lightbox-id="kiln-haul" data-lightbox-type="video" data-lightbox-src="kiln-haul.mp4" data-lightbox-caption="Showcasing my first kiln haul">
+                <span class="about-tile about-tile--wrapped about-tile--tone-kiln">
+                  <span class="about-wrapped about-wrapped--landscape">
+                    <span class="about-wrapped__device about-wrapped__device--landscape">
+                      <video
+                        class="about-wrapped__video"
+                        src="kiln-haul.mp4"
+                        width="1280"
+                        height="720"
+                        playsinline
+                        muted
+                        loop
+                        autoplay
+                        preload="auto"
+                        aria-hidden="true">
+                      </video>
+                    </span>
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Showcasing my first kiln haul</h3>
+                  </div>
+                </div>
+              </button>
+              <button type="button" class="about-tile-card about-tile-card--expand about-tile-card--video" data-lightbox-id="hawaii-volcano" data-lightbox-type="video" data-lightbox-src="hawaii%20volcano.mp4" data-lightbox-caption="Haleakala Sunset in Hawaii">
+                <span class="about-tile about-tile--wrapped about-tile--tone-hawaii">
+                  <span class="about-wrapped">
+                    <span class="about-wrapped__device">
+                      <video
+                        class="about-wrapped__video"
+                        src="hawaii%20volcano.mp4"
+                        width="720"
+                        height="1280"
+                        playsinline
+                        muted
+                        loop
+                        autoplay
+                        preload="auto"
+                        aria-hidden="true">
+                      </video>
+                    </span>
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Haleakala Sunset in Hawaii</h3>
+                  </div>
+                </div>
+              </button>
+              <button type="button" class="about-tile-card about-tile-card--expand about-tile-card--video" data-lightbox-id="yosemite" data-lightbox-type="video" data-lightbox-src="yosemite-r.mp4" data-lightbox-caption="Exploring Yosemite">
+                <span class="about-tile about-tile--wrapped about-tile--tone-yosemite">
+                  <span class="about-wrapped about-wrapped--landscape">
+                    <span class="about-wrapped__device about-wrapped__device--landscape">
+                      <video
+                        class="about-wrapped__video"
+                        src="yosemite-r.mp4"
+                        width="1920"
+                        height="1080"
+                        playsinline
+                        muted
+                        loop
+                        autoplay
+                        preload="auto"
+                        aria-hidden="true">
+                      </video>
+                    </span>
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Exploring Yosemite</h3>
+                  </div>
+                </div>
+              </button>
+              <button type="button" class="about-tile-card about-tile-card--expand about-tile-card--video" data-lightbox-id="sf-bridge" data-lightbox-type="video" data-lightbox-src="sfbridge.mp4" data-lightbox-caption="More sunsets at golden gate">
+                <span class="about-tile about-tile--wrapped about-tile--tone-sf-bridge">
+                  <span class="about-wrapped about-wrapped--landscape">
+                    <span class="about-wrapped__device about-wrapped__device--landscape">
+                      <video
+                        class="about-wrapped__video"
+                        src="sfbridge.mp4"
+                        width="1920"
+                        height="1080"
+                        playsinline
+                        muted
+                        loop
+                        autoplay
+                        preload="auto"
+                        aria-hidden="true">
+                      </video>
+                    </span>
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">More sunsets at Golden Gate</h3>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="site-footer__main">
+          <div class="site-footer__identity">
+            <p class="site-footer__status">
+              <span class="site-footer__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              </span>
+              <span id="footer-status" aria-live="polite">—, San Francisco</span>
+            </p>
+            <p class="site-footer__listening">
+              <span class="site-footer__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              </span>
+              <span>Listening to <span id="footer-listening">Bon Iver</span></span>
+            </p>
+          </div>
+          <div class="site-footer__contact">
+            <a href="mailto:shaahananaufal@gmail.com" class="site-footer__email">shaahananaufal@gmail.com</a>
+            <div class="site-footer__social" aria-label="Social links">
+              <a href="https://www.linkedin.com/in/shaahana-naufal/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a href="https://x.com/shaahananaufal" target="_blank" rel="noopener noreferrer" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="https://shaahana.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="site-footer__meta">
+          <p class="site-footer__built">Built with Cursor &amp; lattes.</p>
+          <p class="site-footer__changelog">Changelog: 05-31-26</p>
+        </div>
       </footer>
     </main>
   </div>
+
+  <dialog class="about-lightbox" id="about-lightbox" aria-label="Expanded project view">
+    <div class="about-lightbox__panel">
+      <button type="button" class="about-lightbox__close" aria-label="Close expanded view">&times;</button>
+      <div class="about-lightbox__stage" id="about-lightbox-stage"></div>
+      <p class="about-lightbox__caption" id="about-lightbox-caption"></p>
+    </div>
+  </dialog>
+
   <script>
-    document.querySelectorAll('.copy-email').forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        var email = this.getAttribute('data-email');
-        navigator.clipboard.writeText(email).then(function() {
-          var original = link.textContent;
-          link.textContent = 'Copied!';
-          setTimeout(function() { link.textContent = original; }, 1500);
+    (function() {
+      var minLoadTime = 400;
+      var startTime = Date.now();
+      function onLoad() {
+        var delay = Math.max(0, minLoadTime - (Date.now() - startTime));
+        setTimeout(function() { document.body.classList.add('loaded'); }, delay);
+      }
+      if (document.readyState === 'complete') onLoad();
+      else window.addEventListener('load', onLoad);
+
+      function preventSingleWordOrphans(selector) {
+        document.querySelectorAll(selector).forEach(function(el) {
+          var words = el.textContent.trim().split(/\s+/);
+          if (words.length < 2) return;
+          var last = words.pop();
+          var secondLast = words.pop();
+          words.push(secondLast + '\u00A0' + last);
+          el.textContent = words.join(' ');
         });
+      }
+      preventSingleWordOrphans('.hero h1, .hero .subhead');
+
+      document.querySelectorAll('.about-row__grid').forEach(function(grid) {
+        if (grid.children.length <= 6) return;
+        grid.classList.add('about-row__grid--scroll');
+        grid.setAttribute('tabindex', '0');
+        var rowLabel = grid.closest('.about-row');
+        var labelText = rowLabel && rowLabel.querySelector('.about-row__label');
+        grid.setAttribute('aria-label', (labelText ? labelText.textContent.trim() : 'Projects') + ' — scroll horizontally');
       });
-    });
+
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function playTileVideo(video) {
+        if (!video || prefersReducedMotion.matches) return;
+        video.muted = true;
+        var playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function() {});
+        }
+      }
+
+      function pauseTileVideo(video) {
+        if (!video) return;
+        video.pause();
+      }
+
+      var tileVideos = document.querySelectorAll('.about-wrapped__video');
+      tileVideos.forEach(function(tileVideo) {
+        tileVideo.muted = true;
+        if (prefersReducedMotion.matches) {
+          tileVideo.removeAttribute('autoplay');
+          tileVideo.pause();
+          return;
+        }
+        if ('IntersectionObserver' in window) {
+          var videoObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) playTileVideo(entry.target);
+              else pauseTileVideo(entry.target);
+            });
+          }, { threshold: 0.2 });
+          videoObserver.observe(tileVideo);
+        } else {
+          playTileVideo(tileVideo);
+        }
+      });
+
+      var lightbox = document.getElementById('about-lightbox');
+      var lightboxStage = document.getElementById('about-lightbox-stage');
+      var lightboxCaption = document.getElementById('about-lightbox-caption');
+      var lightboxClose = lightbox ? lightbox.querySelector('.about-lightbox__close') : null;
+      var lightboxTriggers = document.querySelectorAll('.about-tile-card--expand[data-lightbox-id]');
+      var lightboxVideo = null;
+      var suppressHashClose = false;
+
+      function clearLightboxStage() {
+        if (lightboxVideo) {
+          lightboxVideo.pause();
+          lightboxVideo = null;
+        }
+        if (lightboxStage) lightboxStage.innerHTML = '';
+      }
+
+      function openLightboxFromTrigger(trigger, updateHash) {
+        if (!lightbox || !lightboxStage || !lightbox.showModal || !trigger) return;
+        var type = trigger.getAttribute('data-lightbox-type');
+        var src = trigger.getAttribute('data-lightbox-src');
+        var caption = trigger.getAttribute('data-lightbox-caption') || '';
+        var id = trigger.getAttribute('data-lightbox-id');
+        if (!type || !src) return;
+
+        clearLightboxStage();
+
+        if (type === 'video') {
+          var device = document.createElement('div');
+          device.className = 'about-lightbox__device';
+          if (id === 'braille-buddy') device.className += ' about-lightbox__device--braille';
+          else if (id === 'wrapped-2025') device.className += ' about-lightbox__device--framed';
+          lightboxVideo = document.createElement('video');
+          lightboxVideo.src = src;
+          lightboxVideo.controls = true;
+          lightboxVideo.playsInline = true;
+          lightboxVideo.autoplay = true;
+          lightboxVideo.muted = true;
+          lightboxVideo.loop = true;
+          lightboxVideo.setAttribute('aria-label', caption);
+          device.appendChild(lightboxVideo);
+          lightboxStage.appendChild(device);
+          lightboxVideo.play().catch(function() {});
+        } else {
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = caption;
+          lightboxStage.appendChild(img);
+        }
+
+        if (lightboxCaption) {
+          lightboxCaption.textContent = caption;
+          lightboxCaption.hidden = !caption;
+        }
+
+        lightbox.showModal();
+        if (lightboxClose) lightboxClose.focus();
+
+        if (updateHash !== false && id) {
+          suppressHashClose = true;
+          history.pushState({ aboutLightbox: id }, '', '#/' + id);
+          suppressHashClose = false;
+        }
+      }
+
+      function closeLightbox(clearHash) {
+        if (!lightbox || !lightbox.open) return;
+        clearLightboxStage();
+        lightbox.close();
+        if (clearHash !== false && location.hash) {
+          suppressHashClose = true;
+          history.replaceState(null, '', location.pathname + location.search);
+          suppressHashClose = false;
+        }
+      }
+
+      if (lightbox && lightboxClose) {
+        lightboxTriggers.forEach(function(trigger) {
+          trigger.addEventListener('click', function() {
+            openLightboxFromTrigger(trigger);
+          });
+        });
+
+        lightboxClose.addEventListener('click', function() {
+          closeLightbox(true);
+        });
+
+        lightbox.addEventListener('click', function(e) {
+          if (e.target === lightbox || e.target.classList.contains('about-lightbox__panel')) {
+            closeLightbox(true);
+          }
+        });
+
+        lightbox.addEventListener('cancel', function() {
+          closeLightbox(true);
+        });
+
+        window.addEventListener('popstate', function() {
+          if (suppressHashClose) return;
+          var hash = location.hash.replace(/^#\/?/, '');
+          if (!hash) {
+            if (lightbox.open) closeLightbox(false);
+            return;
+          }
+          openLightboxFromHash();
+        });
+
+        function openLightboxFromHash() {
+          var hash = location.hash.replace(/^#\/?/, '');
+          if (!hash) return;
+          var trigger = document.querySelector('.about-tile-card--expand[data-lightbox-id="' + hash + '"]');
+          if (trigger) openLightboxFromTrigger(trigger, false);
+        }
+
+        openLightboxFromHash();
+      }
+
+      var scrollRows = document.querySelectorAll('.about-row.motion-scroll');
+
+      function revealScrollRowsImmediately() {
+        scrollRows.forEach(function(row) {
+          row.classList.add('is-visible');
+        });
+      }
+
+      if (prefersReducedMotion.matches || !('IntersectionObserver' in window)) {
+        revealScrollRowsImmediately();
+      } else {
+        var scrollObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            scrollObserver.unobserve(entry.target);
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -5% 0px'
+        });
+        scrollRows.forEach(function(row) {
+          scrollObserver.observe(row);
+        });
+      }
+
+      var footerStatus = document.getElementById('footer-status');
+      if (footerStatus) {
+        var sfTimeFormatter = new Intl.DateTimeFormat('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+          timeZone: 'America/Los_Angeles'
+        });
+        function updateFooterTime() {
+          footerStatus.textContent = sfTimeFormatter.format(new Date()) + ', San Francisco';
+        }
+        updateFooterTime();
+        setInterval(updateFooterTime, 60000);
+      }
+    })();
   </script>
 </body>
 </html>
