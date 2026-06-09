@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instagram Memory</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/instagram-memory.css">
+</head>
+<body>
+  <a class="im-exit" href="../play.html" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+  </a>
+
+  <div class="im-scroll" id="memory-scroll">
+    <div class="im-track" id="memory-track"></div>
+  </div>
+
+  <div class="im-progress" aria-hidden="true">
+    <div class="im-progress__track">
+      <div class="im-progress__fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="im-zoom" id="memory-zoom" hidden>
+    <button type="button" class="im-zoom__close" id="zoom-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <img class="im-zoom__img" id="zoom-img" alt="">
+  </div>
+
+  <script src="../assets/instagram-memory-data.js"></script>
+  <script src="../assets/instagram-memory.js" defer></script>
+</body>
+</html>

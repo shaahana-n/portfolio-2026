@@ -8,7 +8,6 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/cursor.css">
   <link rel="stylesheet" href="assets/sparkle-click.css">
-  <link rel="stylesheet" href="assets/nda-modal.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
@@ -429,8 +428,14 @@
     .project-card {
       display: flex;
       flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      text-align: left;
       text-decoration: none;
       color: inherit;
+    }
+    .project-card[data-nda-modal] {
+      cursor: pointer;
     }
     a.project-card--case-study,
     a.project-card--case-study .card-image { cursor: pointer; }
@@ -447,17 +452,23 @@
       position: relative;
       aspect-ratio: 1436 / 1080;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       overflow: hidden;
     }
     .project-card--editorial .card-body {
       display: flex;
       flex-direction: column;
+      align-items: stretch;
+      align-self: stretch;
+      width: 100%;
+      text-align: left;
       gap: 6px;
       padding: 20px 0 0;
     }
     .project-card--editorial .card-label {
       margin: 0;
+      width: 100%;
+      text-align: left;
       font-family: 'Manrope', sans-serif;
       font-size: 14px;
       letter-spacing: 0.08em;
@@ -466,6 +477,8 @@
     }
     .project-card--editorial .card-headline {
       margin: 0;
+      width: 100%;
+      text-align: left;
       font-family: 'PP Writer Thin', serif;
       font-size: 24px;
       line-height: 1.35;
@@ -610,6 +623,31 @@
       .archive-item--3 { width: 44%; left: 10%; }
     }
   </style>
+  <link rel="stylesheet" href="assets/case-study-images.css">
+  <link rel="stylesheet" href="assets/project-card-tags.css?v=20250608">
+  <style>
+    .card-image__tag {
+      z-index: 4;
+      color: #1a1a1a;
+      background: rgba(255, 255, 255, 0.78);
+      border-color: rgba(255, 255, 255, 0.65);
+      text-shadow: none;
+    }
+    .project-card:hover .card-image__tag,
+    .project-card:focus-within .card-image__tag {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+    .card-image__tag-company {
+      color: #1a1a1a;
+    }
+    .card-image__tag-sep {
+      color: #6b6b6b;
+    }
+    .card-image__tag-year {
+      color: #4a4a4a;
+    }
+  </style>
 </head>
 <body>
   <div class="page-loader" aria-hidden="true"></div>
@@ -620,7 +658,7 @@
           <div class="site-nav-pill">
             <a href="index.html" class="site-nav-link">Work</a>
             <a href="about.html" class="site-nav-link">About</a>
-            <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+            <a href="resume.html" class="site-nav-link">Resume</a>
           </div>
         </nav>
 
@@ -719,23 +757,28 @@
       <section class="featured" id="featured">
         <p class="featured__label motion-enter motion-enter--3">Selected work</p>
         <div class="projects-grid">
-          <button type="button" class="project-card project-card--ig project-card--editorial project-card--large-cover motion-scroll" data-nda-modal aria-haspopup="dialog">
+          <a href="instagram-case-study-2025/" class="project-card project-card--ig project-card--editorial project-card--large-cover project-card--case-study motion-scroll">
             <div class="card-image">
               <div class="card-image__gradient" aria-hidden="true"></div>
               <div class="card-image__media">
                 <img src="assets/images/ig.svg" width="1436" height="1080" alt="Instagram ads recommendations" loading="lazy" decoding="async">
               </div>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Instagram</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2025–2026</span></span>
             </div>
             <div class="card-body">
               <p class="card-label">Instagram · 2025–2026</p>
-              <p class="card-headline">Improving ads recommendations</p>
+              <div class="card-header">
+                <p class="card-headline">Improve ad recommendations on Instagram</p>
+                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+              </div>
             </div>
-          </button>
+          </a>
           <a href="coinbase-case-study-2024/index.html" class="project-card project-card--gif project-card--editorial project-card--case-study motion-scroll">
             <div class="card-image">
               <div class="card-image__media">
                 <img src="assets/images/coinbase-discoverability.gif" width="1778" height="1340" alt="Coinbase case study - global search" loading="lazy" decoding="async">
               </div>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Coinbase</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2024</span></span>
             </div>
             <div class="card-body">
               <p class="card-label">Coinbase · 2024</p>
@@ -750,6 +793,7 @@
               <div class="card-image__media">
                 <img src="assets/images/coinbase/coinbase-may.svg" width="1436" height="1080" alt="Coinbase perpetuals trading case study" loading="lazy" decoding="async">
               </div>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Coinbase</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2024</span></span>
             </div>
             <div class="card-body">
               <p class="card-label">Coinbase · 2024</p>
@@ -764,12 +808,29 @@
               <div class="card-image__media">
                 <img src="assets/images/meta-cd.svg" width="1436" height="1080" alt="Meta Reality Labs case study" loading="lazy" decoding="async">
               </div>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Meta</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2023</span></span>
             </div>
             <div class="card-body">
               <p class="card-label">Meta · 2023</p>
               <div class="card-header">
                 <p class="card-headline">VR Connections</p>
                 <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+              </div>
+            </div>
+          </a>
+          <a href="instagram-memory/" class="project-card project-card--ig project-card--editorial project-card--case-study motion-scroll">
+            <div class="card-image">
+              <div class="card-image__gradient" aria-hidden="true"></div>
+              <div class="card-image__media">
+                <img src="instagram-case-study-2025/IG%20memory%20project%20/Existing%20Images/image%20149.svg" width="1436" height="1080" alt="Instagram Memory visualization" loading="lazy" decoding="async">
+              </div>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">School</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">663</span></span>
+            </div>
+            <div class="card-body">
+              <p class="card-label">School · 663</p>
+              <div class="card-header">
+                <p class="card-headline">Instagram Memory — how engagement shapes recall</p>
+                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
               </div>
             </div>
           </a>
@@ -808,7 +869,7 @@
             <nav class="site-footer__nav" aria-label="Site sections">
               <a href="index.html" class="site-footer__nav-link">Work</a>
               <a href="about.html" class="site-footer__nav-link">About</a>
-              <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-footer__nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+              <a href="resume.html" class="site-footer__nav-link">Resume</a>
             </nav>
           </div>
         </div>
@@ -932,23 +993,6 @@
       }
     })();
   </script>
-  <dialog class="nda-modal" id="nda-modal" aria-labelledby="nda-modal-title">
-    <div class="nda-modal__panel">
-      <button type="button" class="nda-modal__close" aria-label="Close">&times;</button>
-      <h2 class="nda-modal__title" id="nda-modal-title">Work under NDA</h2>
-      <p class="nda-modal__text">This work is under NDA. Please reach out for more details via email.</p>
-      <div class="nda-modal__email-box">
-        <div class="nda-modal__email-row">
-          <a href="mailto:shaahananaufal@gmail.com" class="nda-modal__email">shaahananaufal@gmail.com</a>
-          <button type="button" class="nda-modal__copy" data-copy-email="shaahananaufal@gmail.com" aria-label="Copy email address">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          </button>
-        </div>
-        <span class="nda-modal__copy-feedback" aria-live="polite"></span>
-      </div>
-    </div>
-  </dialog>
-  <script src="assets/nda-modal.js"></script>
   <script src="assets/sparkle-click.js" defer></script>
 </body>
 </html>

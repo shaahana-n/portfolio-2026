@@ -6,3 +6,7 @@ node_modules/
 
 # Unused source video (exceeds GitHub 100MB limit; site uses yosemite-r.mp4)
 yosemite.mp4
+madrid vlog.mov
+
+# Cursor debug logs
+.cursor/

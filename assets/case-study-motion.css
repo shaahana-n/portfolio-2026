@@ -1,0 +1,80 @@
+:root {
+  --cs-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --cs-motion-duration: 0.68s;
+  --cs-motion-scroll-duration: 0.34s;
+  --cs-motion-scroll-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cs-fade-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cs-hero-settle {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.988);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.cs-motion-enter {
+  opacity: 0;
+}
+
+body.cs-motion-ready .cs-motion-enter {
+  animation: cs-fade-up-in var(--cs-motion-duration) var(--cs-motion-ease) forwards;
+  animation-delay: calc(var(--cs-motion-delay, 0ms));
+}
+
+.cs-motion-enter--0 { --cs-motion-delay: 0ms; }
+.cs-motion-enter--1 { --cs-motion-delay: 110ms; }
+.cs-motion-enter--2 { --cs-motion-delay: 220ms; }
+.cs-motion-enter--3 { --cs-motion-delay: 330ms; }
+.cs-motion-enter--4 { --cs-motion-delay: 440ms; }
+.cs-motion-enter--5 { --cs-motion-delay: 550ms; }
+
+.cs-motion-scroll {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--cs-motion-scroll-duration) var(--cs-motion-scroll-ease),
+    transform var(--cs-motion-scroll-duration) var(--cs-motion-scroll-ease);
+  transition-delay: 0ms;
+}
+
+.cs-motion-scroll.cs-motion-visible,
+.cs-motion-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.cs-motion-ready .cs-motion-hero img,
+body.cs-motion-ready .cs-motion-hero .instagram-hero__image {
+  animation: cs-hero-settle 0.85s var(--cs-motion-ease) forwards;
+  animation-delay: 140ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-motion-enter,
+  .cs-motion-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body.cs-motion-ready .cs-motion-hero img,
+  body.cs-motion-ready .cs-motion-hero .instagram-hero__image {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,74 @@
+:root {
+  --site-radius-card: 8px;
+  --site-radius-case-image: 12px;
+}
+
+/* Work / play project cards */
+.card-image {
+  border-radius: var(--site-radius-card) !important;
+}
+
+/* Case study heroes */
+#main .framer-1y1xs,
+#main .framer-1y1xs > *,
+#main .framer-1y1xs img,
+#main .framer-16v6uqd,
+#main .framer-16v6uqd > *,
+#main .framer-16v6uqd img,
+.instagram-hero__image,
+
+/* Instagram work samples */
+.instagram-work-samples__media,
+.instagram-work-samples__media img,
+
+/* Coinbase — discoverability & search */
+.coinbase-trade-modes__viewport,
+.coinbase-problem-content__figure,
+.coinbase-option-cell__frame,
+.coinbase-guardrails__media,
+.coinbase-guardrails__media img,
+.coinbase-cell-look__item img,
+.coinbase-search-solution__media,
+.coinbase-search-solution__media img,
+.coinbase-discoverability__grid img,
+.coinbase-entry-points__grid img,
+.coinbase-progress-tracking__figure,
+.coinbase-final-prototype video,
+.coinbase-image-lightbox img,
+.coinbase-audit-flow img,
+
+/* Coinbase — perpetuals */
+.coinbase-device,
+.coinbase-device__screen,
+.coinbase-perps__media,
+.coinbase-perps__media img,
+.coinbase-perps__figure,
+.coinbase-perps__figure img,
+.coinbase-perps__viewport,
+.coinbase-perps__viewport img,
+.coinbase-perpetuals-hero__image,
+.coinbase-final-prototype__video,
+.coinbase-final-prototype__frame,
+.coinbase-audit-flow__screen img,
+
+/* Framer-exported screenshots (case studies without custom wrappers) */
+#main [data-framer-root] img,
+#main [data-framer-root] video {
+  border-radius: var(--site-radius-case-image) !important;
+}
+
+/* Loading skeleton hero matches case-study image radius */
+.site-case-shimmer__hero {
+  border-radius: var(--site-radius-case-image);
+}
+
+/* Polaroid / decorative frames — unchanged */
+.meta-work-play__photo img,
+.coinbase-work-play__photo img,
+#main .framer-11npsmk img,
+#main .framer-11npsmk video,
+#main .framer-11npsmk [class$="-container"],
+#main .framer-11npsmk [data-border="true"],
+#main .framer-11npsmk [data-border="true"]::after {
+  border-radius: 2px !important;
+}

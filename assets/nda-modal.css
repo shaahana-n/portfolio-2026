@@ -1,4 +1,5 @@
-button.project-card[data-nda-modal] {
+button.project-card[data-nda-modal],
+a.project-card[data-nda-modal] {
   appearance: none;
   -webkit-appearance: none;
   font: inherit;
@@ -8,7 +9,9 @@ button.project-card[data-nda-modal] {
 }
 
 button.project-card[data-nda-modal]:hover,
-button.project-card[data-nda-modal]:focus-visible {
+button.project-card[data-nda-modal]:focus-visible,
+a.project-card[data-nda-modal]:hover,
+a.project-card[data-nda-modal]:focus-visible {
   color: inherit;
 }
 
@@ -167,6 +170,40 @@ button.project-card[data-nda-modal]:focus-visible {
 .nda-modal__copy-feedback:not(:empty) {
   min-height: 1.2em;
   margin-top: 8px;
+}
+
+.nda-modal__copy-feedback[hidden] {
+  display: none;
+}
+
+.nda-modal__copy-feedback[role='alert']:not([hidden]) {
+  color: #b4236b;
+}
+
+.nda-modal__email-row input {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.nda-modal__email-row input::placeholder {
+  color: #9a9a9a;
+  font-weight: 400;
+}
+
+.nda-modal__email-row input:focus {
+  outline: none;
+}
+
+.nda-modal__email-box + .nda-modal__email-box {
+  margin-top: 12px;
 }
 
 @media (max-width: 680px) {

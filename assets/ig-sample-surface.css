@@ -1,0 +1,53 @@
+@keyframes ig-gradient-loop {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.ig-sample-surface {
+  position: relative;
+  isolation: isolate;
+  background-color: #f2eff1;
+  overflow: hidden;
+}
+
+.ig-sample-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(241, 182, 182, 0.79) 0%,
+    #F8CDE0 46%,
+    #F2EFF1 100%,
+    rgba(241, 182, 182, 0.79) 100%
+  );
+  background-size: 220% 100%;
+  animation: ig-gradient-loop 14s ease-in-out infinite;
+}
+
+.ig-sample-surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url('images/Noise.png');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+.ig-sample-surface > img {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ig-sample-surface::before {
+    animation: none;
+  }
+}

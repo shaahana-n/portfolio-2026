@@ -15,6 +15,7 @@
     <link href="../favicon.svg" rel="icon" type="image/svg+xml">
     <link rel="stylesheet" href="../assets/cursor.css">
     <link rel="stylesheet" href="../assets/sparkle-click.css">
+    <link rel="stylesheet" href="../assets/case-study-motion.css">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Keeping users connected in VR">
@@ -594,7 +595,9 @@
       transform: rotate(2.6deg);
     }
   }
-</style></head>
+</style>
+<link rel="stylesheet" href="../assets/case-study-images.css">
+</head>
 <body>
     <!-- Start of bodyStart -->
     <!-- End of bodyStart -->
@@ -612,7 +615,7 @@
         <div class="site-nav-pill">
           <a href="../index.html" class="site-nav-link">Work</a>
           <a href="../about.html" class="site-nav-link">About</a>
-          <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+          <a href="../resume.html" class="site-nav-link">Resume</a>
         </div>
       </nav>
     </header>
@@ -685,7 +688,7 @@
             <nav class="site-footer__nav" aria-label="Site sections">
               <a href="../index.html" class="site-footer__nav-link">Work</a>
               <a href="../about.html" class="site-footer__nav-link">About</a>
-              <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-footer__nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+              <a href="../resume.html" class="site-footer__nav-link">Resume</a>
             </nav>
           </div>
         </div>
@@ -707,6 +710,9 @@
 
         function hideLoading() {
           if (loadingEl) loadingEl.hidden = true;
+          if (typeof window.initCaseStudyMotion === 'function') {
+            window.initCaseStudyMotion();
+          }
         }
 
         function showLoadError() {
@@ -894,5 +900,6 @@
         setInterval(updateFooterTime, 30000);
       })();
     </script>
+    <script src="../assets/case-study-motion.js" defer></script>
     <script src="../assets/sparkle-click.js" defer></script>
 </body></html>

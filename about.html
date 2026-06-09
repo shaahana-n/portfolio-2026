@@ -455,6 +455,9 @@
       transform-origin: center center;
       transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
     }
+    .about-polaroid--braille {
+      transform: rotate(2deg);
+    }
     .about-polaroid__frame {
       display: block;
       padding: 12px 12px 40px;
@@ -494,6 +497,10 @@
       .about-tile-card--polaroid:hover .about-polaroid,
       .about-tile-card--polaroid:focus-within .about-polaroid {
         transform: rotate(-2.2deg) translateY(-6px) scale(1.03);
+      }
+      .about-tile-card--polaroid:hover .about-polaroid--braille,
+      .about-tile-card--polaroid:focus-within .about-polaroid--braille {
+        transform: rotate(2deg) translateY(-6px) scale(1.03);
       }
     }
     .about-tile--wrapped {
@@ -653,6 +660,13 @@
       object-fit: contain;
       object-position: center;
       border-radius: 8px;
+    }
+    .about-tile--clustering {
+      aspect-ratio: 1430 / 1080;
+    }
+    .about-tile--clustering .about-tile__img {
+      object-fit: contain;
+      object-position: center;
     }
 
     .about-lightbox {
@@ -1004,7 +1018,7 @@
           <div class="site-nav-pill">
             <a href="index.html" class="site-nav-link">Work</a>
             <a href="about.html" class="site-nav-link" aria-current="page">About</a>
-            <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+            <a href="resume.html" class="site-nav-link">Resume</a>
           </div>
         </nav>
 
@@ -1063,6 +1077,49 @@
                   </div>
                 </div>
               </a>
+              <a href="https://www.figma.com/proto/MmhOt9vuc4PnYB9u5iy9pT/Slides?node-id=999-779&amp;t=X9zGpuzkvjKaSJFp-1&amp;starting-point-node-id=999%3A779" class="about-tile-card about-tile-card--link about-tile-card--polaroid" target="_blank" rel="noopener noreferrer">
+                <span class="about-tile about-tile--polaroid">
+                  <span class="about-polaroid about-polaroid--braille">
+                    <span class="about-polaroid__frame">
+                      <span class="about-polaroid__photo">
+                        <img src="braillebuddy.svg" width="654" height="654" alt="Braille Buddy engineering capstone" loading="lazy" decoding="async">
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Built a computer-vision mobile app that helps users learn braille independently</h3>
+                    <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                  </div>
+                </div>
+              </a>
+              <a href="https://youtu.be/pQYKe3cvrQQ?si=tYcA5IY7fcV1LsSR" class="about-tile-card about-tile-card--link" target="_blank" rel="noopener noreferrer">
+                <span class="about-tile">
+                  <span class="about-tile__media">
+                    <img class="about-tile__img" src="16%20Weeks.svg" width="1436" height="1080" alt="16 Weeks of Internships" loading="lazy" decoding="async">
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">16 Weeks of Internships</h3>
+                    <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                  </div>
+                </div>
+              </a>
+              <a href="https://shaahana.substack.com/" class="about-tile-card about-tile-card--link" target="_blank" rel="noopener noreferrer">
+                <span class="about-tile">
+                  <span class="about-tile__media">
+                    <img class="about-tile__img" src="substack.svg" width="1436" height="1080" alt="" loading="lazy" decoding="async">
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Writing on Substack</h3>
+                    <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                  </div>
+                </div>
+              </a>
             </div>
           </section>
 
@@ -1094,19 +1151,18 @@
                   </div>
                 </div>
               </button>
-              <a href="https://shaahana.substack.com/" class="about-tile-card about-tile-card--link" target="_blank" rel="noopener noreferrer">
-                <span class="about-tile">
+              <button type="button" class="about-tile-card about-tile-card--expand" data-lightbox-id="clustering" data-lightbox-type="image" data-lightbox-src="clustering.svg" data-lightbox-caption="Exploring different ways of representing memory on social media">
+                <span class="about-tile about-tile--clustering">
                   <span class="about-tile__media">
-                    <img class="about-tile__img" src="substack.svg" width="1436" height="1080" alt="" loading="lazy" decoding="async">
+                    <img class="about-tile__img" src="clustering.svg" width="1430" height="1080" alt="Exploring different ways of representing memory on social media" loading="lazy" decoding="async">
                   </span>
                 </span>
                 <div class="card-body">
                   <div class="card-header">
-                    <h3 class="card-title">Writing on Substack</h3>
-                    <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                    <h3 class="card-title">Exploring different ways of representing memory on social media</h3>
                   </div>
                 </div>
-              </a>
+              </button>
               <button type="button" class="about-tile-card about-tile-card--expand about-tile-card--video" data-lightbox-id="kiln-haul" data-lightbox-type="video" data-lightbox-src="kiln-haul.mp4" data-lightbox-caption="Showcasing my first kiln haul">
                 <span class="about-tile about-tile--wrapped about-tile--tone-kiln">
                   <span class="about-wrapped about-wrapped--landscape">
@@ -1244,7 +1300,7 @@
             <nav class="site-footer__nav" aria-label="Site sections">
               <a href="index.html" class="site-footer__nav-link">Work</a>
               <a href="about.html" class="site-footer__nav-link" aria-current="page">About</a>
-              <a href="https://drive.google.com/file/d/1VTCEU3q2toQV3yooVN7k07iuWcgAYAcI/view?usp=sharing" class="site-footer__nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+              <a href="resume.html" class="site-footer__nav-link">Resume</a>
             </nav>
           </div>
         </div>
@@ -1290,7 +1346,7 @@
       preventSingleWordOrphans('.hero h1, .hero .subhead');
 
       document.querySelectorAll('.about-row__grid').forEach(function(grid) {
-        if (grid.children.length <= 6) return;
+        if (grid.children.length <= 9) return;
         grid.classList.add('about-row__grid--scroll');
         grid.setAttribute('tabindex', '0');
         var rowLabel = grid.closest('.about-row');
