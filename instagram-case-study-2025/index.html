@@ -831,6 +831,7 @@
       transform: rotate(2.6deg);
     }
   }
+  #main .framer-1deu6be > .instagram-work-samples,
   #main .framer-9qug71 .instagram-work-samples,
   .instagram-work-samples {
     display: flex;
@@ -839,6 +840,16 @@
     width: 100%;
     margin-top: 40px;
     box-sizing: border-box;
+  }
+  #main .framer-1deu6be > .instagram-value-screens-anchor {
+    width: 100%;
+    margin-top: 40px;
+  }
+  #main .framer-1deu6be > .instagram-value-screens-anchor .instagram-work-samples {
+    margin-top: 0;
+  }
+  #main .framer-mjtoz9 {
+    margin-top: 40px;
   }
   .instagram-work-samples__item {
     margin: 0;
@@ -870,6 +881,7 @@
   #instagram-tune-your-ads[hidden] {
     display: none !important;
   }
+  #main .framer-1deu6be .instagram-tune-your-ads,
   #main .framer-9qug71 .instagram-tune-your-ads {
     width: 100%;
     margin-top: 12px;
@@ -986,6 +998,7 @@
     pointer-events: none;
   }
   .instagram-tune-your-ads.is-unlocked .instagram-tune-your-ads__content,
+  #main .framer-1deu6be .instagram-tune-your-ads.is-unlocked .instagram-tune-your-ads__content,
   #main .framer-9qug71 .instagram-tune-your-ads.is-unlocked .instagram-tune-your-ads__content {
     display: flex !important;
   }
@@ -1315,28 +1328,34 @@
         }
 
         function mountWorkSamplesSection() {
-          if (workSamplesMounted) return;
-
-          var contentCol = null;
-          var learnings = findLearningsSection();
-          if (learnings) {
-            contentCol = findLearningsContentCol(learnings);
-          }
-          if (!contentCol) {
-            contentCol = document.querySelector('#main [data-framer-root]');
-          }
+          var contentCol = getValueBody();
           if (!contentCol) return;
 
           var publicBlock = document.getElementById('instagram-work-samples');
+          var tuneBlock = document.getElementById('instagram-tune-your-ads');
+          if (!publicBlock && !tuneBlock) return;
+
+          var screensAnchor = contentCol.querySelector('.instagram-value-screens-anchor');
+          if (!screensAnchor) {
+            screensAnchor = document.createElement('div');
+            screensAnchor.className = 'instagram-value-screens-anchor';
+            var accomplishments = contentCol.querySelector('.instagram-value-accomplishments');
+            if (accomplishments) accomplishments.insertAdjacentElement('afterend', screensAnchor);
+            else contentCol.appendChild(screensAnchor);
+          }
+
+          if (publicBlock && !screensAnchor.contains(publicBlock)) {
+            screensAnchor.appendChild(publicBlock);
+          }
           if (publicBlock) {
-            contentCol.appendChild(publicBlock);
             publicBlock.hidden = false;
             publicBlock.removeAttribute('hidden');
           }
 
-          var tuneBlock = document.getElementById('instagram-tune-your-ads');
+          if (tuneBlock && !screensAnchor.contains(tuneBlock)) {
+            screensAnchor.appendChild(tuneBlock);
+          }
           if (tuneBlock) {
-            contentCol.appendChild(tuneBlock);
             tuneBlock.hidden = false;
             tuneBlock.removeAttribute('hidden');
           }
@@ -1350,6 +1369,107 @@
 
           if (typeof window.initInstagramGate === 'function') {
             window.initInstagramGate();
+          }
+        }
+
+        function getLearningBody(heading) {
+          var titleWrap = heading.closest('.framer-fscrbr, .framer-k203rq, .framer-5ik5xb') || heading.parentElement;
+          var section = titleWrap && titleWrap.parentElement;
+          if (!section) return null;
+          return section.querySelector(':scope > .framer-108dhz0, :scope > .framer-qd0ej8, :scope > .framer-tg7i5e') ||
+            (titleWrap && titleWrap.nextElementSibling);
+        }
+
+        function renderLearningParagraphs(paragraphs) {
+          return paragraphs.map(function (copy) {
+            return '<div class="framer-qqsxb2" data-framer-component-type="RichTextContainer" style="outline: none; display: flex; flex-direction: column; justify-content: flex-start; flex-shrink: 0; transform: none;"><p class="framer-text framer-styles-preset-1c8iaiz" data-styles-preset="qkjogPjJl" style="--framer-text-color: var(--token-c8a5d239-1d55-4b5a-b6fa-69d9d208c91c, rgb(51, 51, 51));">' + copy + '</p></div>';
+          }).join('');
+        }
+
+        function learningsCopyNeedsUpdate(learningsCol) {
+          if (!learningsCol) return true;
+          var first = learningsCol.querySelector('h6');
+          return !first || !/01 Recommendation systems are human-centric problems/i.test(first.textContent || '');
+        }
+
+        function updateLearningsCopy() {
+          var main = document.querySelector('#main');
+          if (!main) return;
+
+          var learningsCol = document.querySelector('#main .framer-mjtoz9 .framer-9qug71');
+          if (!learningsCol) return;
+          if (!learningsCopyNeedsUpdate(learningsCol) && main.dataset.instagramLearningsSwapped) return;
+
+          var learnings = [
+            {
+              match: /01\s+(Anchor yourself to the core user problem|Recommendation systems are human-centric problems)/i,
+              title: '01 Recommendation systems are human-centric problems',
+              paragraphs: [
+                'Working on a backend-focused team that seeks to recommend better ads to users, we think it\'s a machine learning problem but we have to consider trust, relevance, attention, and showcasing value to a user.'
+              ]
+            },
+            {
+              match: /02\s+(Don'?t let yourself fall into rabbit holes|Minor decisions can have major impacts)/i,
+              title: '02 Minor decisions can have major impacts',
+              paragraphs: [
+                'At Instagram\'s scale, even minor design changes can impact millions of people. When we design, we leverage a system and design for scale. Even after handing off designs to engineering, design participates in bug bashes and reviews experiment rounds weekly to iterate and further improve our designs.'
+              ]
+            },
+            {
+              match: /03\s+(The medium is the message|Leverage data to inform decisions)/i,
+              title: '03 Leverage data to inform decisions',
+              paragraphs: [
+                'Nearly every decision at Instagram could be measured. This data is invaluable for understanding behaviour, but it doesn\'t tell the full story. Having qualitative insights, and strong product intuition make for good design. It\'s also important to question how your designs impact the system of features, especially in a larger product like Instagram.'
+              ]
+            }
+          ];
+
+          var headings = learningsCol.querySelectorAll('h6');
+          var updated = 0;
+
+          for (var i = 0; i < headings.length; i++) {
+            var headingText = (headings[i].textContent || '').trim();
+
+            for (var j = 0; j < learnings.length; j++) {
+              var learning = learnings[j];
+              if (!learning.match.test(headingText)) continue;
+
+              headings[i].textContent = learning.title;
+
+              var body = getLearningBody(headings[i]);
+              if (body) body.innerHTML = renderLearningParagraphs(learning.paragraphs);
+
+              updated++;
+              break;
+            }
+          }
+
+          if (updated === learnings.length) {
+            main.dataset.instagramLearningsSwapped = 'true';
+          }
+        }
+
+        function ensureLearningsSection() {
+          var learningsSection = findLearningsSection();
+          if (!learningsSection) return;
+
+          learningsSection.classList.remove('instagram-learnings-section--relocated');
+          learningsSection.style.removeProperty('display');
+
+          var valueBody = getValueBody();
+          if (valueBody) {
+            var custom = valueBody.querySelector('.instagram-value-learnings');
+            if (custom) custom.remove();
+          }
+
+          var valueSection = document.querySelector('#main .framer-310nl3');
+          if (
+            valueSection &&
+            valueSection.parentElement &&
+            learningsSection.parentElement === valueSection.parentElement &&
+            learningsSection.previousElementSibling !== valueSection
+          ) {
+            valueSection.insertAdjacentElement('afterend', learningsSection);
           }
         }
 
@@ -1485,10 +1605,10 @@
         }
 
         function getValueBody() {
-          var headings = document.querySelectorAll('#main h3.framer-text');
+          var headings = document.querySelectorAll('#main h3');
 
           for (var i = 0; i < headings.length; i++) {
-            if (!/how did i add value/i.test(headings[i].textContent || '')) continue;
+            if (!/how did i add value/i.test((headings[i].textContent || '').trim())) continue;
 
             var section = headings[i].closest('[data-framer-name="Content"]');
             if (section) return section.querySelector('.framer-1deu6be');
@@ -1504,17 +1624,13 @@
 
         function valueCopyNeedsUpdate(body) {
           if (!body) return false;
+          if (!body.querySelector('.instagram-value-accomplishments')) return true;
           var items = body.querySelectorAll('.instagram-value-accomplishments .instagram-value-item');
           if (items.length < 3) return true;
-          var firstTitle = items[0].querySelector('.instagram-value-item__title');
-          if (!firstTitle || !/^->\s/.test((firstTitle.textContent || '').trim())) return true;
           var introP = body.querySelector('.instagram-value-intro p');
-          if (introP && introP.classList.contains('instagram-value-item__body')) return true;
-          if (introP && /Ads curation/i.test(introP.textContent || '')) return true;
-          var firstBody = items[0].querySelector('.instagram-value-item__body');
-          if (firstBody && /^Through rapid prototyping/i.test((firstBody.textContent || '').trim())) return true;
-          var secondBody = items[1] && items[1].querySelector('.instagram-value-item__body');
-          if (secondBody && /^Led major recommendation/i.test((secondBody.textContent || '').trim())) return true;
+          if (!introP || !/Within 3 months of joining Instagram/i.test(introP.textContent || '')) return true;
+          var firstTitle = items[0].querySelector('.instagram-value-item__title');
+          if (!firstTitle || !/Turned ambiguous opportunities/i.test(firstTitle.textContent || '')) return true;
           return false;
         }
 
@@ -1546,104 +1662,17 @@
 
           if (!body || (!valueCopyNeedsUpdate(body) && main.dataset.instagramValueSwapped)) return;
 
+          var screensAnchor = body.querySelector('.instagram-value-screens-anchor');
+          var customLearnings = body.querySelector('.instagram-value-learnings');
+          if (customLearnings) customLearnings.remove();
+
           body.innerHTML = renderValueContent();
           main.dataset.instagramValueSwapped = 'true';
 
-          // #region agent log
-          (function logValueAlignment() {
-            var introP = body.querySelector('.instagram-value-intro p');
-            var subhead = body.querySelector('.instagram-value-subhead');
-            var firstTitle = body.querySelector('.instagram-value-item .instagram-value-item__title');
-            var firstBody = body.querySelector('.instagram-value-item__body');
-            function layout(el, label) {
-              if (!el) return { label: label, missing: true };
-              var s = getComputedStyle(el);
-              var r = el.getBoundingClientRect();
-              return {
-                label: label,
-                className: el.className,
-                paddingLeft: s.paddingLeft,
-                marginLeft: s.marginLeft,
-                textIndent: s.textIndent,
-                left: Math.round(r.left),
-                width: Math.round(r.width)
-              };
-            }
-            var data = {
-              bodyLeft: Math.round(body.getBoundingClientRect().left),
-              intro: layout(introP, 'intro'),
-              subhead: layout(subhead, 'subhead'),
-              firstTitle: layout(firstTitle, 'firstTitle'),
-              firstBody: layout(firstBody, 'firstBody')
-            };
-            fetch('http://127.0.0.1:7655/ingest/ffac16db-5da0-4a0c-98d4-03e65c530019',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'4df8e5'},body:JSON.stringify({sessionId:'4df8e5',runId:body.querySelector('.instagram-value-intro__body')?'post-fix':'pre-fix',hypothesisId:'A-E',location:'index.html:updateValueCopy',message:'value section alignment',data:data,timestamp:Date.now()})}).catch(function(){});
-          })();
-          // #endregion
-        }
-
-        function getLearningBody(heading) {
-          var titleWrap = heading.closest('.framer-fscrbr, .framer-k203rq, .framer-5ik5xb') || heading.parentElement;
-          var section = titleWrap && titleWrap.parentElement;
-          if (!section) return null;
-          return section.querySelector(':scope > .framer-108dhz0, :scope > .framer-qd0ej8, :scope > .framer-tg7i5e');
-        }
-
-        function renderLearningParagraphs(paragraphs) {
-          return paragraphs.map(function (copy) {
-            return '<div class="framer-qqsxb2" data-framer-component-type="RichTextContainer" style="outline: none; display: flex; flex-direction: column; justify-content: flex-start; flex-shrink: 0; transform: none;"><p class="framer-text framer-styles-preset-1c8iaiz" data-styles-preset="qkjogPjJl" style="--framer-text-color: var(--token-c8a5d239-1d55-4b5a-b6fa-69d9d208c91c, rgb(51, 51, 51));">' + copy + '</p></div>';
-          }).join('');
-        }
-
-        function updateLearningsCopy() {
-          var main = document.querySelector('#main');
-          if (!main || main.dataset.instagramLearningsSwapped) return;
-
-          var learnings = [
-            {
-              match: /01\s+Anchor yourself to the core user problem/i,
-              title: '01 Recommendation systems are human-centric problems',
-              paragraphs: [
-                'Working on a backend-focused team that seeks to recommend better ads to users, we think it\'s a machine learning problem but we have to consider trust, relevance, attention, and showcasing value to a user.'
-              ]
-            },
-            {
-              match: /02\s+Don'?t let yourself fall into rabbit holes/i,
-              title: '02 Minor decisions can have major impacts',
-              paragraphs: [
-                'At Instagram\'s scale, even minor design changes can impact millions of people. When we design, we leverage a system and design for scale. Even after handing off designs to engineering, design participates in bug bashes and reviews experiment rounds weekly to iterate and further improve our designs.'
-              ]
-            },
-            {
-              match: /03\s+The medium is the message/i,
-              title: '03 Leverage data to inform decisions',
-              paragraphs: [
-                'Nearly every decision at Instagram could be measured. This data is invaluable for understanding behaviour, but it doesn\'t tell the full story. Having qualitative insights, and strong product intuition make for good design. It\'s also important to question how your designs impact the system of features, especially in a larger product like Instagram.'
-              ]
-            }
-          ];
-
-          var headings = document.querySelectorAll('#main h6.framer-text');
-          var updated = 0;
-
-          for (var i = 0; i < headings.length; i++) {
-            var headingText = (headings[i].textContent || '').trim();
-
-            for (var j = 0; j < learnings.length; j++) {
-              var learning = learnings[j];
-              if (!learning.match.test(headingText)) continue;
-
-              headings[i].textContent = learning.title;
-
-              var body = getLearningBody(headings[i]);
-              if (body) body.innerHTML = renderLearningParagraphs(learning.paragraphs);
-
-              updated++;
-              break;
-            }
-          }
-
-          if (updated === learnings.length) {
-            main.dataset.instagramLearningsSwapped = 'true';
+          var accomplishments = body.querySelector('.instagram-value-accomplishments');
+          if (screensAnchor) {
+            if (accomplishments) accomplishments.insertAdjacentElement('afterend', screensAnchor);
+            else body.appendChild(screensAnchor);
           }
         }
 
@@ -1713,8 +1742,9 @@
             });
           });
           updateValueCopy();
-          updateLearningsCopy();
           mountWorkSamplesSection();
+          updateLearningsCopy();
+          ensureLearningsSection();
           updateWorkPlayCopy();
           enhanceMetaWorkPlayPolaroids();
         }
