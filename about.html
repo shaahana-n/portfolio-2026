@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About — Shaahana Naufal</title>
-  <meta name="description" content="About Shaahana Naufal — product designer at Instagram in San Francisco.">
+  <meta name="description" content="Hi, I'm Shaahana — a designer who never sits still. Creations, community work, and more.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/cursor.css">
   <link rel="stylesheet" href="assets/sparkle-click.css">
@@ -38,7 +38,7 @@
       --motion-duration-medium: 0.6s;
       --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
       --loader-fade-duration: 0.5s;
-      --motion-handoff-delay: 480ms;
+      --motion-handoff-delay: 0ms;
     }
     * { box-sizing: border-box; }
     html {
@@ -124,13 +124,7 @@
       }
     }
     .page-loader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: var(--bg);
-      overflow: hidden;
-      transition: opacity 0.5s ease-out;
-      pointer-events: none;
+      display: none;
     }
     .page-loader::after {
       content: '';
@@ -163,11 +157,7 @@
       max-width: var(--page-max-width);
       margin: 0 auto;
       padding: 64px 10vw 48px;
-      opacity: 0;
-    }
-    body.loaded .page {
       opacity: 1;
-      transition: opacity 0s linear var(--loader-fade-duration);
     }
 
     .site-top-links {
@@ -1009,7 +999,7 @@
     }
   </style>
 </head>
-<body>
+<body class="loaded">
   <div class="page-loader" aria-hidden="true"></div>
   <div class="page">
     <main>
@@ -1023,9 +1013,9 @@
         </nav>
 
         <section class="hero">
-          <h1 class="motion-enter motion-enter--1">Hi, I'm Shaahana. I'm a product designer that cares about both designing systems, and sweating the details.</h1>
-          <p class="subhead motion-enter motion-enter--2">I'm drawn to design problems that are human-centric and look at the social impact of design, having spent time between the Engineering and English departments during my Masters at Waterloo.</p>
-          <p class="subhead motion-enter motion-enter--3">I've worn many different hats. I've been a Content Design Intern at Meta Reality Labs, engineered for 6 years during my time at Waterloo, and worked in product design roles across industries and company sizes.</p>
+          <h1 class="motion-enter motion-enter--1">Hi, I'm Shaahana. I'm a designer who never sits still.</h1>
+          <p class="subhead motion-enter motion-enter--2">Before industry, I studied Systems Design Engineering at the University of Waterloo where I became interested in how technology shapes the things people discover, create, remember, and value.</p>
+          <p class="subhead motion-enter motion-enter--3">Outside of design, I'm usually creating. That's sometimes a video, a pottery piece, or a half-finished essay. I do my best work when I can move between design disciplines and experiment.</p>
         </section>
       </div>
 
@@ -1176,7 +1166,7 @@
                         muted
                         loop
                         autoplay
-                        preload="auto"
+                        preload="metadata"
                         aria-hidden="true">
                       </video>
                     </span>
@@ -1201,7 +1191,7 @@
                         muted
                         loop
                         autoplay
-                        preload="auto"
+                        preload="metadata"
                         aria-hidden="true">
                       </video>
                     </span>
@@ -1226,7 +1216,7 @@
                         muted
                         loop
                         autoplay
-                        preload="auto"
+                        preload="metadata"
                         aria-hidden="true">
                       </video>
                     </span>
@@ -1251,7 +1241,7 @@
                         muted
                         loop
                         autoplay
-                        preload="auto"
+                        preload="metadata"
                         aria-hidden="true">
                       </video>
                     </span>
@@ -1324,27 +1314,6 @@
 
   <script>
     (function() {
-      var minLoadTime = 400;
-      var startTime = Date.now();
-      function onLoad() {
-        var delay = Math.max(0, minLoadTime - (Date.now() - startTime));
-        setTimeout(function() { document.body.classList.add('loaded'); }, delay);
-      }
-      if (document.readyState === 'complete') onLoad();
-      else window.addEventListener('load', onLoad);
-
-      function preventSingleWordOrphans(selector) {
-        document.querySelectorAll(selector).forEach(function(el) {
-          var words = el.textContent.trim().split(/\s+/);
-          if (words.length < 2) return;
-          var last = words.pop();
-          var secondLast = words.pop();
-          words.push(secondLast + '\u00A0' + last);
-          el.textContent = words.join(' ');
-        });
-      }
-      preventSingleWordOrphans('.hero h1, .hero .subhead');
-
       document.querySelectorAll('.about-row__grid').forEach(function(grid) {
         if (grid.children.length <= 9) return;
         grid.classList.add('about-row__grid--scroll');
