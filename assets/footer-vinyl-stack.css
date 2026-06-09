@@ -1,0 +1,20 @@
+.site-footer__listening {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+#footer-listening {
+  transition: opacity 0.22s ease;
+}
+
+#footer-listening.is-fading {
+  opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #footer-listening {
+    transition: none;
+  }
+}
