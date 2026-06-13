@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixelator — Shaahana Naufal</title>
+  <meta name="description" content="Where in the world are we — a scattered photo map by Shaahana Naufal.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/cursor.css">
+  <link rel="stylesheet" href="assets/sparkle-click.css">
+  <link rel="stylesheet" href="assets/pixelator.css">
+  <link rel="preload" as="image" href="assets/images/pixelator/webp/paris-1.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/images/pixelator/webp/rome-1.webp">
+  <link rel="preload" as="image" href="assets/images/pixelator/webp/lisbon-1.webp">
+  <style>
+    @font-face {
+      font-family: 'PP Writer Thin';
+      src: url('assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+</head>
+<body>
+  <main class="pixelator">
+    <header class="pixelator__header">
+      <h1 class="pixelator__heading">Where in the world are we?</h1>
+      <div class="pixelator__city" id="pixelator-city" aria-live="polite">
+        <span class="pixelator__city-label" id="pixelator-city-label" aria-hidden="true">
+          <img class="pixelator__pin" src="pin.svg" width="24" height="24" alt="">
+          <span class="pixelator__city-names">
+            <span class="pixelator__city-name" id="pixelator-city-a"></span>
+            <span class="pixelator__city-name" id="pixelator-city-b"></span>
+          </span>
+        </span>
+      </div>
+    </header>
+
+    <div class="pixelator__grid" id="pixelator-grid" aria-label="Travel photos"></div>
+  </main>
+
+  <footer class="pixelator-footer">
+    <a href="index.html" class="pixelator-footer__logo" aria-label="Back to home">
+      <img src="favicon.svg" width="24" height="24" alt="">
+    </a>
+  </footer>
+
+  <script src="assets/pixelator-data.js"></script>
+  <script src="assets/pixelator.js" defer></script>
+  <script src="assets/sparkle-click.js" defer></script>
+</body>
+</html>

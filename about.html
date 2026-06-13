@@ -605,12 +605,14 @@
       aspect-ratio: auto;
       transform: none;
     }
-    .about-tile--wrapped-2025 .about-wrapped {
+    .about-tile--wrapped-2025 .about-wrapped,
+    .about-tile--wrapped-pixelator-tool .about-wrapped {
       padding: 10% 12%;
       align-items: center;
       justify-content: center;
     }
-    .about-tile--wrapped-2025 .about-wrapped__device {
+    .about-tile--wrapped-2025 .about-wrapped__device,
+    .about-tile--wrapped-pixelator-tool .about-wrapped__device {
       width: auto;
       height: 100%;
       max-height: 100%;
@@ -618,7 +620,7 @@
       border-radius: 8px;
       background: #0a0a0a;
       box-shadow: 0 10px 36px rgba(20, 22, 30, 0.1);
-      transform: rotate(-2deg);
+      transform: none;
     }
     .about-tile--wrapped-2025 .about-wrapped__video {
       width: auto;
@@ -627,6 +629,37 @@
       max-height: 100%;
       object-fit: contain;
       border-radius: 8px;
+    }
+    .about-tile--wrapped-pixelator-tool .about-wrapped {
+      padding: 11% 9%;
+    }
+    .about-tile--wrapped-pixelator-tool .about-wrapped__device--landscape {
+      width: 92%;
+      max-width: 92%;
+      height: 92%;
+      max-height: 92%;
+      aspect-ratio: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    .about-tile--wrapped-pixelator-tool .about-wrapped__video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      border-radius: 8px;
+    }
+    .about-tile--wrapped-pixelator-tool {
+      background:
+        radial-gradient(ellipse 72% 58% at 18% 22%, rgba(228, 232, 248, 0.55) 0%, transparent 62%),
+        radial-gradient(ellipse 68% 54% at 84% 78%, rgba(255, 236, 224, 0.45) 0%, transparent 58%),
+        linear-gradient(158deg, #f8f7fb 0%, #f5f2ee 46%, #f0efe8 100%);
     }
     .about-tile--instagram-memory .about-wrapped {
       padding: 10% 12%;
@@ -739,7 +772,7 @@
       border: 1px solid var(--border-subtle);
       background: #0a0a0a;
       box-shadow: 0 8px 32px rgba(10, 11, 13, 0.08);
-      transform: rotate(-2deg);
+      transform: none;
     }
     .about-lightbox__device--framed video {
       width: auto;
@@ -747,6 +780,26 @@
       max-height: min(68vh, 720px);
       object-fit: contain;
       border: none;
+      box-shadow: none;
+    }
+    .about-lightbox__device--framed-pixelator-tool {
+      padding: 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      background: #0a0a0a;
+      box-shadow: 0 10px 36px rgba(20, 22, 30, 0.1);
+      overflow: hidden;
+      max-width: min(96vw, 1200px);
+    }
+    .about-lightbox__device--framed-pixelator-tool video {
+      width: auto;
+      height: auto;
+      max-width: min(96vw, 1200px);
+      max-height: min(78vh, 820px);
+      object-fit: contain;
+      object-position: center center;
+      border: none;
+      border-radius: 8px;
       box-shadow: none;
     }
     .about-lightbox__device--braille {
@@ -973,9 +1026,10 @@
         align-items: center;
         justify-content: center;
       }
-      .about-tile--wrapped-2025 .about-wrapped {
-        padding: 10% 8%;
+      .about-tile--wrapped-pixelator-tool .about-wrapped {
+        padding: 10% 7%;
       }
+      .about-tile--wrapped-2025 .about-wrapped,
       .about-tile--instagram-memory .about-wrapped {
         padding: 10% 8%;
       }
@@ -1139,6 +1193,31 @@
                 <div class="card-body">
                   <div class="card-header">
                     <h3 class="card-title">2025 Wrapped</h3>
+                  </div>
+                </div>
+              </button>
+              <button type="button" class="about-tile-card about-tile-card--expand about-tile-card--video" data-lightbox-id="pixelator-tool" data-lightbox-type="video" data-lightbox-src="Pixelator-r.mp4" data-lightbox-caption="Created a tool to abstract my images">
+                <span class="about-tile about-tile--wrapped about-tile--wrapped-pixelator-tool">
+                  <span class="about-wrapped about-wrapped--landscape">
+                    <span class="about-wrapped__device about-wrapped__device--landscape">
+                      <video
+                        class="about-wrapped__video"
+                        src="Pixelator-r.mp4"
+                        width="1920"
+                        height="1200"
+                        playsinline
+                        muted
+                        loop
+                        autoplay
+                        preload="metadata"
+                        aria-hidden="true">
+                      </video>
+                    </span>
+                  </span>
+                </span>
+                <div class="card-body">
+                  <div class="card-header">
+                    <h3 class="card-title">Created a tool to abstract my images</h3>
                   </div>
                 </div>
               </button>
@@ -1383,6 +1462,7 @@
           var device = document.createElement('div');
           device.className = 'about-lightbox__device';
           if (id === 'braille-buddy') device.className += ' about-lightbox__device--braille';
+          else if (id === 'pixelator-tool') device.className += ' about-lightbox__device--framed-pixelator-tool';
           else if (id === 'wrapped-2025') device.className += ' about-lightbox__device--framed';
           lightboxVideo = document.createElement('video');
           lightboxVideo.src = src;

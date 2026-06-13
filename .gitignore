@@ -4,9 +4,15 @@
 # npm
 node_modules/
 
-# Unused source video (exceeds GitHub 100MB limit; site uses yosemite-r.mp4)
+# Unused source video (exceeds GitHub 100MB limit; site uses compressed variants)
 yosemite.mp4
 madrid vlog.mov
+Pixelator.mov
+Where in the world-2.mov
+Trip-sharing.mov
+
+# Pixelator source PNGs (site uses webp/ only)
+assets/images/pixelator/*.png
 
 # Cursor debug logs
 .cursor/

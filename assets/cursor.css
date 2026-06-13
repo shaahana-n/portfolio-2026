@@ -30,6 +30,7 @@ html {
   .about-tile-card--expand,
   .about-tile-card--link,
   .project-card,
+  .pixelator__tile,
   .site-nav-link,
   .site-footer__nav-link,
   .coinbase-trade-modes__toggle-btn
@@ -50,6 +51,7 @@ html {
   button video,
   .project-card img,
   .project-card video,
+  .pixelator__tile img,
   .about-tile-card img,
   .about-tile-card video
 ) {
@@ -78,6 +80,9 @@ html {
 :is(a, button) video:hover,
 .project-card img:hover,
 .project-card video:hover,
+.pixelator__tile:hover,
+.pixelator__tile:hover img,
+.pixelator__tile img:hover,
 .about-tile-card img:hover,
 .about-tile-card video:hover {
   cursor: var(--cursor-sparkle-filled) !important;
