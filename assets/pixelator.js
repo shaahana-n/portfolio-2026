@@ -337,8 +337,321 @@
     }
   }
 
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function srgbToLinear(channel) {
+    var c = channel / 255;
+    return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  }
+
+  function linearToSrgb(channel) {
+    var c = channel <= 0.0031308 ? 12.92 * channel : 1.055 * Math.pow(channel, 1 / 2.4) - 0.055;
+    return Math.round(Math.min(1, Math.max(0, c)) * 255);
+  }
+
+  function getCanvasSize(tile) {
+    var rect = tile.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(1, Math.round(rect.width * dpr));
+    var h = Math.max(1, Math.round(rect.height * dpr));
+    var max = 280;
+
+    if (Math.max(w, h) > max) {
+      var scale = max / Math.max(w, h);
+      w = Math.round(w * scale);
+      h = Math.round(h * scale);
+    }
+
+    return { w: w, h: h };
+  }
+
+  function getDrawable(state) {
+    return state.bitmap || state.source;
+  }
+
+  function loadSourceBitmap(tile, callback) {
+    var state = tile._depixelate;
+    if (state.bitmap) {
+      callback(true);
+      return;
+    }
+
+    var src = state.source.src || state.source.dataset.src;
+    if (!src || !window.fetch || !window.createImageBitmap) {
+      callback(true);
+      return;
+    }
+
+    fetch(src)
+      .then(function (response) {
+        if (!response.ok) throw new Error('fetch failed');
+        return response.blob();
+      })
+      .then(function (blob) {
+        return createImageBitmap(blob);
+      })
+      .then(function (bitmap) {
+        state.bitmap = bitmap;
+        callback(true);
+      })
+      .catch(function () {
+        callback(true);
+      });
+  }
+
+  function beginPixelFade(tile) {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        tile.classList.add('is-pixel-fading');
+      });
+    });
+  }
+
+  function revealOriginalFallback(tile) {
+    var state = tile._depixelate;
+    if (!state || !state.original) return;
+
+    cancelDepixelate(tile);
+
+    function show() {
+      if (activeTile !== tile) return;
+      tile.classList.add('is-depixelating', 'is-original-fallback');
+      beginPixelFade(tile);
+      tile.classList.add('is-depixelated');
+    }
+
+    if (state.source.src) {
+      state.original.src = state.source.src;
+    } else if (!state.original.src && state.original.dataset.src) {
+      state.original.src = state.original.dataset.src;
+    }
+
+    if (state.original.complete && state.original.naturalWidth > 0) {
+      show();
+    } else {
+      state.original.addEventListener('load', show, { once: true });
+      state.original.addEventListener('error', show, { once: true });
+    }
+  }
+
+  function drawCoverImage(ctx, drawable, w, h) {
+    var iw = drawable.naturalWidth || drawable.width;
+    var ih = drawable.naturalHeight || drawable.height;
+    var scale = Math.max(w / iw, h / ih);
+    var sw = iw * scale;
+    var sh = ih * scale;
+    var sx = (w - sw) / 2;
+    var sy = (h - sh) / 2;
+    ctx.drawImage(drawable, sx, sy, sw, sh);
+  }
+
+  function drawMosaicCanvas(canvas, drawable, blockSize, tile) {
+    var size = getCanvasSize(tile);
+    canvas.width = size.w;
+    canvas.height = size.h;
+
+    var ctx = canvas.getContext('2d', { willReadFrequently: true });
+    var iw = drawable.naturalWidth || drawable.width;
+    if (!ctx || !iw) return false;
+
+    if (blockSize <= 1) {
+      drawCoverImage(ctx, drawable, size.w, size.h);
+      return true;
+    }
+
+    var scratch = document.createElement('canvas');
+    scratch.width = size.w;
+    scratch.height = size.h;
+    var sctx = scratch.getContext('2d', { willReadFrequently: true });
+    drawCoverImage(sctx, drawable, size.w, size.h);
+
+    var imageData;
+    try {
+      imageData = sctx.getImageData(0, 0, size.w, size.h);
+    } catch (err) {
+      drawCoverImage(ctx, drawable, size.w, size.h);
+      return false;
+    }
+
+    var data = imageData.data;
+    var w = size.w;
+    var h = size.h;
+
+    ctx.clearRect(0, 0, w, h);
+
+    for (var y = 0; y < h; y += blockSize) {
+      for (var x = 0; x < w; x += blockSize) {
+        var bw = Math.min(blockSize, w - x);
+        var bh = Math.min(blockSize, h - y);
+        var lr = 0;
+        var lg = 0;
+        var lb = 0;
+        var count = 0;
+
+        for (var py = y; py < y + bh; py += 1) {
+          for (var px = x; px < x + bw; px += 1) {
+            var i = (py * w + px) * 4;
+            lr += srgbToLinear(data[i]);
+            lg += srgbToLinear(data[i + 1]);
+            lb += srgbToLinear(data[i + 2]);
+            count += 1;
+          }
+        }
+
+        ctx.fillStyle = 'rgb(' +
+          linearToSrgb(lr / count) + ',' +
+          linearToSrgb(lg / count) + ',' +
+          linearToSrgb(lb / count) + ')';
+        ctx.fillRect(x, y, bw, bh);
+      }
+    }
+
+    return true;
+  }
+
+  function getStartBlockSize(tile) {
+    return Math.max(24, Math.round(tile.offsetWidth / 4));
+  }
+
+  function cancelDepixelate(tile) {
+    if (!tile || !tile._depixelate) return;
+    if (tile._depixelate.raf) {
+      cancelAnimationFrame(tile._depixelate.raf);
+      tile._depixelate.raf = null;
+    }
+    tile._depixelate.running = false;
+  }
+
+  function runDepixelateAnimation(tile, fromBlock, toBlock, duration) {
+    var state = tile._depixelate;
+    if (!state) return;
+
+    cancelDepixelate(tile);
+    state.running = true;
+    state.canMosaic = state.canMosaic !== false;
+
+    if (reduceMotion) {
+      if (state.canMosaic) {
+        drawMosaicCanvas(state.canvas, getDrawable(state), 1, tile);
+        tile.classList.add('is-depixelating');
+        beginPixelFade(tile);
+        tile.classList.add('is-depixelated');
+      } else {
+        revealOriginalFallback(tile);
+      }
+      state.running = false;
+      return;
+    }
+
+    var start = null;
+
+    function frame(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min(1, (timestamp - start) / duration);
+      var eased = easeOutCubic(progress);
+      var blockSize = Math.max(1, Math.round(fromBlock + (toBlock - fromBlock) * eased));
+      var drawable = getDrawable(state);
+      var mosaicOk = true;
+
+      if (state.canMosaic) {
+        mosaicOk = drawMosaicCanvas(state.canvas, drawable, blockSize, tile);
+        if (!mosaicOk) {
+          state.canMosaic = false;
+          revealOriginalFallback(tile);
+          return;
+        }
+      }
+
+      if (progress < 1) {
+        state.raf = requestAnimationFrame(frame);
+        return;
+      }
+
+      state.raf = null;
+      state.running = false;
+      tile.classList.add('is-depixelated');
+      tile.classList.remove('is-depixelating');
+    }
+
+    tile.classList.add('is-depixelating');
+    tile.classList.remove('is-depixelated', 'is-original-fallback', 'is-pixel-fading');
+    beginPixelFade(tile);
+    state.raf = requestAnimationFrame(frame);
+  }
+
+  function ensureSourceLoaded(tile, callback) {
+    var state = tile._depixelate;
+    if (!state || !state.source) return;
+
+    var source = state.source;
+
+    function afterSourceReady() {
+      if (!source.naturalWidth) {
+        callback(false);
+        return;
+      }
+      loadSourceBitmap(tile, function () {
+        callback(true);
+      });
+    }
+
+    if (source.dataset.loaded === '1' && source.complete && source.naturalWidth > 0) {
+      afterSourceReady();
+      return;
+    }
+
+    if (source.dataset.loaded !== '1') {
+      source.dataset.loaded = '1';
+      source.addEventListener('load', afterSourceReady, { once: true });
+      source.addEventListener('error', function () {
+        callback(false);
+      }, { once: true });
+      source.src = source.dataset.src;
+      return;
+    }
+
+    if (source.complete) {
+      afterSourceReady();
+    }
+  }
+
+  function startDepixelate(tile) {
+    if (!tile || !tile._depixelate) return;
+    if (tile.classList.contains('is-depixelated') || tile._depixelate.running) return;
+
+    ensureSourceLoaded(tile, function (ok) {
+      if (!ok) return;
+      if (activeTile !== tile) return;
+
+      var state = tile._depixelate;
+      var drawable = getDrawable(state);
+      var startBlock = getStartBlockSize(tile);
+      var mosaicOk = drawMosaicCanvas(state.canvas, drawable, startBlock, tile);
+
+      state.canMosaic = mosaicOk;
+      if (!mosaicOk) {
+        revealOriginalFallback(tile);
+        return;
+      }
+
+      tile.classList.add('is-depixelating');
+      runDepixelateAnimation(tile, startBlock, 1, 750);
+    });
+  }
+
+  function stopDepixelate(tile) {
+    if (!tile || !tile._depixelate) return;
+    cancelDepixelate(tile);
+    tile.classList.remove('is-depixelating', 'is-depixelated', 'is-original-fallback', 'is-pixel-fading');
+  }
+
   function setActiveTile(tile) {
-    if (activeTile) activeTile.classList.remove('is-active');
+    if (activeTile && activeTile !== tile) {
+      stopDepixelate(activeTile);
+      activeTile.classList.remove('is-active');
+    }
     activeTile = tile;
     if (activeTile) activeTile.classList.add('is-active');
   }
@@ -353,25 +666,60 @@
     var frame = document.createElement('span');
     frame.className = 'pixelator__frame';
 
-    var img = document.createElement('img');
-    img.alt = '';
-    img.decoding = 'async';
-    img.draggable = false;
-    img.width = 960;
-    img.height = 960;
+    var pixelImg = document.createElement('img');
+    pixelImg.className = 'pixelator__img--pixel';
+    pixelImg.alt = '';
+    pixelImg.decoding = 'async';
+    pixelImg.draggable = false;
+    pixelImg.width = 960;
+    pixelImg.height = 960;
     if (eagerLoaded < EAGER_COUNT) {
-      img.loading = 'eager';
-      if (eagerLoaded < 6) img.setAttribute('fetchpriority', 'high');
+      pixelImg.loading = 'eager';
+      if (eagerLoaded < 6) pixelImg.setAttribute('fetchpriority', 'high');
       eagerLoaded += 1;
     } else {
-      img.loading = 'lazy';
+      pixelImg.loading = 'lazy';
     }
-    img.src = photo.src;
+    pixelImg.src = photo.src;
 
-    frame.appendChild(img);
+    var canvas = document.createElement('canvas');
+    canvas.className = 'pixelator__canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+
+    var sourceImg = document.createElement('img');
+    sourceImg.className = 'pixelator__img--source';
+    sourceImg.alt = '';
+    sourceImg.decoding = 'async';
+    sourceImg.draggable = false;
+    if (photo.original) {
+      sourceImg.dataset.src = photo.original;
+    }
+
+    var originalImg = document.createElement('img');
+    originalImg.className = 'pixelator__img--original';
+    originalImg.alt = '';
+    originalImg.decoding = 'async';
+    originalImg.draggable = false;
+    if (photo.original) {
+      originalImg.dataset.src = photo.original;
+    }
+
+    frame.appendChild(pixelImg);
+    frame.appendChild(canvas);
+    frame.appendChild(sourceImg);
+    frame.appendChild(originalImg);
     tile.appendChild(frame);
-    markLoaded(tile, img);
-    attachColorSampler(tile, img);
+    tile._depixelate = {
+      canvas: canvas,
+      source: sourceImg,
+      original: originalImg,
+      bitmap: null,
+      canMosaic: true,
+      raf: null,
+      running: false
+    };
+    markLoaded(tile, pixelImg);
+    attachColorSampler(tile, pixelImg);
 
     return tile;
   }
@@ -587,6 +935,7 @@
     if (!tile || !tile.dataset.city) return;
     if (quipTimer) return;
     setActiveTile(tile);
+    startDepixelate(tile);
     showCity(tile.dataset.city);
   });
 
@@ -603,6 +952,7 @@
     if (!tile || !tile.dataset.city) return;
     if (quipTimer) return;
     setActiveTile(tile);
+    startDepixelate(tile);
     showCity(tile.dataset.city);
   });
 

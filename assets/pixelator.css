@@ -259,6 +259,7 @@ a {
 }
 
 .pixelator__frame {
+  position: relative;
   display: block;
   width: 100%;
   height: 100%;
@@ -275,17 +276,69 @@ a {
   margin: -1px;
   object-fit: cover;
   object-position: center;
+}
+
+.pixelator__img--pixel {
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
   image-rendering: pixelated;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.6s ease;
 }
 
-.pixelator__tile.is-loaded .pixelator__frame img {
+.pixelator__img--source {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pixelator__img--original {
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.pixelator__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pixelator__tile.is-loaded .pixelator__img--pixel {
   opacity: 1;
 }
 
-.pixelator__tile.is-active .pixelator__frame img {
+.pixelator__tile.is-depixelating .pixelator__canvas {
   opacity: 1;
+}
+
+.pixelator__tile.is-depixelated .pixelator__canvas {
+  opacity: 1;
+}
+
+.pixelator__tile.is-pixel-fading .pixelator__img--pixel,
+.pixelator__tile.is-depixelated .pixelator__img--pixel {
+  opacity: 0;
+}
+
+.pixelator__tile.is-original-fallback.is-depixelating .pixelator__img--original,
+.pixelator__tile.is-original-fallback.is-depixelated .pixelator__img--original {
+  opacity: 1;
+}
+
+.pixelator__tile.is-original-fallback.is-pixel-fading .pixelator__img--pixel,
+.pixelator__tile.is-original-fallback.is-depixelated .pixelator__img--pixel {
+  opacity: 0;
 }
 
 .pixelator-burst-layer {
@@ -368,8 +421,23 @@ a {
     display: none !important;
   }
 
-  .pixelator__frame img,
-  .pixelator__tile.is-loaded .pixelator__frame img {
+  .pixelator__img--pixel,
+  .pixelator__tile.is-loaded .pixelator__img--pixel {
+    opacity: 1;
+  }
+
+  .pixelator__tile.is-depixelating .pixelator__canvas,
+  .pixelator__tile.is-depixelated .pixelator__canvas {
+    opacity: 1;
+  }
+
+  .pixelator__tile.is-pixel-fading .pixelator__img--pixel,
+  .pixelator__tile.is-depixelated .pixelator__img--pixel {
+    opacity: 0;
+  }
+
+  .pixelator__tile.is-original-fallback.is-depixelating .pixelator__img--original,
+  .pixelator__tile.is-original-fallback.is-depixelated .pixelator__img--original {
     opacity: 1;
   }
 }
