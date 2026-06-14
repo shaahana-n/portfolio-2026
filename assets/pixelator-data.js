@@ -35,13 +35,10 @@ window.PIXELATOR_PHOTOS = [
 
 // City: Paris, Rome, Florence, Lisbon, New Orleans
 
-// Grid slots: photo | empty
+// Sparse mosaic template (10-col reference — scaled to viewport at runtime)
 window.PIXELATOR_LAYOUT = [
-  ['photo', 'empty', 'photo', 'photo', 'empty', 'photo', 'photo', 'empty'],
-  ['photo', 'empty', 'empty', 'photo', 'empty', 'photo', 'photo', 'photo'],
-  ['photo', 'photo', 'photo', 'photo', 'empty', 'photo', 'photo', 'empty'],
-  ['photo', 'photo', 'photo', 'photo', 'empty', 'photo', 'photo', 'empty'],
-  ['photo', 'photo', 'photo', 'photo', 'photo', 'empty', 'empty', 'empty'],
-  ['photo', 'photo', 'photo', 'empty', 'empty', 'empty', 'empty', 'empty'],
-  ['empty', 'empty', 'empty', 'photo', 'photo', 'empty', 'empty', 'empty']
+  ['photo', 'photo', 'empty', 'photo', 'photo', 'photo', 'empty', 'photo', 'empty', 'photo'],
+  ['photo', 'empty', 'photo', 'empty', 'photo', 'photo', 'photo', 'photo', 'photo', 'photo'],
+  ['photo', 'photo', 'empty', 'photo', 'photo', 'photo', 'photo', 'photo', 'empty', 'photo'],
+  ['photo', 'photo', 'photo', 'photo', 'photo', 'empty', 'photo', 'photo', 'photo', 'photo']
 ];
