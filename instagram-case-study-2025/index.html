@@ -1038,8 +1038,20 @@
 </style>
 <link rel="stylesheet" href="../assets/ig-sample-surface.css">
 <link rel="stylesheet" href="../assets/case-study-images.css">
+<link rel="stylesheet" href="../assets/instagram-page-gate.css?v=page-gate-3">
+<script src="../assets/instagram-gate.js?v=page-gate-2" defer></script>
 </head>
 <body class="site-case-pending">
+    <script>
+      (function () {
+        try {
+          if (sessionStorage.getItem('instagram-case-study-unlocked') === '1' ||
+              localStorage.getItem('instagram-case-study-unlocked') === '1') {
+            document.body.classList.add('instagram-case-unlocked');
+          }
+        } catch (error) {}
+      })();
+    </script>
     <!-- Start of bodyStart -->
     <!-- End of bodyStart -->
     <script>
@@ -1068,8 +1080,24 @@
         </div>
       </nav>
     </header>
+
+    <div id="instagram-page-gate" class="instagram-page-gate" role="region" aria-labelledby="instagram-page-gate-text">
+      <div class="instagram-page-gate__panel">
+        <p class="instagram-page-gate__text" id="instagram-page-gate-text">This work is under NDA. Enter the password to view.</p>
+        <form id="instagram-page-gate-form" class="instagram-page-gate__form">
+          <div class="instagram-page-gate__row">
+            <input type="password" id="instagram-page-password" placeholder="Password" autocomplete="current-password" spellcheck="false" aria-label="Password">
+            <button type="submit" class="instagram-page-gate__submit" aria-label="Unlock case study">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+            </button>
+          </div>
+        </form>
+        <p class="instagram-page-gate__error" id="instagram-page-error" role="alert" hidden></p>
+      </div>
+    </div>
+
     <div id="main" data-framer-hydrate-v2="{&quot;routeId&quot;:&quot;siyouqo5p&quot;,&quot;localeId&quot;:&quot;default&quot;,&quot;pathVariables&quot;:{},&quot;breakpoints&quot;:[{&quot;hash&quot;:&quot;c5aong&quot;,&quot;mediaQuery&quot;:&quot;(min-width: 1200px)&quot;},{&quot;hash&quot;:&quot;1l7zdme&quot;,&quot;mediaQuery&quot;:&quot;(max-width: 1199px)&quot;}]}"></div>
-    <div id="site-case-loading" class="site-case-loading" aria-live="polite" aria-busy="true">
+    <div id="site-case-loading" class="site-case-loading" hidden aria-live="polite" aria-busy="false">
       <div class="site-case-shimmer" aria-hidden="true">
         <div class="site-case-shimmer__hero"></div>
         <div class="site-case-shimmer__row">
@@ -1114,19 +1142,7 @@
       </figure>
     </div>
 
-    <div id="instagram-tune-your-ads" class="instagram-tune-your-ads" hidden aria-label="Additional work under NDA">
-      <div class="instagram-tune-your-ads__gate" id="instagram-tune-your-ads-gate">
-        <p class="instagram-tune-your-ads__gate-text">Additional work is under NDA. Enter the password to view.</p>
-        <form id="instagram-tune-your-ads-form" class="instagram-tune-your-ads__form">
-          <div class="instagram-tune-your-ads__row">
-            <input type="text" id="instagram-tune-your-ads-password" placeholder="Password" autocomplete="off" spellcheck="false" aria-label="Password">
-            <button type="submit" class="instagram-tune-your-ads__submit" aria-label="Unlock work samples">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-            </button>
-          </div>
-        </form>
-        <p class="instagram-tune-your-ads__error" id="instagram-tune-your-ads-error" role="alert" hidden></p>
-      </div>
+    <div id="instagram-tune-your-ads" class="instagram-tune-your-ads is-unlocked" hidden aria-label="Additional work under NDA">
       <div class="instagram-tune-your-ads__content" id="instagram-tune-your-ads-content">
         <figure class="instagram-work-samples__item">
           <div class="instagram-work-samples__media ig-sample-surface">
@@ -1218,7 +1234,12 @@
 
         function revealCaseStudy() {
           if (caseStudyRevealed) return;
+          if (!document.body.classList.contains('instagram-case-unlocked')) {
+            window.__instagramRevealPending = true;
+            return;
+          }
           caseStudyRevealed = true;
+          window.__instagramRevealPending = false;
           document.body.classList.remove('site-case-pending');
           document.body.classList.add('site-case-ready');
           if (loadingEl) {
@@ -1230,7 +1251,25 @@
           }
         }
 
+        function showLoadingShimmer() {
+          if (!document.body.classList.contains('instagram-case-unlocked')) return;
+          if (!loadingEl || caseStudyRevealed) return;
+          loadingEl.hidden = false;
+          loadingEl.setAttribute('aria-busy', 'true');
+        }
+
+        window.__onInstagramCaseUnlocked = function () {
+          if (!document.body.classList.contains('instagram-case-unlocked')) return;
+          if (document.querySelector('#main .framer-rm8id')) {
+            revealCaseStudy();
+            finishApplyOverrides();
+          } else {
+            showLoadingShimmer();
+          }
+        };
+
         function showLoadError() {
+          if (!document.body.classList.contains('instagram-case-unlocked')) return;
           if (!loadingEl || document.querySelector('#main .framer-rm8id')) return;
           document.body.classList.remove('site-case-pending');
           document.body.classList.add('site-case-ready');
@@ -1830,7 +1869,7 @@
         setInterval(updateFooterTime, 30000);
       })();
     </script>
-    <script src="../assets/instagram-gate.js?v=post-fix-1"></script>
+
     <script src="../assets/case-study-motion.js" defer></script>
     <script src="../assets/footer-vinyl-stack.js" defer></script>
     <script src="../assets/sparkle-click.js" defer></script>

@@ -2,8 +2,8 @@
   var PASSWORD = 'Instagram-TYA-2026';
   var STORAGE_KEY = 'instagram-case-study-unlocked';
 
-  function getTuneSection() {
-    return document.getElementById('instagram-tune-your-ads');
+  function getPageGate() {
+    return document.getElementById('instagram-page-gate');
   }
 
   function persistUnlock() {
@@ -14,65 +14,71 @@
         localStorage.setItem(STORAGE_KEY, '1');
       } catch (localError) {}
     }
-
-    var section = getTuneSection();
-    if (section) {
-      section.dataset.unlocked = 'true';
-    }
   }
 
   function isUnlocked() {
-    var section = getTuneSection();
-    if (section && section.dataset.unlocked === 'true') {
-      return true;
-    }
-
     try {
-      if (sessionStorage.getItem(STORAGE_KEY) === '1') {
-        return true;
-      }
+      if (sessionStorage.getItem(STORAGE_KEY) === '1') return true;
     } catch (error) {}
 
     try {
-      if (localStorage.getItem(STORAGE_KEY) === '1') {
-        return true;
-      }
+      if (localStorage.getItem(STORAGE_KEY) === '1') return true;
     } catch (error) {}
 
     return false;
   }
 
-  function applyUnlockState() {
-    var unlocked = isUnlocked();
-    var section = getTuneSection();
-
-    document.body.classList.toggle('instagram-case-unlocked', unlocked);
-
+  function unlockTuneSection() {
+    var section = document.getElementById('instagram-tune-your-ads');
     if (section) {
-      if (unlocked) {
-        section.classList.add('is-unlocked');
-      } else {
-        section.classList.remove('is-unlocked');
-      }
+      section.classList.add('is-unlocked');
+      section.dataset.unlocked = 'true';
     }
   }
 
-  function unlockSection() {
-    var section = getTuneSection();
+  function applyUnlockState() {
+    var unlocked = isUnlocked();
+    var gate = getPageGate();
+    var loadingEl = document.getElementById('site-case-loading');
 
-    persistUnlock();
+    document.body.classList.toggle('instagram-case-unlocked', unlocked);
 
-    if (section) {
-      section.classList.add('is-unlocked');
+    if (gate) {
+      gate.hidden = unlocked;
+      gate.setAttribute('aria-hidden', unlocked ? 'true' : 'false');
     }
+
+    if (loadingEl && !unlocked) {
+      loadingEl.hidden = true;
+      loadingEl.setAttribute('aria-busy', 'false');
+    }
+
+    if (unlocked) {
+      unlockTuneSection();
+    }
+  }
+
+  function unlockPage() {
+    persistUnlock();
     document.body.classList.add('instagram-case-unlocked');
+
+    var gate = getPageGate();
+    if (gate) {
+      gate.hidden = true;
+      gate.setAttribute('aria-hidden', 'true');
+    }
+
+    unlockTuneSection();
+
+    if (typeof window.__onInstagramCaseUnlocked === 'function') {
+      window.__onInstagramCaseUnlocked();
+    }
   }
 
   function handlePasswordAttempt(rawValue) {
     var value = (rawValue || '').trim();
-    var error = document.getElementById('instagram-tune-your-ads-error');
-    var input = document.getElementById('instagram-tune-your-ads-password');
-    var matched = value === PASSWORD;
+    var error = document.getElementById('instagram-page-error');
+    var input = document.getElementById('instagram-page-password');
 
     if (error) {
       error.hidden = true;
@@ -81,15 +87,15 @@
 
     if (!value) {
       if (error) {
-        error.textContent = 'Enter a password to view this work.';
+        error.textContent = 'Enter a password to view this case study.';
         error.hidden = false;
       }
       if (input) input.focus();
       return false;
     }
 
-    if (matched) {
-      unlockSection();
+    if (value === PASSWORD) {
+      unlockPage();
       if (input) input.value = '';
       return true;
     }
@@ -111,26 +117,26 @@
 
     document.addEventListener('submit', function (event) {
       var form = event.target;
-      if (!form || form.id !== 'instagram-tune-your-ads-form') return;
+      if (!form || form.id !== 'instagram-page-gate-form') return;
 
       event.preventDefault();
       event.stopPropagation();
 
-      var input = form.querySelector('#instagram-tune-your-ads-password');
+      var input = form.querySelector('#instagram-page-password');
       handlePasswordAttempt(input && input.value);
     }, true);
 
     document.addEventListener('click', function (event) {
-      var button = event.target.closest('.instagram-tune-your-ads__submit');
+      var button = event.target.closest('.instagram-page-gate__submit');
       if (!button) return;
 
-      var form = button.closest('#instagram-tune-your-ads-form');
+      var form = button.closest('#instagram-page-gate-form');
       if (!form) return;
 
       event.preventDefault();
       event.stopPropagation();
 
-      var input = form.querySelector('#instagram-tune-your-ads-password');
+      var input = form.querySelector('#instagram-page-password');
       handlePasswordAttempt(input && input.value);
     }, true);
   }
@@ -138,6 +144,17 @@
   function initInstagramGate() {
     bindInstagramGate();
     applyUnlockState();
+
+    if (!isUnlocked()) {
+      var input = document.getElementById('instagram-page-password');
+      if (input) {
+        window.setTimeout(function () {
+          input.focus();
+        }, 120);
+      }
+    } else if (typeof window.__onInstagramCaseUnlocked === 'function') {
+      window.__onInstagramCaseUnlocked();
+    }
   }
 
   window.initInstagramGate = initInstagramGate;
