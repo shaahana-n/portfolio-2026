@@ -468,6 +468,10 @@
     a.project-card--case-study .card-image {
       cursor: pointer;
     }
+    a.project-card--locked,
+    a.project-card--locked .card-image {
+      cursor: pointer;
+    }
     .card-image {
       position: relative;
       aspect-ratio: 1436 / 1080;
@@ -578,6 +582,21 @@
       width: 13px;
       height: 13px;
     }
+    .card-lock {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: var(--grey-secondary);
+    }
+    .card-lock svg {
+      display: block;
+      width: 13px;
+      height: 13px;
+    }
+    a.project-card--locked:hover .card-title,
+    a.project-card--locked:hover .card-lock {
+      color: var(--grey-secondary);
+    }
 
     @media (max-width: 680px) {
       .site-nav-pill {
@@ -675,7 +694,7 @@
 
       <section class="featured" id="featured">
         <div class="projects-grid">
-          <a href="instagram-case-study-2025/index.html" class="project-card project-card--ig project-card--large-cover project-card--case-study motion-scroll">
+          <a href="instagram-case-study-2025/index.html" class="project-card project-card--ig project-card--large-cover project-card--case-study project-card--locked motion-scroll">
             <div class="card-image">
               <div class="card-image__gradient" aria-hidden="true"></div>
               <div class="card-image__media">
@@ -686,7 +705,7 @@
             <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">Improve ad recommendations on Instagram</h3>
-                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                <span class="card-lock" aria-hidden="true" title="Password required"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
               </div>
             </div>
           </a>
