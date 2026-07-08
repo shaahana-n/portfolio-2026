@@ -36,34 +36,35 @@ a.project-card[data-nda-modal]:focus-visible {
   border-radius: 12px;
   background: #ffffff;
   box-shadow: 0 8px 32px rgba(10, 11, 13, 0.08);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   color: #333333;
 }
 
 .nda-modal__close {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
+  top: 32px;
+  right: 32px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
   margin: 0;
   padding: 0;
   border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.06);
+  background: transparent;
   color: #9a9a9a;
-  font-family: 'Manrope', sans-serif;
-  font-size: 22px;
-  line-height: 1;
+  line-height: 0;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
+}
+
+.nda-modal__close svg {
+  display: block;
+  width: 16px;
+  height: 16px;
 }
 
 .nda-modal__close:hover {
-  background: rgba(0, 0, 0, 0.1);
   color: #333333;
 }
 
@@ -74,7 +75,7 @@ a.project-card[data-nda-modal]:focus-visible {
 
 .nda-modal__title {
   margin: 0 36px 12px 0;
-  font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', serif;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   font-size: 24px;
   font-weight: 400;
   line-height: 1.25;
@@ -82,8 +83,8 @@ a.project-card[data-nda-modal]:focus-visible {
 }
 
 .nda-modal__text {
-  margin: 0 0 18px;
-  font-family: 'Manrope', sans-serif;
+  margin: 0 28px 18px 0;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.55;
@@ -95,6 +96,30 @@ a.project-card[data-nda-modal]:focus-visible {
   border: 1px solid #ececec;
   border-radius: 8px;
   background: #f9f9f9;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.nda-modal__email-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.nda-modal__copy-feedback {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #b4236b;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.nda-modal__copy-feedback[hidden] {
+  display: none;
 }
 
 .nda-modal__email-row {
@@ -105,18 +130,24 @@ a.project-card[data-nda-modal]:focus-visible {
 }
 
 .nda-modal__email {
-  flex: 1;
   min-width: 0;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   font-size: 15px;
   font-weight: 500;
+  line-height: 1.2;
   color: #333333;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.nda-modal__email:hover,
-.nda-modal__email:focus-visible {
+.nda-modal__email-box:has(.nda-modal__copy:hover),
+.nda-modal__email-box:has(.nda-modal__copy:focus-visible) {
+  background: rgba(180, 35, 107, 0.06);
+  border-color: rgba(180, 35, 107, 0.18);
+}
+
+.nda-modal__email-row:has(.nda-modal__copy:hover) .nda-modal__email,
+.nda-modal__email-row:has(.nda-modal__copy:focus-visible) .nda-modal__email {
   color: #b4236b;
 }
 
@@ -134,7 +165,7 @@ a.project-card[data-nda-modal]:focus-visible {
   background: transparent;
   color: #333333;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .nda-modal__copy svg {
@@ -143,41 +174,14 @@ a.project-card[data-nda-modal]:focus-visible {
   height: 16px;
 }
 
-.nda-modal__copy:hover {
-  background: rgba(0, 0, 0, 0.06);
-  color: #333333;
+.nda-modal__copy:hover,
+.nda-modal__copy:focus-visible {
+  color: #b4236b;
 }
 
 .nda-modal__copy:focus-visible {
   outline: 2px solid #3f89fe;
   outline-offset: 2px;
-}
-
-.nda-modal__copy.is-copied {
-  background: rgba(0, 0, 0, 0.06);
-  color: #333333;
-}
-
-.nda-modal__copy-feedback {
-  display: block;
-  min-height: 0;
-  font-family: 'Manrope', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: #9a9a9a;
-}
-
-.nda-modal__copy-feedback:not(:empty) {
-  min-height: 1.2em;
-  margin-top: 8px;
-}
-
-.nda-modal__copy-feedback[hidden] {
-  display: none;
-}
-
-.nda-modal__copy-feedback[role='alert']:not([hidden]) {
-  color: #b4236b;
 }
 
 .nda-modal__email-row input {
@@ -187,7 +191,7 @@ a.project-card[data-nda-modal]:focus-visible {
   padding: 0;
   border: none;
   background: transparent;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   font-size: 15px;
   font-weight: 500;
   color: #333333;
@@ -211,11 +215,17 @@ a.project-card[data-nda-modal]:focus-visible {
     padding: 28px 24px 24px;
   }
 
+  .nda-modal__close {
+    top: 28px;
+    right: 24px;
+  }
+
   .nda-modal__title {
     font-size: 22px;
   }
 
   .nda-modal__text {
     font-size: 15px;
+    margin-right: 24px;
   }
 }

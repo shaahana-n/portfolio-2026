@@ -9,26 +9,8 @@
   <link rel="prefetch" href="about.html">
   <link rel="stylesheet" href="assets/cursor.css">
   <link rel="stylesheet" href="assets/sparkle-click.css">
-  <link rel="stylesheet" href="assets/footer-vinyl-stack.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/nda-modal.css">
   <style>
-    @font-face {
-      font-family: 'PP Writer Thin';
-      src: url('assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'PP Editorial Old Ultralight Italic';
-      src: url('assets/fonts/490f0e_bc9XGXnb6GMyRa5LT5y4giQlQxQ.woff2') format('woff2');
-      font-weight: 400;
-      font-style: italic;
-      font-display: swap;
-    }
-
     :root {
       --bg: #ffffff;
       --text: #333333;
@@ -39,6 +21,7 @@
       --divider: #e4e9ee;
       --accent: #3f89fe;
       --page-max-width: 1400px;
+      --font-sans: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       --motion-duration-medium: 0.6s;
       --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
       --loader-fade-duration: 0.5s;
@@ -73,7 +56,7 @@
     }
     body {
       margin: 0;
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: var(--font-sans);
       font-size: 14px;
       color: var(--text);
       background-color: transparent;
@@ -192,47 +175,12 @@
     a { color: inherit; text-decoration: none; }
     a:hover { color: var(--accent); }
 
-    .site-top-links {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-    .site-nav-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 28px;
-      padding: 16px 32px;
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-      border-radius: 999px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-    .site-top-links .site-nav-link {
-      font-family: 'Manrope', sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 1;
-      color: var(--text);
-      text-decoration: none;
-      transition: opacity 0.2s ease;
-    }
-    .site-top-links .site-nav-link:hover {
-      color: var(--text);
-      opacity: 0.55;
-    }
-    .site-top-links .site-nav-link[aria-current="page"] {
-      color: var(--text);
-      opacity: 1;
-      font-weight: 500;
-    }
-
     .page {
       position: relative;
       z-index: 1;
       max-width: var(--page-max-width);
       margin: 0 auto;
-      padding: 64px 10vw 48px;
+      padding: 24px 24px 48px;
       opacity: 0;
     }
     body.loaded .page {
@@ -241,20 +189,24 @@
     }
 
     .featured {
-      margin-top: 110px;
+      margin-top: 32px;
       opacity: 0;
+      width: 100%;
+      max-width: 100%;
+      padding: 0;
+      box-sizing: border-box;
     }
     body.loaded .featured {
       opacity: 1;
       transition: opacity 0.5s var(--motion-ease);
-      transition-delay: calc(var(--motion-handoff-delay) + 720ms);
+      transition-delay: calc(var(--motion-handoff-delay) + 240ms);
     }
 
     .site-footer {
       margin-top: 120px;
       padding-top: 28px;
       border-top: 1px solid var(--divider);
-      font-family: 'Manrope', sans-serif;
+      font-family: var(--font-sans);
       font-size: 14px;
       font-weight: 400;
       line-height: 1.45;
@@ -344,7 +296,7 @@
     }
     .site-footer__nav-link[aria-current="page"] {
       color: var(--text);
-      font-weight: 500;
+      font-weight: 400;
     }
     .site-footer__meta {
       margin-top: 48px;
@@ -356,54 +308,9 @@
     .site-footer__changelog {
       margin: 0;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: 0.03em;
       text-transform: uppercase;
-    }
-
-    .hero-with-nav {
-      width: 100%;
-      max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 74px;
-    }
-    .hero {
-      position: relative;
-      isolation: isolate;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-      margin: 0;
-      width: 75vw;
-      max-width: 100%;
-      padding: 12px 0 8px;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: -48px -40px -56px -32px;
-      z-index: -1;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 58% 52% at 22% 38%, rgba(255, 186, 214, 0.38) 0%, rgba(255, 186, 214, 0.14) 45%, transparent 82%),
-        radial-gradient(ellipse 72% 68% at 76% 58%, rgba(168, 202, 255, 0.34) 0%, rgba(168, 202, 255, 0.14) 38%, rgba(168, 202, 255, 0.05) 62%, transparent 88%),
-        radial-gradient(ellipse 42% 40% at 54% 12%, rgba(220, 195, 255, 0.2) 0%, transparent 80%);
-      filter: blur(12px);
-      opacity: 1;
-    }
-    .hero h1,
-    .hero .subhead {
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
-      font-weight: 400;
-      font-size: 32px;
-      line-height: 1.25;
-      color: var(--text);
-      margin: 0;
-      text-wrap: pretty;
-    }
-    .hero h1 {
-      text-wrap: balance;
     }
 
     .motion-enter {
@@ -421,8 +328,8 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: 32px;
-      row-gap: 32px;
+      column-gap: var(--card-grid-gap, 16px);
+      row-gap: var(--card-grid-gap, 16px);
       align-items: stretch;
     }
     .project-card {
@@ -446,7 +353,8 @@
     a.project-card:hover,
     a.project-card:hover .card-title,
     a.project-card:hover .card-arrow,
-    a.project-card[data-nda-modal]:hover .card-title {
+    a.project-card[data-nda-modal]:hover .card-title,
+    a.project-card[data-nda-modal]:hover .card-lock {
       color: var(--grey-secondary);
     }
     .project-card.motion-scroll {
@@ -476,14 +384,15 @@
       position: relative;
       aspect-ratio: 1436 / 1080;
       overflow: hidden;
-      border-radius: 8px;
-      border: 1px solid var(--border-subtle);
-      background: #ffffff;
+      border-radius: 6px;
+      border: none;
+      background: #f4f4f4;
     }
     .card-image__media {
       position: absolute;
       inset: 0;
       overflow: hidden;
+      border-radius: inherit;
       transform: scale(1);
       transform-origin: center;
       transition: transform var(--motion-duration-medium) var(--motion-ease);
@@ -564,7 +473,7 @@
       min-width: 0;
       width: 100%;
       text-align: left;
-      font-family: 'Manrope', sans-serif;
+      font-family: var(--font-sans);
       font-size: 15px;
       font-weight: 400;
       line-height: 1.4;
@@ -599,21 +508,6 @@
     }
 
     @media (max-width: 680px) {
-      .site-nav-pill {
-        gap: 20px;
-        padding: 14px 22px;
-      }
-      .site-top-links .site-nav-link {
-        font-size: 14px;
-      }
-      .hero h1,
-      .hero .subhead {
-        font-size: 26px;
-        line-height: 1.35;
-      }
-      .hero h1 {
-        text-wrap: wrap;
-      }
       .project-card {
         width: 100%;
       }
@@ -622,7 +516,7 @@
       }
       .projects-grid {
         grid-template-columns: 1fr;
-        row-gap: 48px;
+        row-gap: var(--card-grid-gap, 16px);
       }
       .project-card.motion-scroll:nth-child(even) {
         --scroll-delay: 0ms;
@@ -651,6 +545,7 @@
   <link rel="stylesheet" href="assets/project-card-tags.css?v=20250608">
   <style>
     .card-image__tag {
+      font-family: var(--font-sans);
       z-index: 4;
       color: #1a1a1a;
       background: rgba(255, 255, 255, 0.78);
@@ -671,45 +566,89 @@
     .card-image__tag-year {
       color: #4a4a4a;
     }
+    .featured .card-image {
+      border-radius: 6px !important;
+    }
   </style>
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-display.css">
 </head>
 <body>
   <div class="page-loader" aria-hidden="true"></div>
-  <div class="page">
+  <div class="page page--80">
     <main>
-      <div class="hero-with-nav">
-      <nav class="site-top-links motion-enter motion-enter--0" aria-label="Site sections">
-        <div class="site-nav-pill">
-          <a href="index.html" class="site-nav-link" aria-current="page">Work</a>
-          <a href="about.html" class="site-nav-link">About</a>
-          <a href="resume.html" class="site-nav-link">Resume</a>
-        </div>
-      </nav>
-      <section class="hero">
-        <h1 class="motion-enter motion-enter--1">Hi there, I'm Shaahana! I'm a Product Designer at Instagram that cares about both designing systems, and sweating the details.</h1>
-        <p class="subhead motion-enter motion-enter--2">I'm drawn to design problems that are human-centric and look at the social impact of design, having spent time between the Engineering and English departments during my Masters at Waterloo.</p>
-        <p class="subhead motion-enter motion-enter--3">I've worn many different hats. I've been a Content Design Intern at Meta Reality Labs, engineered for 6 years during my time at Waterloo, and worked in product design roles at places like Coinbase, Intuit, and Bubble.</p>
-      </section>
-      </div>
+      <header class="site-header site-header--split motion-enter motion-enter--0">
+        <a href="index.html" class="site-sparkle" aria-label="Home">
+          <svg class="site-sparkle__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12C14.403 12 12 14.403 12 21C12 14.403 9.597 12 3 12C9.597 12 12 9.597 12 3C12 9.597 14.403 12 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="site-sparkle__signature" viewBox="0 0 120 34" aria-hidden="true"><text x="0" y="26" class="site-sparkle__signature-text">shaahana</text></svg>
+        </a>
+        <nav class="site-top-links" aria-label="Site sections">
+          <div class="site-nav-pill">
+            <a href="index.html" class="site-nav-link" aria-current="page">Work</a>
+            <a href="about.html" class="site-nav-link">About</a>
+          </div>
+        </nav>
+      </header>
 
       <section class="featured" id="featured">
         <div class="projects-grid">
-          <a href="instagram-case-study-2025/index.html" class="project-card project-card--ig project-card--large-cover project-card--case-study project-card--locked motion-scroll">
+          <a href="https://www.theverge.com/tech/947898/meta-instagram-your-algorithm-main-feed-tell" class="project-card project-card--ig project-card--large-cover project-card--case-study motion-scroll" target="_blank" rel="noopener noreferrer">
             <div class="card-image">
-              <div class="card-image__gradient" aria-hidden="true"></div>
               <div class="card-image__media">
-                <img src="assets/images/ig.svg" width="1436" height="1080" alt="Instagram ads recommendations" loading="lazy" decoding="async">
+                <img src="youralgo.svg" width="2006" height="1080" alt="Working on AI-assisted experiences to give users control over their algorithm" loading="lazy" decoding="async">
               </div>
-              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Instagram</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2025–2026</span></span>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Instagram</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2026</span></span>
             </div>
             <div class="card-body">
               <div class="card-header">
-                <h3 class="card-title">Improve ad recommendations on Instagram</h3>
-                <span class="card-lock" aria-hidden="true" title="Password required"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+                <h3 class="card-title">Working on AI-assisted experiences to give users control over their algorithm</h3>
+                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
               </div>
             </div>
           </a>
-          <a href="coinbase-case-study-2024/index.html" class="project-card project-card--gif project-card--case-study motion-scroll">
+          <a href="https://help.instagram.com/615366948510230/" class="project-card project-card--ig project-card--large-cover project-card--case-study motion-scroll" target="_blank" rel="noopener noreferrer">
+            <div class="card-image">
+              <div class="card-image__media">
+                <img src="threads%20x-out.svg?v=2" width="2006" height="1080" alt="Building the foundation for ads feedback on Threads" loading="lazy" decoding="async">
+              </div>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Instagram</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2025</span></span>
+            </div>
+            <div class="card-body">
+              <div class="card-header">
+                <h3 class="card-title">Building the foundation for ads feedback on Threads</h3>
+                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+              </div>
+            </div>
+          </a>
+          <a href="https://help.instagram.com/615366948510230/" class="project-card project-card--ig project-card--large-cover project-card--case-study motion-scroll" target="_blank" rel="noopener noreferrer">
+            <div class="card-image">
+              <div class="card-image__media">
+                <img src="instagram-notinterested.svg" width="2006" height="1080" alt="Improving ads feedback experience across surfaces" loading="lazy" decoding="async">
+              </div>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Instagram</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2025</span></span>
+            </div>
+            <div class="card-body">
+              <div class="card-header">
+                <h3 class="card-title">Improving ads feedback experience across surfaces</h3>
+                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="project-card project-card--ig project-card--large-cover project-card--locked motion-scroll" data-nda-modal>
+            <div class="card-image">
+              <div class="card-image__media">
+                <img src="reflexive%20skip.svg" width="2006" height="1080" alt="Allowing serial skippers to provide ads feedback on Reels" loading="lazy" decoding="async">
+              </div>
+              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Instagram</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2025</span></span>
+            </div>
+            <div class="card-body">
+              <div class="card-header">
+                <h3 class="card-title">Allowing serial skippers to provide ads feedback on Reels</h3>
+                <span class="card-lock" aria-hidden="true" title="Email for access"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="project-card project-card--gif project-card--locked motion-scroll" data-nda-modal>
             <div class="card-image">
               <div class="card-image__media">
                 <img src="assets/images/coinbase-discoverability.gif" width="1778" height="1340" alt="Coinbase case study - global search" loading="lazy" decoding="async">
@@ -719,35 +658,21 @@
             <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">Designing global search for Coinbase's trading modes</h3>
-                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                <span class="card-lock" aria-hidden="true" title="Email for access"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
               </div>
             </div>
           </a>
-          <a href="coinbase-perpetuals-case-study-2024/index.html" class="project-card project-card--coinbase project-card--large-cover project-card--case-study motion-scroll">
+          <a href="#" class="project-card project-card--coinbase project-card--large-cover project-card--locked motion-scroll" data-nda-modal>
             <div class="card-image">
               <div class="card-image__media">
-                <img src="assets/images/coinbase/coinbase-may.svg" width="1436" height="1080" alt="Coinbase perpetuals trading case study" loading="lazy" decoding="async">
+                <img src="cb-2.svg?v=2" width="1436" height="1080" alt="Coinbase perpetuals trading case study" loading="lazy" decoding="async">
               </div>
               <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Coinbase</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2024</span></span>
             </div>
             <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">Drive user growth to perpetuals trading</h3>
-                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
-              </div>
-            </div>
-          </a>
-          <a href="meta-case-study-2024/index.html" class="project-card project-card--large-cover project-card--case-study motion-scroll">
-            <div class="card-image">
-              <div class="card-image__media">
-                <img src="assets/images/meta-cd.svg" width="1436" height="1080" alt="Meta Reality Labs case study" loading="lazy" decoding="async">
-              </div>
-              <span class="card-image__tag" aria-hidden="true"><span class="card-image__tag-company">Meta</span><span class="card-image__tag-sep">•</span><span class="card-image__tag-year">2023</span></span>
-            </div>
-            <div class="card-body">
-              <div class="card-header">
-                <h3 class="card-title">Keeping users connected in VR with Meta Horizon Worlds</h3>
-                <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+                <span class="card-lock" aria-hidden="true" title="Email for access"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
               </div>
             </div>
           </a>
@@ -789,6 +714,26 @@
       </footer>
     </main>
   </div>
+
+  <dialog id="nda-modal" class="nda-modal" aria-labelledby="nda-modal-text">
+    <div class="nda-modal__panel">
+      <button type="button" class="nda-modal__close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <p class="nda-modal__text" id="nda-modal-text">This work is under NDA. Please contact me for more details.</p>
+      <div class="nda-modal__email-box">
+        <div class="nda-modal__email-row">
+          <span class="nda-modal__email-group">
+            <a href="mailto:shaahananaufal@gmail.com" class="nda-modal__email">shaahananaufal@gmail.com</a>
+            <span class="nda-modal__copy-feedback" aria-live="polite" hidden>Copied!</span>
+          </span>
+          <button type="button" class="nda-modal__copy" data-copy-email="shaahananaufal@gmail.com" aria-label="Copy email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
 
   <script>
     (function() {
@@ -864,5 +809,7 @@
   </script>
   <script src="assets/footer-vinyl-stack.js" defer></script>
   <script src="assets/sparkle-click.js" defer></script>
+  <script src="assets/site-sparkle-signature.js" defer></script>
+  <script src="assets/nda-modal.js" defer></script>
 </body>
 </html>

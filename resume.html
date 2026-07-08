@@ -12,16 +12,8 @@
   <link rel="stylesheet" href="assets/ig-sample-surface.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    @font-face {
-      font-family: 'PP Writer Thin';
-      src: url('assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
+<style>
+@font-face {
       font-family: 'PP Editorial Old Ultralight Italic';
       src: url('assets/fonts/490f0e_bc9XGXnb6GMyRa5LT5y4giQlQxQ.woff2') format('woff2');
       font-weight: 400;
@@ -63,7 +55,7 @@
     }
     body {
       margin: 0;
-      font-family: 'Manrope', -apple-system, sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 16px;
       color: var(--text-body);
       background-color: transparent;
@@ -150,11 +142,9 @@
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     .site-top-links .site-nav-link {
-      font-family: 'Manrope', sans-serif;
-      font-weight: 400;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 15px;
       line-height: 1;
-      color: var(--text);
       transition: opacity 0.2s ease;
     }
     .site-top-links .site-nav-link:hover {
@@ -163,7 +153,6 @@
     }
     .site-top-links .site-nav-link[aria-current="page"] {
       opacity: 1;
-      font-weight: 500;
     }
 
     .page {
@@ -206,7 +195,7 @@
       width: 100%;
       margin: 0;
       text-align: left;
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     }
     .info-cv__section + .info-cv__section {
       margin-top: 72px;
@@ -214,7 +203,7 @@
     .info-cv__heading {
       margin: 0 0 32px;
       font-family: 'PP Editorial Old Ultralight Italic', serif;
-      font-size: clamp(28px, 3.2vw, 36px);
+      font-size: clamp(22px, 2.6vw, 28px);
       font-style: italic;
       font-weight: 400;
       line-height: 1.1;
@@ -251,7 +240,7 @@
     }
     .info-cv-row__role {
       margin: 0;
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 22px;
       line-height: 1.2;
       font-weight: 400;
@@ -335,7 +324,7 @@
       list-style: none;
     }
     .info-cv-edu li {
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       text-wrap: pretty;
       orphans: 2;
       widows: 2;
@@ -359,7 +348,7 @@
       margin-top: 88px;
       padding-top: 56px;
       border-top: 1px solid var(--divider);
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 14px;
       font-weight: 400;
       line-height: 1.45;
@@ -495,21 +484,22 @@
       }
     }
   </style>
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-display.css">
+<link rel="stylesheet" href="assets/site-editorial.css">
 </head>
 <body>
   <div class="page-loader" aria-hidden="true"></div>
   <div class="page">
     <main>
       <div class="hero-with-nav">
-        <nav class="site-top-links motion-enter motion-enter--0" aria-label="Site sections">
+        <header class="site-header motion-enter motion-enter--0"><nav class="site-top-links" aria-label="Site sections">
           <div class="site-nav-pill">
             <a href="index.html" class="site-nav-link">Work</a>
             <a href="about.html" class="site-nav-link">About</a>
-            <a href="resume.html" class="site-nav-link" aria-current="page">Resume</a>
           </div>
         </nav>
-
-        <article class="info-cv motion-enter motion-enter--1" aria-label="Work experience and education">
+      </header><article class="info-cv motion-enter motion-enter--1" aria-label="Work experience and education">
           <section class="info-cv__section">
             <h2 class="info-cv__heading">Work Experience</h2>
             <div class="info-cv__rows">

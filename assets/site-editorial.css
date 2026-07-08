@@ -1,0 +1,21 @@
+:root {
+  --font-editorial: 'PP Editorial Old Ultralight Italic', serif;
+  --editorial-size: clamp(22px, 2.6vw, 28px);
+  --editorial-size-mobile: 24px;
+}
+
+.about-row__label,
+.info-cv__heading {
+  font-family: var(--font-editorial) !important;
+  font-size: var(--editorial-size) !important;
+  font-style: italic;
+  font-weight: 400 !important;
+  line-height: 1.1;
+}
+
+@media (max-width: 680px) {
+  .about-row__label,
+  .info-cv__heading {
+    font-size: var(--editorial-size-mobile) !important;
+  }
+}

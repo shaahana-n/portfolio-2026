@@ -1,0 +1,103 @@
+:root {
+  --font-display: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  --font-weight-light: 400;
+  --hero-copy-size: 24px;
+  --hero-copy-size-mobile: 20px;
+  --hero-copy-weight: 400;
+  --hero-copy-leading: 1.35;
+  --hero-copy-gap: 32px;
+  --hero-copy-color: #000;
+}
+
+body {
+  font-weight: var(--font-weight-light);
+}
+
+.card-title,
+.card-image__tag,
+.card-image__tag-company,
+.card-desc,
+.card-meta,
+.site-footer,
+.info-cv-row__role,
+.info-cv-row__dates,
+.info-cv-row__desc p,
+.info-cv-edu li,
+.about-tile-card .card-title {
+  font-weight: var(--font-weight-light) !important;
+}
+
+/* Main page hero copy */
+.hero,
+.hero-bio {
+  gap: var(--hero-copy-gap) !important;
+}
+
+.hero h1,
+.hero .subhead,
+.hero-bio h1,
+.hero-bio .subhead,
+.experiments-intro {
+  font-family: var(--font-display) !important;
+  font-size: var(--hero-copy-size) !important;
+  font-weight: var(--hero-copy-weight) !important;
+  line-height: var(--hero-copy-leading) !important;
+  color: var(--hero-copy-color) !important;
+}
+
+/* Case study intro headlines */
+#main p[style*="--framer-font-size: 34px"],
+#main p[style*='--framer-font-size":"34px"'] {
+  font-family: var(--font-display) !important;
+  font-size: var(--hero-copy-size) !important;
+  font-weight: var(--hero-copy-weight) !important;
+  line-height: var(--hero-copy-leading) !important;
+  color: var(--hero-copy-color) !important;
+  --framer-font-family: var(--font-display) !important;
+  --framer-font-size: 24px !important;
+  --framer-line-height: 1.35em !important;
+  --framer-font-weight: 400 !important;
+  --framer-text-color: #000 !important;
+}
+
+/* Case study section titles */
+#main h3.framer-styles-preset-16uvl4e,
+#main .framer-styles-preset-16uvl4e:not(.rich-text-wrapper),
+#main .framer-styles-preset-16uvl4e.rich-text-wrapper h3,
+#main .framer-170i4ao h3,
+#main .framer-1uukkn7 h3,
+#coinbase-work-play .coinbase-case-section__title,
+.coinbase-case-section__heading h3,
+#main .coinbase-case-section__heading h3 {
+  font-family: var(--font-display) !important;
+  font-size: var(--hero-copy-size) !important;
+  font-weight: var(--hero-copy-weight) !important;
+  line-height: var(--hero-copy-leading) !important;
+  color: var(--hero-copy-color) !important;
+  --framer-font-family: var(--font-display) !important;
+  --framer-font-size: 24px !important;
+  --framer-line-height: 1.35em !important;
+  --framer-font-weight: 400 !important;
+  --framer-text-color: #000 !important;
+}
+
+@media (max-width: 680px) {
+  .hero h1,
+  .hero .subhead,
+  .hero-bio h1,
+  .hero-bio .subhead,
+  .experiments-intro,
+  #main p[style*="--framer-font-size: 34px"],
+  #main p[style*='--framer-font-size":"34px"'],
+  #main h3.framer-styles-preset-16uvl4e,
+  #main .framer-styles-preset-16uvl4e:not(.rich-text-wrapper),
+  #main .framer-styles-preset-16uvl4e.rich-text-wrapper h3,
+  #main .framer-170i4ao h3,
+  #main .framer-1uukkn7 h3,
+  #coinbase-work-play .coinbase-case-section__title,
+  .coinbase-case-section__heading h3,
+  #main .coinbase-case-section__heading h3 {
+    font-size: var(--hero-copy-size-mobile) !important;
+    --framer-font-size: 20px !important;
+  }
+}

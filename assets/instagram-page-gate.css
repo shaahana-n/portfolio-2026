@@ -37,13 +37,13 @@ body.instagram-case-unlocked #instagram-page-gate {
   border-radius: 12px;
   background: #f9f9f9;
   box-sizing: border-box;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   color: #333333;
 }
 
 .instagram-page-gate__text {
   margin: 0;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.55;
   font-weight: 400;
@@ -71,7 +71,7 @@ body.instagram-case-unlocked #instagram-page-gate {
   padding: 0;
   border: none;
   background: transparent;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   font-size: 15px;
   font-weight: 500;
   color: #333333;

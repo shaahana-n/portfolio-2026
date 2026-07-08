@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap');
+
+:root {
+  --font-sans: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  --font-weight-light: 400;
+  --site-nav-gutter: 24px;
+  --page-viewport-width: 80vw;
+  --card-grid-gap: 16px;
+  --site-signature-start-delay: 1300ms;
+}
+
+.page.page--80 {
+  width: var(--page-viewport-width);
+  max-width: var(--page-viewport-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page.page--80 .site-header.site-header--bar,
+.page.page--80 .site-header.site-header--split {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.page.page--80 .featured {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.site-header,
+.site-case-nav-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 0 10vw;
+  min-height: 36px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.site-header--split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+  padding-left: var(--site-nav-gutter);
+  padding-right: var(--site-nav-gutter);
+  overflow: visible;
+}
+
+.site-sparkle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--text, #333333);
+  text-decoration: none;
+  overflow: visible;
+}
+
+.site-sparkle__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.site-sparkle__signature {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  width: 120px;
+  height: 34px;
+  transform: translateY(-58%) rotate(-2deg);
+  overflow: visible;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.site-sparkle.is-animating .site-sparkle__signature,
+.site-sparkle.is-revealed .site-sparkle__signature {
+  opacity: 1;
+}
+
+.site-sparkle__signature-text {
+  font-family: 'La Belle Aurore', 'Segoe Script', 'Brush Script MT', cursive;
+  font-size: 30px;
+  font-weight: 400;
+  fill: currentColor;
+  clip-path: inset(0 100% 0 0);
+}
+
+.site-sparkle.is-revealed .site-sparkle__signature-text {
+  clip-path: inset(0 0 0 0);
+}
+
+.site-sparkle__signature-text.is-drawing {
+  animation: site-sparkle-write 1.5s cubic-bezier(0.33, 0.08, 0.2, 1) forwards;
+}
+
+@keyframes site-sparkle-write {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.site-sparkle:hover {
+  color: var(--text, #333333);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --site-signature-start-delay: 0ms;
+  }
+
+  .site-sparkle__signature-text {
+    animation: none !important;
+  }
+
+  .site-sparkle.is-revealed .site-sparkle__signature,
+  .site-sparkle.is-animating .site-sparkle__signature {
+    opacity: 1;
+  }
+
+  .site-sparkle.is-revealed .site-sparkle__signature-text {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.site-header--split .site-top-links {
+  justify-content: flex-end;
+}
+
+.site-case-nav-wrap {
+  padding-top: 60px;
+}
+
+.site-top-links {
+  display: flex;
+  justify-content: center;
+}
+
+.site-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: #f8f8f8;
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.site-top-links .site-nav-link {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: var(--font-weight-light, 400);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--grey-secondary, #9a9a9a);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.site-top-links .site-nav-link:hover {
+  color: var(--text, #333333);
+  opacity: 1;
+}
+
+.site-top-links .site-nav-link[aria-current="page"] {
+  background: #ffffff;
+  color: var(--text, #333333);
+  font-weight: var(--font-weight-light, 400);
+}
+
+@media (max-width: 680px) {
+  .site-header,
+  .site-case-nav-wrap {
+    min-height: 32px;
+  }
+
+  .site-header--split {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+
+  .page.page--80 {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .site-nav-pill {
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .site-top-links .site-nav-link {
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+}

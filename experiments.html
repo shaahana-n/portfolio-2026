@@ -10,16 +10,8 @@
   <link rel="stylesheet" href="assets/sparkle-click.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    @font-face {
-      font-family: 'PP Writer Thin';
-      src: url('assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
+<style>
+@font-face {
       font-family: 'PP Editorial Old Ultralight Italic';
       src: url('assets/fonts/490f0e_bc9XGXnb6GMyRa5LT5y4giQlQxQ.woff2') format('woff2');
       font-weight: 400;
@@ -76,7 +68,7 @@
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     .site-top-links .site-nav-link {
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-style: normal;
       font-weight: 400;
       font-size: 15px;
@@ -95,16 +87,16 @@
       font-weight: 500;
     }
     .experiments-intro {
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', sans-serif;
-      font-weight: 400;
-      font-size: 32px;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-weight: 500;
+      font-size: 24px;
       line-height: 1.25;
-      color: var(--text);
+      color: #000;
       margin: 0;
       text-wrap: pretty;
     }
     .contact-text-link {
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-weight: 500;
       font-size: 18px;
       line-height: 1.3;
@@ -120,7 +112,7 @@
       border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
     .footer h2 {
-      font-family: 'PP Writer Thin', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 2rem;
       font-weight: 400;
       margin: 0 0 12px 0;
@@ -145,19 +137,20 @@
       }
     }
   </style>
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-display.css">
 </head>
 <body>
   <div class="page">
     <main>
       <div class="hero-with-nav">
-        <nav class="site-top-links" aria-label="Site sections">
+        <header class="site-header"><nav class="site-top-links" aria-label="Site sections">
           <div class="site-nav-pill">
             <a href="index.html" class="site-nav-link">Work</a>
             <a href="about.html" class="site-nav-link">About</a>
-            <a href="resume.html" class="site-nav-link">Resume</a>
           </div>
         </nav>
-        <section class="experiments">
+      </header><section class="experiments">
           <p class="experiments-intro">Side projects, prototypes, and things in progress.</p>
         </section>
       </div>

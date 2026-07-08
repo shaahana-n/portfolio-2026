@@ -11,16 +11,8 @@
   <link rel="stylesheet" href="assets/footer-vinyl-stack.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    @font-face {
-      font-family: 'PP Writer Thin';
-      src: url('assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
+<style>
+@font-face {
       font-family: 'PP Editorial Old Ultralight Italic';
       src: url('assets/fonts/490f0e_bc9XGXnb6GMyRa5LT5y4giQlQxQ.woff2') format('woff2');
       font-weight: 400;
@@ -167,11 +159,11 @@
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     .site-top-links .site-nav-link {
-      font-family: 'Manrope', sans-serif;
-      font-weight: 400;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-weight: 500;
       font-size: 15px;
       line-height: 1;
-      color: var(--text);
+      color: #000;
       transition: opacity 0.2s ease;
     }
     .site-top-links .site-nav-link:hover {
@@ -232,7 +224,7 @@
     }
     .hero-bio__eyebrow {
       margin: 0;
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 13px;
       font-weight: 400;
       letter-spacing: 0.1em;
@@ -242,11 +234,11 @@
     .hero-bio h1,
     .hero-bio .subhead {
       margin: 0;
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', serif;
-      font-weight: 400;
-      font-size: clamp(26px, 2.4vw, 32px);
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-weight: 500;
+      font-size: 24px;
       line-height: 1.28;
-      color: var(--text);
+      color: #000;
       text-wrap: pretty;
     }
     .hero-bio h1 { text-wrap: balance; }
@@ -283,7 +275,7 @@
       top: -28px;
       right: 0;
       margin: 0;
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.12em;
@@ -402,7 +394,7 @@
     }
     .featured__label {
       margin: 0 0 40px;
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.1em;
@@ -470,7 +462,7 @@
       margin: 0;
       width: 100%;
       text-align: left;
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 14px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -480,7 +472,7 @@
       margin: 0;
       width: 100%;
       text-align: left;
-      font-family: 'PP Writer Thin', serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 24px;
       line-height: 1.35;
       color: var(--text);
@@ -522,7 +514,7 @@
       margin-top: 120px;
       padding-top: 28px;
       border-top: 1px solid var(--divider);
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 14px;
       color: var(--grey-secondary);
     }
@@ -649,21 +641,21 @@
       color: #4a4a4a;
     }
   </style>
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-display.css">
 </head>
 <body>
   <div class="page-loader" aria-hidden="true"></div>
   <div class="page">
     <main>
       <div class="hero-with-nav">
-        <nav class="site-top-links motion-enter motion-enter--0" aria-label="Site sections">
+        <header class="site-header motion-enter motion-enter--0"><nav class="site-top-links" aria-label="Site sections">
           <div class="site-nav-pill">
             <a href="index.html" class="site-nav-link">Work</a>
             <a href="about.html" class="site-nav-link">About</a>
-            <a href="resume.html" class="site-nav-link">Resume</a>
           </div>
         </nav>
-
-        <section class="hero-archive" aria-label="Introduction">
+      </header><section class="hero-archive" aria-label="Introduction">
           <div class="hero-bio">
             <p class="hero-bio__eyebrow motion-enter motion-enter--1">Personal archive</p>
             <h1 class="motion-enter motion-enter--1">

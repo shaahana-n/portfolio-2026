@@ -6,7 +6,7 @@
     if (!copyButton) return;
 
     var emailBox = copyButton.closest('.nda-modal__email-box');
-    var copyFeedback = emailBox ? emailBox.querySelector('.nda-modal__copy-feedback:not([role="alert"])') : null;
+    var copyFeedback = emailBox ? emailBox.querySelector('.nda-modal__copy-feedback') : null;
     var copyResetTimer;
 
     function resetCopyState() {
@@ -14,19 +14,17 @@
         clearTimeout(copyResetTimer);
         copyResetTimer = null;
       }
-      copyButton.classList.remove('is-copied');
-      if (copyFeedback) copyFeedback.textContent = '';
+      if (copyFeedback) copyFeedback.hidden = true;
+    }
+
+    function showCopied() {
+      if (copyFeedback) copyFeedback.hidden = false;
+      if (copyResetTimer) clearTimeout(copyResetTimer);
+      copyResetTimer = setTimeout(resetCopyState, 2200);
     }
 
     function copyEmail() {
       var email = copyButton.getAttribute('data-copy-email') || 'shaahananaufal@gmail.com';
-
-      function showCopied() {
-        copyButton.classList.add('is-copied');
-        if (copyFeedback) copyFeedback.textContent = 'Copied to clipboard';
-        if (copyResetTimer) clearTimeout(copyResetTimer);
-        copyResetTimer = setTimeout(resetCopyState, 2200);
-      }
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(email).then(showCopied).catch(fallbackCopy);
@@ -46,7 +44,7 @@
         try {
           if (document.execCommand('copy')) showCopied();
         } catch (error) {
-          if (copyFeedback) copyFeedback.textContent = 'Could not copy email';
+          /* silent */
         }
         document.body.removeChild(textarea);
       }

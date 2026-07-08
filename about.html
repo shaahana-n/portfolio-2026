@@ -11,16 +11,8 @@
   <link rel="stylesheet" href="assets/footer-vinyl-stack.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    @font-face {
-      font-family: 'PP Writer Thin';
-      src: url('assets/fonts/e04f8b_VfEHt5oigv3qrVTWr7Q4o8b23M.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
+<style>
+@font-face {
       font-family: 'PP Editorial Old Ultralight Italic';
       src: url('assets/fonts/490f0e_bc9XGXnb6GMyRa5LT5y4giQlQxQ.woff2') format('woff2');
       font-weight: 400;
@@ -157,40 +149,8 @@
       z-index: 1;
       max-width: var(--page-max-width);
       margin: 0 auto;
-      padding: 64px 10vw 48px;
+      padding: 24px 24px 48px;
       opacity: 1;
-    }
-
-    .site-top-links {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-    .site-nav-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 28px;
-      padding: 16px 32px;
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-      border-radius: 999px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-    .site-top-links .site-nav-link {
-      font-family: 'Manrope', sans-serif;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 1;
-      color: var(--text);
-      transition: opacity 0.2s ease;
-    }
-    .site-top-links .site-nav-link:hover {
-      color: var(--text);
-      opacity: 0.55;
-    }
-    .site-top-links .site-nav-link[aria-current="page"] {
-      opacity: 1;
-      font-weight: 500;
     }
 
     .hero-with-nav {
@@ -198,18 +158,20 @@
       max-width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 74px;
+      gap: 0;
+      margin-top: 76px;
     }
     .hero {
       position: relative;
       isolation: isolate;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 24px;
       margin: 0;
-      width: 100%;
-      max-width: 100%;
-      padding: 12px 0 8px;
+      width: 80%;
+      max-width: 80%;
+      padding: 0;
+      text-align: left;
     }
     .hero::before {
       content: '';
@@ -226,22 +188,22 @@
     }
     .hero h1,
     .hero .subhead {
-      font-family: 'PP Writer Thin', 'PP Writer Thin Placeholder', serif;
-      font-weight: 400;
-      font-size: 32px;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-weight: 500;
+      font-size: 24px;
       line-height: 1.25;
-      color: var(--text);
+      color: #000;
       margin: 0;
       text-wrap: pretty;
     }
 
     .about-featured {
-      margin-top: 110px;
+      margin-top: 76px;
     }
     .about-rows {
       display: flex;
       flex-direction: column;
-      gap: 88px;
+      gap: 64px;
     }
     .about-row {
       container-type: inline-size;
@@ -262,23 +224,23 @@
     .about-row.motion-scroll:nth-child(2) { --scroll-delay: 80ms; }
     .about-row.motion-scroll:nth-child(3) { --scroll-delay: 160ms; }
     .about-row__label {
-      margin: 0 0 28px;
-      font-family: 'PP Editorial Old Ultralight Italic', serif;
-      font-size: clamp(28px, 3.2vw, 36px);
-      font-style: italic;
-      font-weight: 400;
-      line-height: 1.1;
-      color: var(--text);
+      margin: 0 0 16px;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1.25;
+      color: #000;
     }
     .about-row__grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 32px;
+      gap: var(--card-grid-gap, 16px);
       align-items: start;
     }
     .about-row__grid--scroll {
       display: flex;
-      gap: 24px;
+      gap: var(--card-grid-gap, 16px);
       overflow-x: auto;
       overflow-y: visible;
       overscroll-behavior-x: contain;
@@ -291,7 +253,7 @@
       display: none;
     }
     .about-row__grid--scroll .about-tile-card {
-      flex: 0 0 calc((100% - 48px) / 3);
+      flex: 0 0 calc((100% - (2 * var(--card-grid-gap, 16px))) / 3);
       min-width: min(100%, 280px);
       scroll-snap-align: start;
     }
@@ -362,7 +324,7 @@
       margin: 0;
       flex: 1;
       min-width: 0;
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 15px;
       font-weight: 400;
       line-height: 1.4;
@@ -387,7 +349,7 @@
       aspect-ratio: 1436 / 1080;
       overflow: hidden;
       border: 1px solid var(--border-subtle);
-      border-radius: 8px;
+      border-radius: 6px;
       background: #ffffff;
       text-decoration: none;
       color: inherit;
@@ -525,7 +487,7 @@
       flex-shrink: 0;
       transform: none;
       aspect-ratio: 452 / 656;
-      border-radius: 8px;
+      border-radius: 6px;
       border: none;
       box-shadow:
         inset 0 0 0 4px rgba(255, 255, 255, 0.96),
@@ -537,7 +499,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     .about-tile--tone-kiln {
       background:
@@ -573,7 +535,7 @@
       max-height: 100%;
       box-sizing: border-box;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
       background: transparent;
       line-height: 0;
@@ -587,7 +549,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      border-radius: 8px;
+      border-radius: 6px;
       vertical-align: top;
     }
     .about-wrapped--landscape {
@@ -611,7 +573,7 @@
       height: 100%;
       max-height: 100%;
       border: 1px solid var(--border-subtle);
-      border-radius: 8px;
+      border-radius: 6px;
       background: #0a0a0a;
       box-shadow: 0 10px 36px rgba(20, 22, 30, 0.1);
       transform: none;
@@ -622,7 +584,7 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     .about-tile--wrapped-pixelator-tool .about-wrapped {
       padding: 11% 9%;
@@ -647,7 +609,7 @@
       max-height: 100%;
       object-fit: contain;
       object-position: center center;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     .about-tile--wrapped-pixelator-tool {
       background:
@@ -677,7 +639,7 @@
       height: 100%;
       object-fit: contain;
       object-position: center;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     .about-tile--clustering {
       aspect-ratio: 1430 / 1080;
@@ -779,7 +741,7 @@
     .about-lightbox__device--framed-pixelator-tool {
       padding: 0;
       border: 1px solid var(--border-subtle);
-      border-radius: 8px;
+      border-radius: 6px;
       background: #0a0a0a;
       box-shadow: 0 10px 36px rgba(20, 22, 30, 0.1);
       overflow: hidden;
@@ -793,7 +755,7 @@
       object-fit: contain;
       object-position: center center;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       box-shadow: none;
     }
     .about-lightbox__device--braille {
@@ -808,7 +770,7 @@
     .about-lightbox__device--braille video {
       object-fit: cover;
       object-position: center;
-      border-radius: 8px;
+      border-radius: 6px;
       border: none;
       box-shadow: none;
     }
@@ -816,7 +778,7 @@
       margin: 0;
       padding: 0 4px;
       max-width: 100%;
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 15px;
       font-weight: 500;
       line-height: 1.4;
@@ -828,9 +790,8 @@
       top: clamp(20px, 4vw, 32px);
       right: clamp(20px, 4vw, 32px);
       z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
       width: 36px;
       height: 36px;
       margin: 0;
@@ -839,12 +800,15 @@
       border-radius: 50%;
       background: rgba(0, 0, 0, 0.06);
       color: var(--grey-secondary);
-      font-family: 'Manrope', sans-serif;
-      font-size: 24px;
-      line-height: 1;
+      line-height: 0;
       cursor: pointer;
       box-shadow: none;
       transition: background 0.2s ease, color 0.2s ease;
+    }
+    .about-lightbox__close svg {
+      display: block;
+      width: 16px;
+      height: 16px;
     }
     .about-lightbox__close:hover {
       background: rgba(0, 0, 0, 0.1);
@@ -859,7 +823,7 @@
       margin-top: 120px;
       padding-top: 28px;
       border-top: 1px solid var(--divider);
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       font-size: 14px;
       color: var(--grey-secondary);
     }
@@ -977,12 +941,9 @@
     }
 
     @media (max-width: 680px) {
-      .site-nav-pill {
-        gap: 20px;
-        padding: 14px 22px;
-      }
-      .site-top-links .site-nav-link {
-        font-size: 14px;
+      .hero {
+        width: 100%;
+        max-width: 100%;
       }
       .hero h1,
       .hero .subhead {
@@ -990,22 +951,23 @@
         line-height: 1.35;
       }
       .about-rows {
-        gap: 64px;
+        gap: 48px;
       }
       .about-row__label {
-        margin-bottom: 20px;
-        font-size: 28px;
+        margin-bottom: 16px;
+        font-size: 26px;
+        line-height: 1.35;
       }
       .about-row__grid {
         grid-template-columns: 1fr;
-        gap: 48px;
+        gap: var(--card-grid-gap, 16px);
       }
       .card-title {
         font-size: 15px;
       }
       .about-row__grid--scroll {
         display: flex;
-        gap: 20px;
+        gap: var(--card-grid-gap, 16px);
       }
       .about-row__grid--scroll .about-tile-card {
         flex: 0 0 min(78vw, 320px);
@@ -1047,23 +1009,30 @@
       }
     }
   </style>
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-display.css">
+<link rel="stylesheet" href="assets/site-editorial.css">
 </head>
 <body class="loaded">
   <div class="page-loader" aria-hidden="true"></div>
-  <div class="page">
+  <div class="page page--80">
     <main>
-      <div class="hero-with-nav">
-        <nav class="site-top-links motion-enter motion-enter--0" aria-label="Site sections">
+      <header class="site-header site-header--split motion-enter motion-enter--0">
+        <a href="index.html" class="site-sparkle" aria-label="Home">
+          <svg class="site-sparkle__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12C14.403 12 12 14.403 12 21C12 14.403 9.597 12 3 12C9.597 12 12 9.597 12 3C12 9.597 14.403 12 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="site-sparkle__signature" viewBox="0 0 120 34" aria-hidden="true"><text x="0" y="26" class="site-sparkle__signature-text">shaahana</text></svg>
+        </a>
+        <nav class="site-top-links" aria-label="Site sections">
           <div class="site-nav-pill">
             <a href="index.html" class="site-nav-link">Work</a>
             <a href="about.html" class="site-nav-link" aria-current="page">About</a>
-            <a href="resume.html" class="site-nav-link">Resume</a>
           </div>
         </nav>
-
+      </header>
+      <div class="hero-with-nav">
         <section class="hero">
           <h1 class="motion-enter motion-enter--1">Hi, I'm Shaahana. I'm a designer who never sits still.</h1>
-          <p class="subhead motion-enter motion-enter--2">Before industry, I studied Systems Design Engineering at the University of Waterloo where I became interested in how technology shapes the things people discover, create, and remember.</p>
+          <p class="subhead motion-enter motion-enter--2">Before industry, I studied Systems Design Engineering at the University of Waterloo where I became interested in how technology shapes the things people discover, create, and remember. I care about both designing systems and sweating the details with experience at Instagram, Coinbase, and startups.</p>
           <p class="subhead motion-enter motion-enter--3">Outside of design, I'm usually creating. That sometimes looks like a video, a pottery piece, or a half-finished essay. I've learned that I do my best work when I can move between design disciplines and experiment.</p>
         </section>
       </div>
@@ -1346,7 +1315,9 @@
   <dialog class="about-lightbox" id="about-lightbox" aria-label="Expanded project view">
     <div class="about-lightbox__panel">
       <div class="about-lightbox__content">
-        <button type="button" class="about-lightbox__close" aria-label="Close expanded view">&times;</button>
+        <button type="button" class="about-lightbox__close" aria-label="Close expanded view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
         <div class="about-lightbox__stage" id="about-lightbox-stage"></div>
         <p class="about-lightbox__caption" id="about-lightbox-caption"></p>
       </div>
@@ -1562,5 +1533,6 @@
   </script>
   <script src="assets/footer-vinyl-stack.js" defer></script>
   <script src="assets/sparkle-click.js" defer></script>
+  <script src="assets/site-sparkle-signature.js" defer></script>
 </body>
 </html>
